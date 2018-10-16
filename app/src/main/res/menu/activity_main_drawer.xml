@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:showIn="navigation_view">
+
+    <item android:title="@string/information">
+        <menu>
+            <item
+                android:id="@+id/zhihu"
+                android:icon="@drawable/ic_drawer_zhihu"
+                android:title="@string/zhihu"/>
+
+            <item
+                android:id="@+id/wechat"
+                android:icon="@drawable/ic_drawer_wechat"
+                android:title="@string/wechat"/>
+
+            <item
+                android:id="@+id/gank"
+                android:icon="@drawable/ic_drawer_gank"
+                android:title="@string/gank"/>
+
+            <item
+                android:id="@+id/gold"
+                android:icon="@drawable/ic_drawer_gold"
+                android:title="@string/gold"/>
+
+            <item
+                android:id="@+id/v2ex"
+                android:icon="@drawable/ic_drawer_vtex"
+                android:title="@string/v2ex"/>
+        </menu>
+    </item>
+
+    <item android:title="@string/options">
+        <menu>
+            <item
+                android:id="@+id/like"
+                android:icon="@drawable/ic_drawer_like"
+                android:title="@string/like"/>
+
+            <item
+                android:id="@+id/setting"
+                android:icon="@drawable/ic_drawer_setting"
+                android:title="@string/setting"/>
+
+            <item
+                android:title="@string/about"
+                android:icon="@drawable/ic_drawer_about"
+                android:id="@+id/about"/>
+        </menu>
+    </item>
+
+</menu>

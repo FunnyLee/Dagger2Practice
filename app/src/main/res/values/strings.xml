@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Geek</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+    <string name="information">资讯</string>
+    <string name="options">选项</string>
+    <string name="zhihu">知乎</string>
+    <string name="wechat">微信</string>
+    <string name="gank">干货集中营</string>
+    <string name="gold">稀土掘金</string>
+    <string name="v2ex">V2EX</string>
+    <string name="like">收藏</string>
+    <string name="setting">设置</string>
+    <string name="about">关于</string>
+</resources>
