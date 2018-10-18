@@ -1,4 +1,4 @@
-package com.funny.geek.Base;
+package com.funny.geek.base;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

@@ -16,4 +16,8 @@
     <string name="like">收藏</string>
     <string name="setting">设置</string>
     <string name="about">关于</string>
+    <string name="daily_paper">日报</string>
+    <string name="hot">热点</string>
+    <string name="special">专栏</string>
+    <string name="subject">主题</string>
 </resources>

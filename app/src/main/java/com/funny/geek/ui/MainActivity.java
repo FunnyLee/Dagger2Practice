@@ -5,15 +5,19 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.FrameLayout;
 
-import com.funny.geek.Base.BaseActivity;
+import com.funny.geek.base.BaseActivity;
 import com.funny.geek.R;
+import com.funny.geek.ui.zhihu.ZhihuMainFragment;
 import com.funny.geek.util.Constants;
 import com.jakewharton.rxbinding2.view.RxView;
 
@@ -31,6 +35,8 @@ public class MainActivity extends BaseActivity {
     NavigationView mNavView;
     @BindView(R.id.drawer_layout)
     DrawerLayout mDrawerLayout;
+    @BindView(R.id.frame_layout)
+    FrameLayout mFrameLayout;
 
     @Override
     public int getLayoutId() {
@@ -45,6 +51,8 @@ public class MainActivity extends BaseActivity {
                 this, mDrawerLayout, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         mDrawerLayout.addDrawerListener(toggle);
         toggle.syncState();
+
+        switchFragment(ZhihuMainFragment.newInstance());
     }
 
     @SuppressLint("CheckResult")
@@ -61,9 +69,9 @@ public class MainActivity extends BaseActivity {
         mNavView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
                 switch (item.getItemId()) {
                     case R.id.zhihu:
+                        switchFragment(ZhihuMainFragment.newInstance());
                         break;
                     case R.id.wechat:
                         break;
@@ -120,6 +128,13 @@ public class MainActivity extends BaseActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void switchFragment(Fragment fragment) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.frame_layout, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
 }
