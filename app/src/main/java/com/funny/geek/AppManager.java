@@ -14,7 +14,7 @@ import com.funny.geek.di.module.HttpModule;
  */
 public class AppManager extends Application {
 
-    private static AppManager mAppManager;
+    public static AppManager mAppManager;
 
     @Override
     public void onCreate() {

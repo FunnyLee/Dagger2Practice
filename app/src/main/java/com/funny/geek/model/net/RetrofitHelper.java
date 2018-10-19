@@ -15,6 +15,7 @@ import io.reactivex.Observable;
  */
 public class RetrofitHelper implements HttpHelper {
 
+    //相当于retrofit.create(ZhihuApis.class)对象，通过Dagger2注入
     private ZhihuApis mZhihuService;
 
     @Inject

@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 
 import com.trello.navi2.component.support.NaviFragment;
 import com.trello.rxlifecycle2.LifecycleProvider;
-import com.trello.rxlifecycle2.android.ActivityEvent;
+import com.trello.rxlifecycle2.android.FragmentEvent;
 import com.trello.rxlifecycle2.navi.NaviLifecycle;
 
 import butterknife.ButterKnife;
@@ -43,8 +43,11 @@ public abstract class AllBaseFragment extends NaviFragment {
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        //因为这三个方法中，可能会用到presenter对象
+        //所以需要控制一定要在initInject方法后执行
+        //initInject方法在BaseFragment中的onCreateView方法中执行，比这里onActivityCreated要先执行
         initData();
         initView(mView);
         initEvent();
@@ -56,9 +59,9 @@ public abstract class AllBaseFragment extends NaviFragment {
         mUnbinder.unbind();
     }
 
-    public LifecycleProvider<ActivityEvent> autoRxLifeCycle() {
+    public LifecycleProvider<FragmentEvent> autoRxLifeCycle() {
         //返回Rxlifecycler的provider对象
-        return NaviLifecycle.createActivityLifecycleProvider(this);
+        return NaviLifecycle.createFragmentLifecycleProvider(this);
     }
 
     protected abstract int getLayoutId();

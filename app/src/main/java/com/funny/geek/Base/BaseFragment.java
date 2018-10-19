@@ -1,7 +1,11 @@
 package com.funny.geek.base;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.funny.geek.AppManager;
@@ -23,7 +27,6 @@ public abstract class BaseFragment<P extends IBasePresenter> extends AllBaseFrag
 
     protected FragmentComponent getFragmentComponent() {
         FragmentComponent fragmentComponent = DaggerFragmentComponent.builder()
-                // TODO: 2018/10/18 这一行是依赖appComponent，后面再实现
                 .appComponent(AppManager.getAppComponent())
                 .fragmentModule(new FragmentModule(this))
                 .build();
@@ -31,11 +34,12 @@ public abstract class BaseFragment<P extends IBasePresenter> extends AllBaseFrag
         return fragmentComponent;
     }
 
+    @Nullable
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         initInject();
         mPresenter.attachView(this);
+        return super.onCreateView(inflater, container, savedInstanceState);
     }
 
     @Override

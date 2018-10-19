@@ -2,6 +2,7 @@ package com.funny.geek.ui.zhihu;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.funny.geek.R;
 import com.funny.geek.base.RootFragment;
@@ -34,12 +35,17 @@ public class DailyFragment extends RootFragment<DailyPresenter> implements Daily
 
     @Override
     protected void initView(View view) {
+
+    }
+
+    @Override
+    protected void initData() {
         mPresenter.doLoadData();
     }
 
     @Override
     public void onShowContent() {
-
+        Toast.makeText(mContext, "bbcc", Toast.LENGTH_SHORT).show();
     }
 
     @Override

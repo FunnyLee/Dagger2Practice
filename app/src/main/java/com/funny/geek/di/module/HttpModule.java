@@ -35,24 +35,30 @@ public class HttpModule {
     @Singleton
     @ZhihuUrl
     Retrofit provideZhihuRetrofit(Retrofit.Builder builder, OkHttpClient client) {
+        //提供Retrofit对象，ip地址是ZhihuApis.HOST
         return createRetrofit(builder, client, ZhihuApis.HOST);
     }
 
     @Provides
     @Singleton
     ZhihuApis provideZhihuService(@ZhihuUrl Retrofit retrofit){
+        //这个方法需要一个Retrofit类型的参数，它根据@ZhihuUrl注解来找到provideZhihuRetrofit方法，得到Retrofit对象
+
+        //提供ZhihuApiService对象，这一个很重要，可以调用ZhihuApi里面的方法
         return retrofit.create(ZhihuApis.class);
     }
 
     @Provides
     @Singleton
     Retrofit.Builder provideRetrofitBuilder(){
+        //提供一个Retrofit.Builder对象，在createRetrofit方法中会用到
         return new Retrofit.Builder();
     }
 
     @Provides
     @Singleton
     OkHttpClient.Builder provideOkHttpBuilder(){
+        //提供一个OkHttpClient.Builder对象，在provideClient方法中会用到
         return new OkHttpClient.Builder();
     }
 
@@ -60,6 +66,7 @@ public class HttpModule {
     @Provides
     @Singleton
     OkHttpClient provideClient(OkHttpClient.Builder builder) {
+        //这个方法需要一个OkHttpClient.Builder参数，它就会去从带有@provide注解中的方法中去找
         OkHttpClient client = builder
                 .addInterceptor(new LoggingInterceptor.Builder()
                         .loggable(BuildConfig.DEBUG)
@@ -87,6 +94,7 @@ public class HttpModule {
     }
 
     private Retrofit createRetrofit(Retrofit.Builder builder, OkHttpClient client, String url) {
+        //这个方法需要一个Retrofit.Builder对象和OkHttpClient对象，它就会去从带有@Provide注解的方法中去找
         Retrofit retrofit = builder.baseUrl(url)
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create())

@@ -1,9 +1,12 @@
 package com.funny.geek.di.module;
 
 import android.app.Activity;
-import android.support.v4.app.Fragment;
 
+import com.funny.geek.base.AllBaseFragment;
 import com.funny.geek.di.scope.FragmentScope;
+import com.trello.rxlifecycle2.LifecycleProvider;
+import com.trello.rxlifecycle2.android.FragmentEvent;
+import com.trello.rxlifecycle2.navi.NaviLifecycle;
 
 import dagger.Module;
 import dagger.Provides;
@@ -17,9 +20,9 @@ import dagger.Provides;
 @Module
 public class FragmentModule {
 
-    private Fragment mFragment;
+    private AllBaseFragment mFragment;
 
-    public FragmentModule(Fragment fragment) {
+    public FragmentModule(AllBaseFragment fragment) {
         mFragment = fragment;
     }
 
@@ -27,5 +30,11 @@ public class FragmentModule {
     @FragmentScope
     public Activity provideActivity() {
         return mFragment.getActivity();
+    }
+
+    @Provides
+    @FragmentScope
+    public LifecycleProvider<FragmentEvent> provideLifecycle(){
+        return NaviLifecycle.createFragmentLifecycleProvider(mFragment);
     }
 }
