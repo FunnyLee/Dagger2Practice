@@ -15,11 +15,12 @@ import dagger.Component;
  */
 
 @FragmentScope
-@Component(modules = FragmentModule.class)
+@Component(dependencies = AppComponent.class, modules = FragmentModule.class)
 public interface FragmentComponent {
 
     Activity getActivity();
 
+    //标志注入到DailyFragment位置
     void inject(DailyFragment fragment);
 
 }

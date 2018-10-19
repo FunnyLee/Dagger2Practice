@@ -1,6 +1,7 @@
 package com.funny.geek.ui.zhihu;
 
 import android.os.Bundle;
+import android.view.View;
 
 import com.funny.geek.R;
 import com.funny.geek.base.RootFragment;
@@ -28,7 +29,12 @@ public class DailyFragment extends RootFragment<DailyPresenter> implements Daily
 
     @Override
     protected void initInject() {
+        getFragmentComponent().inject(this);
+    }
 
+    @Override
+    protected void initView(View view) {
+        mPresenter.doLoadData();
     }
 
     @Override

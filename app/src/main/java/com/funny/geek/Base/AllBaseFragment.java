@@ -25,6 +25,7 @@ public abstract class AllBaseFragment extends NaviFragment {
 
     protected Context mContext;
     private Unbinder mUnbinder;
+    private View mView;
 
     @Override
     public void onAttach(Context context) {
@@ -36,13 +37,17 @@ public abstract class AllBaseFragment extends NaviFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        View view = LayoutInflater.from(getContext()).inflate(getLayoutId(), null);
-        mUnbinder = ButterKnife.bind(this, view);
+        mView = LayoutInflater.from(getContext()).inflate(getLayoutId(), null);
+        mUnbinder = ButterKnife.bind(this, mView);
+        return mView;
+    }
 
+    @Override
+    public void onStart() {
+        super.onStart();
         initData();
-        initView(view);
+        initView(mView);
         initEvent();
-        return view;
     }
 
     @Override

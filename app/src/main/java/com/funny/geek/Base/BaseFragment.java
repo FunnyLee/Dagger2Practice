@@ -4,9 +4,12 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.view.ViewGroup;
 
+import com.funny.geek.AppManager;
 import com.funny.geek.di.component.DaggerFragmentComponent;
 import com.funny.geek.di.component.FragmentComponent;
 import com.funny.geek.di.module.FragmentModule;
+
+import javax.inject.Inject;
 
 /**
  * Author: Funny
@@ -15,12 +18,13 @@ import com.funny.geek.di.module.FragmentModule;
  */
 public abstract class BaseFragment<P extends IBasePresenter> extends AllBaseFragment implements IBaseView {
 
+    @Inject
     protected P mPresenter;
 
     protected FragmentComponent getFragmentComponent() {
         FragmentComponent fragmentComponent = DaggerFragmentComponent.builder()
                 // TODO: 2018/10/18 这一行是依赖appComponent，后面再实现
-//                .appComponent(App.getAppComponent())
+                .appComponent(AppManager.getAppComponent())
                 .fragmentModule(new FragmentModule(this))
                 .build();
 

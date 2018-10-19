@@ -1,7 +1,8 @@
 package com.funny.geek.model.net;
 
+import com.funny.geek.model.bean.DailyListBean;
 import com.funny.geek.model.bean.WelcomeBean;
-import com.funny.geek.model.net.api.ZhihuApi;
+import com.funny.geek.model.net.api.ZhihuApis;
 
 import javax.inject.Inject;
 
@@ -12,16 +13,21 @@ import io.reactivex.Observable;
  * Time: 2018/10/16
  * Description: This is RetrofitHelper
  */
-public class RetrofitHelper {
+public class RetrofitHelper implements HttpHelper {
 
-    private ZhihuApi mZhihuApi;
+    private ZhihuApis mZhihuService;
 
     @Inject
-    public RetrofitHelper(ZhihuApi zhihuApi) {
-        mZhihuApi = zhihuApi;
+    public RetrofitHelper(ZhihuApis zhihuService) {
+        mZhihuService = zhihuService;
     }
 
-    public Observable<WelcomeBean> getWelcomeInfo(String res){
-        return mZhihuApi.getWelcomeInfo(res);
+    public Observable<WelcomeBean> getWelcomeInfo(String res) {
+        return mZhihuService.getWelcomeInfo(res);
+    }
+
+    @Override
+    public Observable<DailyListBean> fetchDailyListInfo() {
+        return mZhihuService.getDailyList();
     }
 }

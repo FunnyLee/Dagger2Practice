@@ -4,7 +4,7 @@ import android.util.Log;
 
 import com.funny.geek.BuildConfig;
 import com.funny.geek.di.qualifier.ZhihuUrl;
-import com.funny.geek.model.net.api.ZhihuApi;
+import com.funny.geek.model.net.api.ZhihuApis;
 import com.ihsanbal.logging.Level;
 import com.ihsanbal.logging.Logger;
 import com.ihsanbal.logging.LoggingInterceptor;
@@ -35,19 +35,30 @@ public class HttpModule {
     @Singleton
     @ZhihuUrl
     Retrofit provideZhihuRetrofit(Retrofit.Builder builder, OkHttpClient client) {
-        return createRetrofit(builder, client, ZhihuApi.HOST);
-    }
-
-    private Retrofit createRetrofit(Retrofit.Builder builder, OkHttpClient client, String url) {
-        Retrofit retrofit = builder.baseUrl(url)
-                .client(client)
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .build();
-        return retrofit;
+        return createRetrofit(builder, client, ZhihuApis.HOST);
     }
 
     @Provides
+    @Singleton
+    ZhihuApis provideZhihuService(@ZhihuUrl Retrofit retrofit){
+        return retrofit.create(ZhihuApis.class);
+    }
+
+    @Provides
+    @Singleton
+    Retrofit.Builder provideRetrofitBuilder(){
+        return new Retrofit.Builder();
+    }
+
+    @Provides
+    @Singleton
+    OkHttpClient.Builder provideOkHttpBuilder(){
+        return new OkHttpClient.Builder();
+    }
+
+
+    @Provides
+    @Singleton
     OkHttpClient provideClient(OkHttpClient.Builder builder) {
         OkHttpClient client = builder
                 .addInterceptor(new LoggingInterceptor.Builder()
@@ -73,5 +84,14 @@ public class HttpModule {
                 .retryOnConnectionFailure(true)
                 .build();
         return client;
+    }
+
+    private Retrofit createRetrofit(Retrofit.Builder builder, OkHttpClient client, String url) {
+        Retrofit retrofit = builder.baseUrl(url)
+                .client(client)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .build();
+        return retrofit;
     }
 }
