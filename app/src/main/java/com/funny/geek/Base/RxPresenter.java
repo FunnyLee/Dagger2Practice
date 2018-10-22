@@ -20,6 +20,7 @@ public class RxPresenter<V extends IBaseView> implements IBasePresenter<V> {
     protected V mView;
 
     protected DataHelper mDataHelper;
+
     private LifecycleProvider<FragmentEvent> mProvider;
 
     @Inject

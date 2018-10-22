@@ -2,6 +2,7 @@ package com.funny.geek.contract.zhihu;
 
 import com.funny.geek.base.IBasePresenter;
 import com.funny.geek.base.IBaseView;
+import com.funny.geek.model.bean.DailyBean;
 
 /**
  * Author: Funny
@@ -12,7 +13,7 @@ public interface DailyContract {
 
     interface View extends IBaseView {
 
-        void onShowContent();
+        void onShowContentView(DailyBean dailyListBean);
 
         void onRefresh();
 

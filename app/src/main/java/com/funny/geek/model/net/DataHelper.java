@@ -1,6 +1,6 @@
 package com.funny.geek.model.net;
 
-import com.funny.geek.model.bean.DailyListBean;
+import com.funny.geek.model.bean.DailyBean;
 
 import io.reactivex.Observable;
 
@@ -18,7 +18,7 @@ public class DataHelper implements HttpHelper {
     }
 
     @Override
-    public Observable<DailyListBean> fetchDailyListInfo() {
+    public Observable<DailyBean> fetchDailyListInfo() {
         return mHttpHelper.fetchDailyListInfo();
     }
 }

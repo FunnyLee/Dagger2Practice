@@ -4,7 +4,7 @@ import android.annotation.SuppressLint;
 
 import com.funny.geek.base.RxPresenter;
 import com.funny.geek.contract.zhihu.DailyContract;
-import com.funny.geek.model.bean.DailyListBean;
+import com.funny.geek.model.bean.DailyBean;
 import com.funny.geek.model.net.DataHelper;
 import com.trello.rxlifecycle2.LifecycleProvider;
 import com.trello.rxlifecycle2.android.FragmentEvent;
@@ -29,10 +29,10 @@ public class DailyPresenter extends RxPresenter<DailyContract.View> implements D
     @Override
     public void doLoadData() {
         add(mDataHelper.fetchDailyListInfo())
-                .subscribe(new Consumer<DailyListBean>() {
+                .subscribe(new Consumer<DailyBean>() {
                     @Override
-                    public void accept(DailyListBean dailyListBean) throws Exception {
-                        mView.onShowContent();
+                    public void accept(DailyBean dailyListBean) throws Exception {
+                        mView.onShowContentView(dailyListBean);
                     }
                 });
     }

@@ -1,6 +1,6 @@
 package com.funny.geek.model.net;
 
-import com.funny.geek.model.bean.DailyListBean;
+import com.funny.geek.model.bean.DailyBean;
 import com.funny.geek.model.bean.WelcomeBean;
 import com.funny.geek.model.net.api.ZhihuApis;
 
@@ -28,7 +28,7 @@ public class RetrofitHelper implements HttpHelper {
     }
 
     @Override
-    public Observable<DailyListBean> fetchDailyListInfo() {
+    public Observable<DailyBean> fetchDailyListInfo() {
         return mZhihuService.getDailyList();
     }
 }

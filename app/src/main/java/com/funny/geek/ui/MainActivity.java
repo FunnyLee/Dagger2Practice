@@ -2,9 +2,7 @@ package com.funny.geek.ui;
 
 import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
@@ -15,13 +13,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
-import com.funny.geek.base.BaseActivity;
 import com.funny.geek.R;
+import com.funny.geek.base.BaseActivity;
 import com.funny.geek.ui.zhihu.ZhihuMainFragment;
-import com.funny.geek.util.Constants;
-import com.jakewharton.rxbinding2.view.RxView;
-
-import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 
@@ -29,8 +23,6 @@ public class MainActivity extends BaseActivity {
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
-    @BindView(R.id.fab)
-    FloatingActionButton mFab;
     @BindView(R.id.nav_view)
     NavigationView mNavView;
     @BindView(R.id.drawer_layout)
@@ -58,14 +50,6 @@ public class MainActivity extends BaseActivity {
     @SuppressLint("CheckResult")
     @Override
     protected void initEvent() {
-        RxView.clicks(mFab)
-                .throttleFirst(Constants.CLICK_INTERVAL, TimeUnit.SECONDS)
-                .compose(autoRxLifeCycle().bindToLifecycle())
-                .subscribe(o -> {
-                    Snackbar.make(mFab, "Replace with your own action", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-                });
-
         mNavView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -74,18 +58,25 @@ public class MainActivity extends BaseActivity {
                         switchFragment(ZhihuMainFragment.newInstance());
                         break;
                     case R.id.wechat:
+                        switchFragment(ZhihuMainFragment.newInstance());
                         break;
                     case R.id.gank:
+                        switchFragment(ZhihuMainFragment.newInstance());
                         break;
                     case R.id.gold:
+                        switchFragment(ZhihuMainFragment.newInstance());
                         break;
                     case R.id.v2ex:
+                        switchFragment(ZhihuMainFragment.newInstance());
                         break;
                     case R.id.like:
+                        switchFragment(ZhihuMainFragment.newInstance());
                         break;
                     case R.id.setting:
+                        switchFragment(ZhihuMainFragment.newInstance());
                         break;
                     case R.id.about:
+                        switchFragment(ZhihuMainFragment.newInstance());
                         break;
                     default:
                         break;

@@ -1,6 +1,6 @@
 package com.funny.geek.model.net.api;
 
-import com.funny.geek.model.bean.DailyListBean;
+import com.funny.geek.model.bean.DailyBean;
 import com.funny.geek.model.bean.WelcomeBean;
 
 import io.reactivex.Observable;
@@ -25,14 +25,14 @@ public interface ZhihuApis {
      * 最新日报
      */
     @GET("news/latest")
-    Observable<DailyListBean> getDailyList();
+    Observable<DailyBean> getDailyList();
 
 //    /**
 //     * 往期日报
 //     */
 //    @GET("news/before/{date}")
 //    Flowable<DailyBeforeListBean> getDailyBeforeList(@Path("date") String date);
-//
+
 //    /**
 //     * 主题日报
 //     */

@@ -1,6 +1,6 @@
 package com.funny.geek.model.net;
 
-import com.funny.geek.model.bean.DailyListBean;
+import com.funny.geek.model.bean.DailyBean;
 
 import io.reactivex.Observable;
 
@@ -11,6 +11,6 @@ import io.reactivex.Observable;
  */
 public interface HttpHelper {
 
-    Observable<DailyListBean> fetchDailyListInfo();
+    Observable<DailyBean> fetchDailyListInfo();
 
 }
