@@ -21,4 +21,10 @@ public class DataHelper implements HttpHelper {
     public Observable<DailyBean> fetchDailyListInfo() {
         return mHttpHelper.fetchDailyListInfo();
     }
+
+    @Override
+    public Observable<DailyBean> fetchDailyBeforeList(String date) {
+        return mHttpHelper.fetchDailyBeforeList(date);
+    }
+
 }

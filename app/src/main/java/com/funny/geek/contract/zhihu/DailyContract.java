@@ -23,7 +23,7 @@ public interface DailyContract {
 
         void doLoadData();
 
-        void doRefresh();
+        void doRefresh(String date);
 
     }
 

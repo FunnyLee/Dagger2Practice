@@ -27,11 +27,11 @@ public interface ZhihuApis {
     @GET("news/latest")
     Observable<DailyBean> getDailyList();
 
-//    /**
-//     * 往期日报
-//     */
-//    @GET("news/before/{date}")
-//    Flowable<DailyBeforeListBean> getDailyBeforeList(@Path("date") String date);
+    /**
+     * 往期日报
+     */
+    @GET("news/before/{date}")
+    Observable<DailyBean> getDailyBeforeList(@Path("date") String date);
 
 //    /**
 //     * 主题日报

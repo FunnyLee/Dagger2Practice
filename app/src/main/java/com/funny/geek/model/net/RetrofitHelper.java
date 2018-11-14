@@ -31,4 +31,9 @@ public class RetrofitHelper implements HttpHelper {
     public Observable<DailyBean> fetchDailyListInfo() {
         return mZhihuService.getDailyList();
     }
+
+    @Override
+    public Observable<DailyBean> fetchDailyBeforeList(String date) {
+        return mZhihuService.getDailyBeforeList(date);
+    }
 }

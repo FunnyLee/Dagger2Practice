@@ -13,4 +13,6 @@ public interface HttpHelper {
 
     Observable<DailyBean> fetchDailyListInfo();
 
+    Observable<DailyBean> fetchDailyBeforeList(String date);
+
 }
