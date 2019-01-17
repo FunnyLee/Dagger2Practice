@@ -1,6 +1,8 @@
 package com.funny.geek.model.net;
 
 import com.funny.geek.model.bean.DailyBean;
+import com.funny.geek.model.bean.HotBean;
+import com.funny.geek.model.bean.SectionListBean;
 
 import io.reactivex.Observable;
 
@@ -15,4 +17,7 @@ public interface HttpHelper {
 
     Observable<DailyBean> fetchDailyBeforeList(String date);
 
+    Observable<HotBean> fetchHotList();
+
+    Observable<SectionListBean> fetchSectionList();
 }

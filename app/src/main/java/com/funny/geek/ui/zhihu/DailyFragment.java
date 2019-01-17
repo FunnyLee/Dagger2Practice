@@ -69,7 +69,7 @@ public class DailyFragment extends RootFragment<DailyPresenter> implements Daily
 
     @Override
     protected void initView(View view) {
-        mAdapter = new DailyAdapter(mContext, R.layout.item_daily_content, mDatas);
+        mAdapter = new DailyAdapter(mContext, R.layout.item_daily_content_view, mDatas);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         mRecyclerView.setAdapter(mAdapter);
     }
@@ -84,7 +84,7 @@ public class DailyFragment extends RootFragment<DailyPresenter> implements Daily
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                onRefresh();
+                mPresenter.doRefresh(mCurrentDate);
             }
         });
     }
@@ -92,6 +92,9 @@ public class DailyFragment extends RootFragment<DailyPresenter> implements Daily
     @SuppressLint("CheckResult")
     @Override
     public void onShowContentView(DailyBean dailyListBean) {
+        if (mRefreshLayout.isRefreshing()) {
+            mRefreshLayout.setRefreshing(false);
+        }
         //请求成功后，设置当前日期
         mCurrentDate = TimeUtils.getCurrentDate();
         //inflate头部
@@ -101,7 +104,7 @@ public class DailyFragment extends RootFragment<DailyPresenter> implements Daily
         TextView tvData = headerView.findViewById(R.id.tv_date);
         tvData.setText(dailyListBean.getDate());
         List<DailyBean.TopStoriesBean> top_stories = dailyListBean.getTop_stories();
-        if (top_stories != null || top_stories.size() != 0) {
+        if (top_stories != null && top_stories.size() != 0) {
             List<String> imageUrls = new ArrayList<>();
             List<String> bannerTitles = new ArrayList<>();
             Observable.fromIterable(top_stories)
@@ -128,17 +131,7 @@ public class DailyFragment extends RootFragment<DailyPresenter> implements Daily
         mDatas.clear();
         mDatas.addAll(dailyListBean.getStories());
         mAdapter.notifyDataSetChanged();
-        mRefreshLayout.setRefreshing(false);
     }
 
-    @Override
-    public void onRefresh() {
-//        if(mCurrentDate == TimeUtils.getCurrentDate()){
-//            mPresenter.doLoadData();
-//        }else {
-//
-//        }
-        mPresenter.doRefresh(mCurrentDate);
-    }
 
 }

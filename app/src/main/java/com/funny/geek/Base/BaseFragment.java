@@ -18,7 +18,7 @@ import javax.inject.Inject;
 /**
  * Author: Funny
  * Time: 2018/10/17
- * Description: This is BaseFragment
+ * Description: This is MVP的BaseFragment
  */
 public abstract class BaseFragment<P extends IBasePresenter> extends AllBaseFragment implements IBaseView {
 
@@ -27,7 +27,9 @@ public abstract class BaseFragment<P extends IBasePresenter> extends AllBaseFrag
 
     protected FragmentComponent getFragmentComponent() {
         FragmentComponent fragmentComponent = DaggerFragmentComponent.builder()
+                //表示dependencies
                 .appComponent(AppManager.getAppComponent())
+                //表示modules
                 .fragmentModule(new FragmentModule(this))
                 .build();
 

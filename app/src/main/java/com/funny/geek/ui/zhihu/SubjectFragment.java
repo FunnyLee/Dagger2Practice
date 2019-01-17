@@ -8,7 +8,7 @@ import com.funny.geek.R;
 /**
  * Author: Funny
  * Time: 2018/10/17
- * Description: This is SubjectFragment
+ * Description: This is 主题 Fragment
  */
 public class SubjectFragment extends AllBaseFragment {
 

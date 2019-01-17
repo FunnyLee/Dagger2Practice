@@ -1,6 +1,8 @@
 package com.funny.geek.model.net;
 
 import com.funny.geek.model.bean.DailyBean;
+import com.funny.geek.model.bean.HotBean;
+import com.funny.geek.model.bean.SectionListBean;
 
 import io.reactivex.Observable;
 
@@ -26,5 +28,16 @@ public class DataHelper implements HttpHelper {
     public Observable<DailyBean> fetchDailyBeforeList(String date) {
         return mHttpHelper.fetchDailyBeforeList(date);
     }
+
+    @Override
+    public Observable<HotBean> fetchHotList() {
+        return mHttpHelper.fetchHotList();
+    }
+
+    @Override
+    public Observable<SectionListBean> fetchSectionList() {
+        return mHttpHelper.fetchSectionList();
+    }
+
 
 }

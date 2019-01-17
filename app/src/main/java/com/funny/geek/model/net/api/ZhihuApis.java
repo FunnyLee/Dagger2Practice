@@ -1,6 +1,8 @@
 package com.funny.geek.model.net.api;
 
 import com.funny.geek.model.bean.DailyBean;
+import com.funny.geek.model.bean.HotBean;
+import com.funny.geek.model.bean.SectionListBean;
 import com.funny.geek.model.bean.WelcomeBean;
 
 import io.reactivex.Observable;
@@ -45,23 +47,23 @@ public interface ZhihuApis {
 //    @GET("theme/{id}")
 //    Flowable<ThemeChildListBean> getThemeChildList(@Path("id") int id);
 //
-//    /**
-//     * 专栏日报
-//     */
-//    @GET("sections")
-//    Flowable<SectionListBean> getSectionList();
+    /**
+     * 专栏日报
+     */
+    @GET("sections")
+    Observable<SectionListBean> getSectionList();
 //
 //    /**
 //     * 专栏日报详情
 //     */
 //    @GET("section/{id}")
 //    Flowable<SectionChildListBean> getSectionChildList(@Path("id") int id);
-//
-//    /**
-//     * 热门日报
-//     */
-//    @GET("news/hot")
-//    Flowable<HotListBean> getHotList();
+
+    /**
+     * 热门日报
+     */
+    @GET("news/hot")
+    Observable<HotBean> getHotList();
 //
 //    /**
 //     * 日报详情

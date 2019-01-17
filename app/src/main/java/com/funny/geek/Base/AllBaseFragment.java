@@ -19,7 +19,7 @@ import butterknife.Unbinder;
 /**
  * Author: Funny
  * Time: 2018/10/16
- * Description: This is AllBaseFragment
+ * Description: This is 所有Fragment的基类
  */
 public abstract class AllBaseFragment extends NaviFragment {
 

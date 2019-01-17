@@ -2,26 +2,29 @@ package com.funny.geek.contract.zhihu;
 
 import com.funny.geek.base.IBasePresenter;
 import com.funny.geek.base.IBaseView;
-import com.funny.geek.model.bean.DailyBean;
+import com.funny.geek.model.bean.HotBean;
 
 /**
  * Author: Funny
- * Time: 2018/10/18
- * Description: This is DailyContract
+ * Time: 2018/11/14
+ * Description: This is HotContract
  */
-public interface DailyContract {
+public interface HotContract {
 
     interface View extends IBaseView {
 
-        void onShowContentView(DailyBean dailyListBean);
+        void onShowContentView(HotBean hotBean);
+
+        /**
+         * 下拉刷新
+         */
+        void onPullDownRefresh();
 
     }
 
     interface Presenter extends IBasePresenter<View> {
 
         void doLoadData();
-
-        void doRefresh(String date);
 
     }
 

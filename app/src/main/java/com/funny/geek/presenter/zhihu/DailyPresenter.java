@@ -6,7 +6,6 @@ import com.funny.geek.base.RxPresenter;
 import com.funny.geek.contract.zhihu.DailyContract;
 import com.funny.geek.model.bean.DailyBean;
 import com.funny.geek.model.net.DataHelper;
-import com.funny.geek.util.TimeUtils;
 import com.trello.rxlifecycle2.LifecycleProvider;
 import com.trello.rxlifecycle2.android.FragmentEvent;
 
@@ -41,13 +40,11 @@ public class DailyPresenter extends RxPresenter<DailyContract.View> implements D
     @SuppressLint("CheckResult")
     @Override
     public void doRefresh(String date) {
-        TimeUtils.str2Date(date);
-
         add(mDataHelper.fetchDailyBeforeList(date))
                 .subscribe(new Consumer<DailyBean>() {
                     @Override
                     public void accept(DailyBean dailyBean) throws Exception {
-                        //mView.onShowContentView(dailyBean);
+                        mView.onShowContentView(dailyBean);
                     }
                 });
     }

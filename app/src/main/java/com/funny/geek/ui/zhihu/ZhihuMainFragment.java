@@ -51,9 +51,9 @@ public class ZhihuMainFragment extends AllBaseFragment {
         titleList.add(getString(R.string.special));
         titleList.add(getString(R.string.hot));
         fragmentList.add(DailyFragment.newInstance());
-        fragmentList.add(HotFragment.newInstance());
-        fragmentList.add(SpecialFragment.newInstance());
         fragmentList.add(SubjectFragment.newInstance());
+        fragmentList.add(SpecialFragment.newInstance());
+        fragmentList.add(HotFragment.newInstance());
 
         FragmentAdapter adapter = new FragmentAdapter(getFragmentManager(), fragmentList, titleList);
         mViewPager.setAdapter(adapter);
