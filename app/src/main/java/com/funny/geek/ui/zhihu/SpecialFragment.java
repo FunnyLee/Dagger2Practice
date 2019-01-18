@@ -1,23 +1,17 @@
 package com.funny.geek.ui.zhihu;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.BaseViewHolder;
 import com.funny.geek.R;
 import com.funny.geek.base.RootFragment;
 import com.funny.geek.contract.zhihu.SpecialContract;
 import com.funny.geek.model.bean.SectionListBean;
-import com.funny.geek.model.net.ImageHelper;
 import com.funny.geek.presenter.zhihu.SpecialPresenter;
+import com.funny.geek.ui.adpter.SpecialAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,30 +63,23 @@ public class SpecialFragment extends RootFragment<SpecialPresenter> implements S
     }
 
     @Override
+    protected void initEvent() {
+        mSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mPresenter.doLoadData();
+            }
+        });
+    }
+
+    @Override
     public void onShowContentView(SectionListBean sectionListBean) {
+        if(mSwipeRefresh.isRefreshing()){
+            mSwipeRefresh.setRefreshing(false);
+        }
         mDatas.clear();
         mDatas.addAll(sectionListBean.data);
         mAdapter.setNewData(mDatas);
     }
 
-    class SpecialAdapter extends BaseQuickAdapter<SectionListBean.DataBean, BaseViewHolder> {
-
-        private Context mContext;
-
-        public SpecialAdapter(Context context, int layoutResId, @Nullable List<SectionListBean.DataBean> data) {
-            super(layoutResId, data);
-            this.mContext = context;
-        }
-
-        @Override
-        protected void convert(BaseViewHolder helper, SectionListBean.DataBean item) {
-            ImageView bgIv = helper.getView(R.id.section_bg);
-            TextView kindTv = helper.getView(R.id.kind_tv);
-            TextView descTv = helper.getView(R.id.desc_tv);
-
-            ImageHelper.loadImage(mContext,item.thumbnail,bgIv);
-            kindTv.setText(item.name);
-            descTv.setText(item.description);
-        }
-    }
 }

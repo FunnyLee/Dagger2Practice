@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.funny.geek.R;
 import com.funny.geek.base.RootFragment;
@@ -49,6 +50,8 @@ public class DailyFragment extends RootFragment<DailyPresenter> implements Daily
 
     private List<DailyBean.StoriesBean> mDatas = new ArrayList<>();
     private DailyAdapter mAdapter;
+    private Banner mBanner;
+    private TextView mTvData;
 
     public static DailyFragment newInstance() {
         Bundle args = new Bundle();
@@ -71,7 +74,14 @@ public class DailyFragment extends RootFragment<DailyPresenter> implements Daily
     protected void initView(View view) {
         mAdapter = new DailyAdapter(mContext, R.layout.item_daily_content_view, mDatas);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+
+        //头部
+        View headerView = LayoutInflater.from(mContext).inflate(R.layout.layout_daily_header, null);
+        mAdapter.addHeaderView(headerView);
+        mBanner = headerView.findViewById(R.id.banner);
+        mTvData = headerView.findViewById(R.id.tv_date);
         mRecyclerView.setAdapter(mAdapter);
+
     }
 
     @Override
@@ -85,6 +95,7 @@ public class DailyFragment extends RootFragment<DailyPresenter> implements Daily
             @Override
             public void onRefresh() {
                 mPresenter.doRefresh(mCurrentDate);
+                Toast.makeText(mContext, "" + mCurrentDate, Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -97,12 +108,8 @@ public class DailyFragment extends RootFragment<DailyPresenter> implements Daily
         }
         //请求成功后，设置当前日期
         mCurrentDate = TimeUtils.getCurrentDate();
-        //inflate头部
-        View headerView = LayoutInflater.from(mContext).inflate(R.layout.layout_daily_header, null);
-        mAdapter.addHeaderView(headerView);
-        Banner banner = headerView.findViewById(R.id.banner);
-        TextView tvData = headerView.findViewById(R.id.tv_date);
-        tvData.setText(dailyListBean.getDate());
+        mTvData.setText(dailyListBean.getDate());
+        //设置Banner
         List<DailyBean.TopStoriesBean> top_stories = dailyListBean.getTop_stories();
         if (top_stories != null && top_stories.size() != 0) {
             List<String> imageUrls = new ArrayList<>();
@@ -113,20 +120,19 @@ public class DailyFragment extends RootFragment<DailyPresenter> implements Daily
                         bannerTitles.add(topStoriesBean.getTitle());
                     });
 
-            //设置Banner
-            banner.setImageLoader(new ImageLoader() {
+            mBanner.setImageLoader(new ImageLoader() {
                 @Override
                 public void displayImage(Context context, Object path, ImageView imageView) {
                     ImageHelper.loadImage(context, (String) path, imageView);
                 }
             });
-            banner.setImages(imageUrls);
-            banner.setBannerTitles(bannerTitles);
-            banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE);
-            banner.isAutoPlay(true);
-            banner.start();
+            mBanner.setImages(imageUrls);
+            mBanner.setBannerTitles(bannerTitles);
+            mBanner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE);
+            mBanner.isAutoPlay(true);
+            mBanner.start();
         } else {
-            banner.setVisibility(View.GONE);
+            mBanner.setVisibility(View.GONE);
         }
         mDatas.clear();
         mDatas.addAll(dailyListBean.getStories());
