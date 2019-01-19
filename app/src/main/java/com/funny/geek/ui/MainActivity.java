@@ -14,12 +14,12 @@ import android.view.MenuItem;
 import android.widget.FrameLayout;
 
 import com.funny.geek.R;
-import com.funny.geek.base.BaseActivity;
+import com.funny.geek.base.AllBaseActivity;
 import com.funny.geek.ui.zhihu.ZhihuMainFragment;
 
 import butterknife.BindView;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends AllBaseActivity {
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
@@ -33,6 +33,11 @@ public class MainActivity extends BaseActivity {
     @Override
     public int getLayoutId() {
         return R.layout.activity_main;
+    }
+
+    @Override
+    protected void onViewCreated() {
+
     }
 
     @Override

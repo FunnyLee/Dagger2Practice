@@ -14,19 +14,19 @@ import com.funny.geek.di.module.HttpModule;
  */
 public class AppManager extends Application {
 
-    public static AppManager mAppManager;
+    public static AppManager mAppManagerContext;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        mAppManager = this;
+        mAppManagerContext = this;
     }
 
     public static AppComponent getAppComponent() {
-        AppComponent build = DaggerAppComponent.builder()
-                .appModule(new AppModule(mAppManager))
+        AppComponent appComponent = DaggerAppComponent.builder()
+                .appModule(new AppModule(mAppManagerContext))
                 .httpModule(new HttpModule())
                 .build();
-        return build;
+        return appComponent;
     }
 }

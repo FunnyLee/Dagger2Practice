@@ -20,7 +20,7 @@ import dagger.Component;
 @Component(modules = {AppModule.class, HttpModule.class})
 public interface AppComponent {
 
-    AppManager getAppManager();
+    AppManager getAppManagerContext();
 
     RetrofitHelper getRetrofitHelper();
 

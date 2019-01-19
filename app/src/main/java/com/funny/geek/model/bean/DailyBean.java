@@ -13,7 +13,7 @@ public class DailyBean {
      * top_stories : [{"image":"http://pic4.zhimg.com/1f45c1ed56116f21955878dff00e8c37.jpg","type":0,"id":8673847,"ga_prefix":"081120","title":"整点儿奥运 · 别走啊，我用锅铲跟你打，行吗？"},{"image":"http://pic4.zhimg.com/8d962d0d877d42518a9e6f73fe35ac8b.jpg","type":0,"id":8664572,"ga_prefix":"081116","title":"整个彩虹合唱团都出动了，只为让你唱好合唱"},{"image":"http://pic1.zhimg.com/e73a48ac3c95f55c715d8625957808a4.jpg","type":0,"id":8671349,"ga_prefix":"081117","title":"知乎好问题 · 低学历是否比高学历更加会赚钱？"},{"image":"http://pic3.zhimg.com/eca053868591893a70e8a48a05979d46.jpg","type":0,"id":8671431,"ga_prefix":"081114","title":"柠檬 + 酸奶 + 冰淇淋，每一样都能让被蒸熟的我复活"},{"image":"http://pic1.zhimg.com/8504a2e5046bd33ca556daaaeb3981e8.jpg","type":0,"id":8671284,"ga_prefix":"081109","title":"「孙杨夺冠把泳帽误扔泳池里以后，我发现我更喜欢他了」"}]
      */
 
-    private String date;
+    public String date;
     /**
      * images : ["http://pic4.zhimg.com/95625b7bacfff0f6b1105ff3e71f37cb.jpg"]
      * type : 0
@@ -22,7 +22,7 @@ public class DailyBean {
      * title : 小事 · 我在戒网瘾学校里经历了什么
      */
 
-    private List<StoriesBean> stories;
+    public List<StoriesBean> stories;
     /**
      * image : http://pic4.zhimg.com/1f45c1ed56116f21955878dff00e8c37.jpg
      * type : 0
@@ -30,135 +30,24 @@ public class DailyBean {
      * ga_prefix : 081120
      * title : 整点儿奥运 · 别走啊，我用锅铲跟你打，行吗？
      */
+    public List<TopStoriesBean> top_stories;
 
-    private List<TopStoriesBean> top_stories;
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public List<StoriesBean> getStories() {
-        return stories;
-    }
-
-    public void setStories(List<StoriesBean> stories) {
-        this.stories = stories;
-    }
-
-    public List<TopStoriesBean> getTop_stories() {
-        return top_stories;
-    }
-
-    public void setTop_stories(List<TopStoriesBean> top_stories) {
-        this.top_stories = top_stories;
-    }
 
     public static class StoriesBean {
-        private int type;
-        private int id;
-        private String ga_prefix;
-        private String title;
-        private List<String> images;
-        private boolean readState;
-
-        public boolean getReadState() {
-            return readState;
-        }
-
-        public void setReadState(boolean readState) {
-            this.readState = readState;
-        }
-
-        public int getType() {
-            return type;
-        }
-
-        public void setType(int type) {
-            this.type = type;
-        }
-
-        public int getId() {
-            return id;
-        }
-
-        public void setId(int id) {
-            this.id = id;
-        }
-
-        public String getGa_prefix() {
-            return ga_prefix;
-        }
-
-        public void setGa_prefix(String ga_prefix) {
-            this.ga_prefix = ga_prefix;
-        }
-
-        public String getTitle() {
-            return title;
-        }
-
-        public void setTitle(String title) {
-            this.title = title;
-        }
-
-        public List<String> getImages() {
-            return images;
-        }
-
-        public void setImages(List<String> images) {
-            this.images = images;
-        }
+        public int type;
+        public int id;
+        public String ga_prefix;
+        public String title;
+        public List<String> images;
+        public boolean readState;
     }
 
     public static class TopStoriesBean {
-        private String image;
-        private int type;
-        private int id;
-        private String ga_prefix;
-        private String title;
-
-        public String getImage() {
-            return image;
-        }
-
-        public void setImage(String image) {
-            this.image = image;
-        }
-
-        public int getType() {
-            return type;
-        }
-
-        public void setType(int type) {
-            this.type = type;
-        }
-
-        public int getId() {
-            return id;
-        }
-
-        public void setId(int id) {
-            this.id = id;
-        }
-
-        public String getGa_prefix() {
-            return ga_prefix;
-        }
-
-        public void setGa_prefix(String ga_prefix) {
-            this.ga_prefix = ga_prefix;
-        }
-
-        public String getTitle() {
-            return title;
-        }
-
-        public void setTitle(String title) {
-            this.title = title;
-        }
+        public String image;
+        public int type;
+        public int id;
+        public String ga_prefix;
+        public String title;
+        
     }
 }

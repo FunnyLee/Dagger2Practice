@@ -21,7 +21,6 @@
         android:layout_marginTop="@dimen/dp_10"
         android:layout_marginLeft="@dimen/dp_8"
         android:layout_marginRight="@dimen/dp_8"
-        android:text="AAAAAA"
         android:textSize="@dimen/sp_14"/>
 
 </LinearLayout>

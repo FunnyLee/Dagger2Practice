@@ -3,6 +3,7 @@
           package="com.funny.geek">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
         android:name=".AppManager"
@@ -21,6 +22,11 @@
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.zhihu.ZhihuDetailActivity"
+            android:label="@string/title_activity_zhihu_detail"
+            android:theme="@style/AppTheme.NoActionBar">
         </activity>
     </application>
 

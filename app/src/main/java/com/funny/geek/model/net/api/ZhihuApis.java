@@ -4,6 +4,7 @@ import com.funny.geek.model.bean.DailyBean;
 import com.funny.geek.model.bean.HotBean;
 import com.funny.geek.model.bean.SectionListBean;
 import com.funny.geek.model.bean.WelcomeBean;
+import com.funny.geek.model.bean.ZhihuDetailBean;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
@@ -64,12 +65,12 @@ public interface ZhihuApis {
      */
     @GET("news/hot")
     Observable<HotBean> getHotList();
-//
-//    /**
-//     * 日报详情
-//     */
-//    @GET("news/{id}")
-//    Flowable<ZhihuDetailBean> getDetailInfo(@Path("id") int id);
+
+    /**
+     * 日报详情
+     */
+    @GET("news/{id}")
+    Observable<ZhihuDetailBean> getDetailInfo(@Path("id") int id);
 //
 //    /**
 //     * 日报的额外信息

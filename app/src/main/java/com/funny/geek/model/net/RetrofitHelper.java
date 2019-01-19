@@ -4,6 +4,7 @@ import com.funny.geek.model.bean.DailyBean;
 import com.funny.geek.model.bean.HotBean;
 import com.funny.geek.model.bean.SectionListBean;
 import com.funny.geek.model.bean.WelcomeBean;
+import com.funny.geek.model.bean.ZhihuDetailBean;
 import com.funny.geek.model.net.api.ZhihuApis;
 
 import javax.inject.Inject;
@@ -47,5 +48,10 @@ public class RetrofitHelper implements HttpHelper {
     @Override
     public Observable<SectionListBean> fetchSectionList() {
         return mZhihuService.getSectionList();
+    }
+
+    @Override
+    public Observable<ZhihuDetailBean> fetchDetailInfo(int id) {
+        return mZhihuService.getDetailInfo(id);
     }
 }

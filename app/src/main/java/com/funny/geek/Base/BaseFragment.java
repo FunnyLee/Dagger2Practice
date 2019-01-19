@@ -20,10 +20,10 @@ import javax.inject.Inject;
  * Time: 2018/10/17
  * Description: This is MVP的BaseFragment
  */
-public abstract class BaseFragment<P extends IBasePresenter> extends AllBaseFragment implements IBaseView {
+public abstract class BaseFragment<T extends IBasePresenter> extends AllBaseFragment implements IBaseView {
 
     @Inject
-    protected P mPresenter;
+    protected T mPresenter;
 
     protected FragmentComponent getFragmentComponent() {
         FragmentComponent fragmentComponent = DaggerFragmentComponent.builder()

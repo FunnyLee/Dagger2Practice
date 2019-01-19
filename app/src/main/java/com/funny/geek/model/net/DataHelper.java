@@ -3,6 +3,7 @@ package com.funny.geek.model.net;
 import com.funny.geek.model.bean.DailyBean;
 import com.funny.geek.model.bean.HotBean;
 import com.funny.geek.model.bean.SectionListBean;
+import com.funny.geek.model.bean.ZhihuDetailBean;
 
 import io.reactivex.Observable;
 
@@ -37,6 +38,11 @@ public class DataHelper implements HttpHelper {
     @Override
     public Observable<SectionListBean> fetchSectionList() {
         return mHttpHelper.fetchSectionList();
+    }
+
+    @Override
+    public Observable<ZhihuDetailBean> fetchDetailInfo(int id) {
+        return mHttpHelper.fetchDetailInfo(id);
     }
 
 

@@ -24,7 +24,7 @@ public interface FragmentComponent {
 
     Activity getActivity();
 
-    LifecycleProvider<FragmentEvent> getProvide();
+    LifecycleProvider<FragmentEvent> getLifecycleProvider();
 
     //标志注入到DailyFragment位置
     void inject(DailyFragment fragment);

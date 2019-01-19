@@ -172,4 +172,6 @@
     <dimen name="sp_48">48sp</dimen>
     <dimen name="sp_54">54sp</dimen>
     <dimen name="sp_59">59sp</dimen>
+    <dimen name="app_bar_height">180dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
 </resources>

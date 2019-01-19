@@ -26,6 +26,10 @@ public class FragmentModule {
         mFragment = fragment;
     }
 
+    /**
+     * 提供一个Acitivty没什么用，Fragment中可以直接获取到
+     * @return
+     */
     @Provides
     @FragmentScope
     public Activity provideActivity() {

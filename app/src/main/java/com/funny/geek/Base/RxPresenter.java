@@ -2,7 +2,6 @@ package com.funny.geek.base;
 
 import com.funny.geek.model.net.DataHelper;
 import com.trello.rxlifecycle2.LifecycleProvider;
-import com.trello.rxlifecycle2.android.FragmentEvent;
 
 import javax.inject.Inject;
 
@@ -21,10 +20,10 @@ public class RxPresenter<V extends IBaseView> implements IBasePresenter<V> {
 
     protected DataHelper mDataHelper;
 
-    private LifecycleProvider<FragmentEvent> mProvider;
+    protected LifecycleProvider mProvider;
 
     @Inject
-    public RxPresenter(DataHelper dataHelper, LifecycleProvider<FragmentEvent> provider) {
+    public RxPresenter(DataHelper dataHelper, LifecycleProvider provider) {
         mDataHelper = dataHelper;
         mProvider = provider;
     }

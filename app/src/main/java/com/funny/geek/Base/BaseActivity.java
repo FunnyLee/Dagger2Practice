@@ -1,50 +1,50 @@
 package com.funny.geek.base;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
+import com.funny.geek.AppManager;
+import com.funny.geek.di.component.ActivityComponent;
+import com.funny.geek.di.component.DaggerActivityComponent;
+import com.funny.geek.di.module.ActivityModule;
 
-import com.trello.navi2.component.support.NaviAppCompatActivity;
-import com.trello.rxlifecycle2.LifecycleProvider;
-import com.trello.rxlifecycle2.android.ActivityEvent;
-import com.trello.rxlifecycle2.navi.NaviLifecycle;
-
-import butterknife.ButterKnife;
+import javax.inject.Inject;
 
 /**
  * Author: Funny
- * Time: 2018/10/16
- * Description: This is BaseActivity
+ * Time: 2019/1/18
+ * Description: This is Mvp Activity的基类
  */
-public abstract class BaseActivity extends NaviAppCompatActivity {
+public abstract class BaseActivity<P extends IBasePresenter> extends AllBaseActivity implements IBaseView {
+
+    @Inject
+    protected P mPresenter;
+
+    protected ActivityComponent getActivityComponent() {
+        ActivityComponent activityComponent = DaggerActivityComponent.builder()
+                .appComponent(AppManager.getAppComponent())
+                .activityModule(new ActivityModule(this))
+                .build();
+        return activityComponent;
+    }
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(getLayoutId());
-        ButterKnife.bind(this);
-        initView();
-        initData();
-        initEvent();
+    protected void onViewCreated() {
+        initInject();
+        if (mPresenter != null) {
+            mPresenter.attachView(this);
+        }
     }
 
-    /**
-     * 自动管理Rxjava生命周期
-     *
-     * @return
-     */
-    protected LifecycleProvider<ActivityEvent> autoRxLifeCycle() {
-        LifecycleProvider<ActivityEvent> activityLifecycleProvider = NaviLifecycle.createActivityLifecycleProvider(this);
-        return activityLifecycleProvider;
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mPresenter != null) {
+            mPresenter.detachView();
+        }
     }
 
-    protected void initView() {
+    @Override
+    public void onShowErrorMsg(String msg) {
+        // TODO: 2019/1/18  
     }
 
-    protected void initData() {
-    }
-
-    protected void initEvent() {
-    }
-
-    public abstract int getLayoutId();
+    protected abstract void initInject();
 }

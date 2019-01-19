@@ -108,16 +108,16 @@ public class DailyFragment extends RootFragment<DailyPresenter> implements Daily
         }
         //请求成功后，设置当前日期
         mCurrentDate = TimeUtils.getCurrentDate();
-        mTvData.setText(dailyListBean.getDate());
+        mTvData.setText(dailyListBean.date);
         //设置Banner
-        List<DailyBean.TopStoriesBean> top_stories = dailyListBean.getTop_stories();
+        List<DailyBean.TopStoriesBean> top_stories = dailyListBean.top_stories;
         if (top_stories != null && top_stories.size() != 0) {
             List<String> imageUrls = new ArrayList<>();
             List<String> bannerTitles = new ArrayList<>();
             Observable.fromIterable(top_stories)
                     .subscribe(topStoriesBean -> {
-                        imageUrls.add(topStoriesBean.getImage());
-                        bannerTitles.add(topStoriesBean.getTitle());
+                        imageUrls.add(topStoriesBean.image);
+                        bannerTitles.add(topStoriesBean.title);
                     });
 
             mBanner.setImageLoader(new ImageLoader() {
@@ -135,9 +135,8 @@ public class DailyFragment extends RootFragment<DailyPresenter> implements Daily
             mBanner.setVisibility(View.GONE);
         }
         mDatas.clear();
-        mDatas.addAll(dailyListBean.getStories());
+        mDatas.addAll(dailyListBean.stories);
         mAdapter.notifyDataSetChanged();
     }
-
 
 }

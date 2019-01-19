@@ -19,16 +19,16 @@ import dagger.Provides;
 @Module
 public class AppModule {
 
-    private AppManager mManager;
+    private AppManager mAppManagerContext;
 
-    public AppModule(AppManager manager) {
-        mManager = manager;
+    public AppModule(AppManager appManagerContext) {
+        mAppManagerContext = appManagerContext;
     }
 
     @Singleton
     @Provides
-    AppManager provideAppManager() {
-        return mManager;
+    AppManager provideAppManagerContext() {
+        return mAppManagerContext;
     }
 
     @Provides
@@ -39,7 +39,7 @@ public class AppModule {
 
     @Provides
     @Singleton
-    DataHelper provideDataHelper(HttpHelper httpHelper){
+    DataHelper provideDataHelper(HttpHelper httpHelper) {
         return new DataHelper(httpHelper);
     }
 }
