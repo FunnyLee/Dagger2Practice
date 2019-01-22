@@ -4,6 +4,7 @@ import android.app.Activity;
 
 import com.funny.geek.di.module.ActivityModule;
 import com.funny.geek.di.scope.ActivityScope;
+import com.funny.geek.ui.zhihu.SelectDateActivity;
 import com.funny.geek.ui.zhihu.ZhihuDetailActivity;
 import com.trello.rxlifecycle2.LifecycleProvider;
 import com.trello.rxlifecycle2.android.ActivityEvent;
@@ -26,4 +27,5 @@ public interface ActivityComponent {
 
     void inject(ZhihuDetailActivity activity);
 
+    void inject(SelectDateActivity activity);
 }

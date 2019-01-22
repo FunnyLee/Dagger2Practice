@@ -2,6 +2,7 @@ package com.funny.geek.base;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.MenuItem;
 
 import com.trello.navi2.component.support.NaviAppCompatActivity;
 import com.trello.rxlifecycle2.LifecycleProvider;
@@ -54,4 +55,12 @@ public abstract class AllBaseActivity extends NaviAppCompatActivity {
     }
 
     public abstract int getLayoutId();
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+        return true;
+    }
 }

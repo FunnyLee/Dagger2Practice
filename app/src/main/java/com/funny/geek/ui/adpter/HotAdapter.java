@@ -1,5 +1,6 @@
 package com.funny.geek.ui.adpter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.widget.ImageView;
@@ -10,8 +11,12 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.funny.geek.R;
 import com.funny.geek.model.bean.HotBean;
 import com.funny.geek.model.net.ImageHelper;
+import com.funny.geek.ui.zhihu.ZhihuDetailActivity;
+import com.funny.geek.util.Constants;
+import com.jakewharton.rxbinding2.view.RxView;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Author: Funny
@@ -27,6 +32,7 @@ public class HotAdapter extends BaseQuickAdapter<HotBean.RecentBean, BaseViewHol
         this.mContext = context;
     }
 
+    @SuppressLint("CheckResult")
     @Override
     protected void convert(BaseViewHolder helper, HotBean.RecentBean item) {
         ImageView picIv = helper.getView(R.id.pic_iv);
@@ -34,5 +40,11 @@ public class HotAdapter extends BaseQuickAdapter<HotBean.RecentBean, BaseViewHol
 
         titleTv.setText(item.title);
         ImageHelper.loadImage(mContext, item.thumbnail, picIv);
+
+        RxView.clicks(helper.itemView)
+                .throttleFirst(Constants.CLICK_INTERVAL, TimeUnit.SECONDS)
+                .subscribe(o -> {
+                    ZhihuDetailActivity.start(mContext,item.news_id);
+                });
     }
 }

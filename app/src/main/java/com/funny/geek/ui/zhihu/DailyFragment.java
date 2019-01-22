@@ -20,13 +20,16 @@ import com.funny.geek.model.bean.DailyBean;
 import com.funny.geek.model.net.ImageHelper;
 import com.funny.geek.presenter.zhihu.DailyPresenter;
 import com.funny.geek.ui.adpter.DailyAdapter;
+import com.funny.geek.util.Constants;
 import com.funny.geek.util.TimeUtils;
+import com.jakewharton.rxbinding2.view.RxView;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.loader.ImageLoader;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import io.reactivex.Observable;
@@ -89,6 +92,7 @@ public class DailyFragment extends RootFragment<DailyPresenter> implements Daily
         mPresenter.doLoadData();
     }
 
+    @SuppressLint("CheckResult")
     @Override
     protected void initEvent() {
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -98,6 +102,12 @@ public class DailyFragment extends RootFragment<DailyPresenter> implements Daily
                 Toast.makeText(mContext, "" + mCurrentDate, Toast.LENGTH_SHORT).show();
             }
         });
+
+        RxView.clicks(mFabBtn)
+                .throttleFirst(Constants.CLICK_INTERVAL, TimeUnit.SECONDS)
+                .subscribe(o -> {
+                    SelectDateActivity.start(mContext);
+                });
     }
 
     @SuppressLint("CheckResult")

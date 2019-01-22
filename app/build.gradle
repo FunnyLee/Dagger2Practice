@@ -76,9 +76,13 @@ dependencies {
     //Dagger2
     implementation 'com.google.dagger:dagger:2.16'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.16'
-    provided 'org.glassfish:javax.annotation:10.0-b28'
+    compileOnly 'org.glassfish:javax.annotation:10.0-b28'
     //Banner
     implementation 'com.youth.banner:banner:1.4.10'
     //AgentWeb
     implementation 'com.just.agentweb:agentweb:4.0.2'
+
+    //日历
+    implementation 'com.github.prolificinteractive:material-calendarview:2.0.0'
+
 }
