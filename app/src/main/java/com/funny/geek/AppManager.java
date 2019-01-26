@@ -7,6 +7,9 @@ import com.funny.geek.di.component.DaggerAppComponent;
 import com.funny.geek.di.module.AppModule;
 import com.funny.geek.di.module.HttpModule;
 
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
+
 /**
  * Author: Funny
  * Time: 2018/10/18
@@ -20,6 +23,19 @@ public class AppManager extends Application {
     public void onCreate() {
         super.onCreate();
         mAppManagerContext = this;
+
+        //初始化realm数据库
+        initRealm();
+    }
+
+    private void initRealm() {
+        Realm.init(this);
+        //配置数据库文件的名称和版本号
+        RealmConfiguration config = new RealmConfiguration.Builder()
+                .name("favorite.realm")
+                .schemaVersion(1)
+                .build();
+        Realm.setDefaultConfiguration(config);
     }
 
     public static AppComponent getAppComponent() {
