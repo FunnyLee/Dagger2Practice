@@ -1,7 +1,9 @@
 package com.funny.geek.ui.zhihu;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -11,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.funny.geek.R;
 import com.funny.geek.base.RootFragment;
@@ -21,7 +22,6 @@ import com.funny.geek.model.net.ImageHelper;
 import com.funny.geek.presenter.zhihu.DailyPresenter;
 import com.funny.geek.ui.adpter.DailyAdapter;
 import com.funny.geek.util.Constants;
-import com.funny.geek.util.TimeUtils;
 import com.jakewharton.rxbinding2.view.RxView;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -50,6 +50,8 @@ public class DailyFragment extends RootFragment<DailyPresenter> implements Daily
 
     //当前日期
     private String mCurrentDate;
+
+    public static final int REQUEST_CODE = 100;
 
     private List<DailyBean.StoriesBean> mDatas = new ArrayList<>();
     private DailyAdapter mAdapter;
@@ -99,14 +101,14 @@ public class DailyFragment extends RootFragment<DailyPresenter> implements Daily
             @Override
             public void onRefresh() {
                 mPresenter.doRefresh(mCurrentDate);
-                Toast.makeText(mContext, "" + mCurrentDate, Toast.LENGTH_SHORT).show();
             }
         });
 
         RxView.clicks(mFabBtn)
                 .throttleFirst(Constants.CLICK_INTERVAL, TimeUnit.SECONDS)
                 .subscribe(o -> {
-                    SelectDateActivity.start(mContext);
+                    Intent intent = new Intent(getContext(), SelectDateActivity.class);
+                    startActivityForResult(intent, REQUEST_CODE);
                 });
     }
 
@@ -116,8 +118,8 @@ public class DailyFragment extends RootFragment<DailyPresenter> implements Daily
         if (mRefreshLayout.isRefreshing()) {
             mRefreshLayout.setRefreshing(false);
         }
-        //请求成功后，设置当前日期
-        mCurrentDate = TimeUtils.getCurrentDate();
+        //请求成功后，设置日期
+        mCurrentDate = dailyListBean.date;
         mTvData.setText(dailyListBean.date);
         //设置Banner
         List<DailyBean.TopStoriesBean> top_stories = dailyListBean.top_stories;
@@ -146,7 +148,20 @@ public class DailyFragment extends RootFragment<DailyPresenter> implements Daily
         }
         mDatas.clear();
         mDatas.addAll(dailyListBean.stories);
-        mAdapter.notifyDataSetChanged();
+        mAdapter.setNewData(mDatas);
+        mRecyclerView.smoothScrollToPosition(0);
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (data == null) {
+            return;
+        }
+        if (requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            String selectedData = data.getStringExtra("selectedData");
+            mPresenter.doGetBeforeDaily(selectedData);
+            mCurrentDate = selectedData;
+        }
+    }
 }

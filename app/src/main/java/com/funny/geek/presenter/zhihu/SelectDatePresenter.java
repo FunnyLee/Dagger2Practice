@@ -21,8 +21,4 @@ public class SelectDatePresenter extends RxPresenter<SelectDateContract.View> im
         super(dataHelper, provider);
     }
 
-    @Override
-    public void doLoadData() {
-
-    }
 }

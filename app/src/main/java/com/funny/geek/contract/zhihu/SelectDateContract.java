@@ -12,13 +12,9 @@ public interface SelectDateContract {
 
     interface View extends IBaseView {
 
-        void onShowContentView();
-
     }
 
     interface Presenter extends IBasePresenter<View> {
-
-        void doLoadData();
 
     }
 }

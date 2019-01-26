@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'org.greenrobot.greendao'
 
 android {
     compileSdkVersion 27
@@ -85,4 +86,6 @@ dependencies {
     //日历
     implementation 'com.github.prolificinteractive:material-calendarview:2.0.0'
 
+    //GreenDao
+    implementation 'org.greenrobot:greendao:3.2.2'
 }

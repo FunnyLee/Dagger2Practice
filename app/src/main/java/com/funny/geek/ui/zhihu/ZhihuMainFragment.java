@@ -6,15 +6,14 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
-import com.funny.geek.base.AllBaseFragment;
 import com.funny.geek.R;
+import com.funny.geek.base.AllBaseFragment;
 import com.funny.geek.ui.adpter.FragmentAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.Unbinder;
 
 /**
  * Author: Funny
@@ -27,7 +26,6 @@ public class ZhihuMainFragment extends AllBaseFragment {
     TabLayout mTabLayout;
     @BindView(R.id.view_pager)
     ViewPager mViewPager;
-    Unbinder unbinder;
 
     private List<String> titleList = new ArrayList<>();
     private List<Fragment> fragmentList = new ArrayList<>();
@@ -57,6 +55,7 @@ public class ZhihuMainFragment extends AllBaseFragment {
 
         FragmentAdapter adapter = new FragmentAdapter(getFragmentManager(), fragmentList, titleList);
         mViewPager.setAdapter(adapter);
+        mViewPager.setOffscreenPageLimit(4);
         mTabLayout.setupWithViewPager(mViewPager);
     }
 }

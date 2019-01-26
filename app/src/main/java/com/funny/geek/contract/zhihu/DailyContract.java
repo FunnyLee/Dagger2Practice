@@ -23,6 +23,12 @@ public interface DailyContract {
 
         void doRefresh(String date);
 
+        /**
+         * 获取往期日报
+         * @param data
+         */
+        void doGetBeforeDaily(String data);
+
     }
 
 }
