@@ -16,7 +16,7 @@ import io.reactivex.Observable;
  * Time: 2018/10/16
  * Description: This is RetrofitHelper
  */
-public class RetrofitHelper implements HttpHelper {
+public class RetrofitHelper implements IHttpHelper {
 
     //相当于retrofit.create(ZhihuApis.class)对象，通过Dagger2注入
     private ZhihuApis mZhihuService;

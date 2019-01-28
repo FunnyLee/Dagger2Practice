@@ -4,6 +4,7 @@ import android.app.Activity;
 
 import com.funny.geek.di.module.FragmentModule;
 import com.funny.geek.di.scope.FragmentScope;
+import com.funny.geek.ui.option.FavoriteFragment;
 import com.funny.geek.ui.zhihu.DailyFragment;
 import com.funny.geek.ui.zhihu.HotFragment;
 import com.funny.geek.ui.zhihu.SpecialFragment;
@@ -32,5 +33,7 @@ public interface FragmentComponent {
     void inject(HotFragment fragment);
 
     void inject(SpecialFragment fragment);
+
+    void inject(FavoriteFragment fragment);
 
 }

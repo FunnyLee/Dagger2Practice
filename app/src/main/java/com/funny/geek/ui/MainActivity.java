@@ -15,6 +15,7 @@ import android.widget.FrameLayout;
 
 import com.funny.geek.R;
 import com.funny.geek.base.AllBaseActivity;
+import com.funny.geek.ui.option.FavoriteFragment;
 import com.funny.geek.ui.zhihu.ZhihuMainFragment;
 
 import butterknife.BindView;
@@ -75,7 +76,7 @@ public class MainActivity extends AllBaseActivity {
                         switchFragment(ZhihuMainFragment.newInstance());
                         break;
                     case R.id.like:
-                        switchFragment(ZhihuMainFragment.newInstance());
+                        switchFragment(FavoriteFragment.newInstance());
                         break;
                     case R.id.setting:
                         switchFragment(ZhihuMainFragment.newInstance());

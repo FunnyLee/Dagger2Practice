@@ -15,11 +15,18 @@ public interface ZhihuDetailContract {
 
         void onShowContentView(ZhihuDetailBean zhihuDetailBean);
 
+        void onShowFavoriteState(boolean state);
     }
 
     interface Presenter extends IBasePresenter<View> {
 
         void doLoadData(int id);
+
+        void addFavorite(ZhihuDetailBean zhihuDetailBean);
+
+        void deleteFavorite(String id);
+
+        void queryFavorite(String id);
 
     }
 }

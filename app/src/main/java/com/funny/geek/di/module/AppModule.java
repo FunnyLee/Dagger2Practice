@@ -1,8 +1,10 @@
 package com.funny.geek.di.module;
 
 import com.funny.geek.AppManager;
+import com.funny.geek.model.database.IDBHelper;
+import com.funny.geek.model.database.RealmHelper;
 import com.funny.geek.model.net.DataHelper;
-import com.funny.geek.model.net.HttpHelper;
+import com.funny.geek.model.net.IHttpHelper;
 import com.funny.geek.model.net.RetrofitHelper;
 
 import javax.inject.Singleton;
@@ -33,13 +35,20 @@ public class AppModule {
 
     @Provides
     @Singleton
-    HttpHelper provideRetrofitHelper(RetrofitHelper retrofitHelper) {
+    IHttpHelper provideRetrofitHelper(RetrofitHelper retrofitHelper) {
         return retrofitHelper;
     }
 
     @Provides
     @Singleton
-    DataHelper provideDataHelper(HttpHelper httpHelper) {
-        return new DataHelper(httpHelper);
+    IDBHelper provideRealmHelper(RealmHelper realmHelper) {
+        return realmHelper;
     }
+
+    @Provides
+    @Singleton
+    DataHelper provideDataHelper(IHttpHelper httpHelper, IDBHelper dbHelper) {
+        return new DataHelper(httpHelper, dbHelper);
+    }
+
 }

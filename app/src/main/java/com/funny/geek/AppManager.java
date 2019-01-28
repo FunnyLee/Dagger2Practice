@@ -32,8 +32,10 @@ public class AppManager extends Application {
         Realm.init(this);
         //配置数据库文件的名称和版本号
         RealmConfiguration config = new RealmConfiguration.Builder()
-                .name("favorite.realm")
+                .name("my.realm")
                 .schemaVersion(1)
+                //版本冲突时，删除原数据库
+                .deleteRealmIfMigrationNeeded()
                 .build();
         Realm.setDefaultConfiguration(config);
     }

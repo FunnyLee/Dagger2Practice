@@ -55,7 +55,7 @@ public class ZhihuMainFragment extends AllBaseFragment {
 
         FragmentAdapter adapter = new FragmentAdapter(getFragmentManager(), fragmentList, titleList);
         mViewPager.setAdapter(adapter);
-        mViewPager.setOffscreenPageLimit(4);
+//        mViewPager.setOffscreenPageLimit(4);
         mTabLayout.setupWithViewPager(mViewPager);
     }
 }

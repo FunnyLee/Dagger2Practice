@@ -12,7 +12,7 @@ import io.reactivex.Observable;
  * Time: 2018/10/19
  * Description: This is IHttpHelper
  */
-public interface HttpHelper {
+public interface IHttpHelper {
 
     Observable<DailyBean> fetchDailyListInfo();
 

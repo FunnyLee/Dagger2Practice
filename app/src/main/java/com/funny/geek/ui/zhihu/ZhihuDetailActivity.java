@@ -1,5 +1,6 @@
 package com.funny.geek.ui.zhihu;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.AppBarLayout;
@@ -18,8 +19,12 @@ import com.funny.geek.base.RootActivity;
 import com.funny.geek.contract.zhihu.ZhihuDetailContract;
 import com.funny.geek.model.bean.ZhihuDetailBean;
 import com.funny.geek.model.net.ImageHelper;
+import com.funny.geek.util.Constants;
 import com.funny.geek.util.HtmlUtil;
+import com.jakewharton.rxbinding2.view.RxView;
 import com.just.agentweb.AgentWebView;
+
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 
@@ -43,6 +48,8 @@ public class ZhihuDetailActivity extends RootActivity<ZhihuDetailPresenter> impl
     @BindView(R.id.agent_webview)
     AgentWebView mAgentWebView;
 
+    private ZhihuDetailBean mZhihuDetailBean;
+
 
     public static void start(Context context, int id) {
         Intent starter = new Intent(context, ZhihuDetailActivity.class);
@@ -65,6 +72,9 @@ public class ZhihuDetailActivity extends RootActivity<ZhihuDetailPresenter> impl
         int id = getIntent().getIntExtra("id", -1);
         if (id != -1) {
             mPresenter.doLoadData(id);
+
+            //查询是否是喜爱数据
+            mPresenter.queryFavorite(String.valueOf(id));
         }
     }
 
@@ -79,13 +89,13 @@ public class ZhihuDetailActivity extends RootActivity<ZhihuDetailPresenter> impl
         //设置WebView
         WebSettings settings = mAgentWebView.getSettings();
         settings.setJavaScriptEnabled(true);
-        mAgentWebView.setWebChromeClient(new WebChromeClient(){
+        mAgentWebView.setWebChromeClient(new WebChromeClient() {
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
                 super.onProgressChanged(view, newProgress);
             }
         });
-        mAgentWebView.setWebViewClient(new WebViewClient(){
+        mAgentWebView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 view.loadUrl(url);
@@ -94,8 +104,31 @@ public class ZhihuDetailActivity extends RootActivity<ZhihuDetailPresenter> impl
         });
     }
 
+    @SuppressLint("CheckResult")
+    @Override
+    protected void initEvent() {
+        RxView.clicks(mFab)
+                .throttleFirst(Constants.CLICK_INTERVAL, TimeUnit.SECONDS)
+                .subscribe(o -> {
+                    if (mZhihuDetailBean != null) {
+                        boolean selected = mFab.isSelected();
+                        if (selected) {
+                            //如果已选中，点击则删除喜爱
+                            mPresenter.deleteFavorite(String.valueOf(mZhihuDetailBean.id));
+                            mFab.setSelected(false);
+                        } else {
+                            //如果不选中，点击则添加喜爱
+                            mPresenter.addFavorite(mZhihuDetailBean);
+                            mFab.setSelected(true);
+                        }
+
+                    }
+                });
+    }
+
     @Override
     public void onShowContentView(ZhihuDetailBean zhihuDetailBean) {
+        mZhihuDetailBean = zhihuDetailBean;
         mCollapsingLayout.setTitle(zhihuDetailBean.title);
         ImageHelper.loadImage(this, zhihuDetailBean.image, mDetailBarIv);
         mCopyrightTv.setText(zhihuDetailBean.image_source);
@@ -104,6 +137,15 @@ public class ZhihuDetailActivity extends RootActivity<ZhihuDetailPresenter> impl
         String htmlData = HtmlUtil.createHtmlData(zhihuDetailBean.body, zhihuDetailBean.css, zhihuDetailBean.js);
 
         mAgentWebView.loadDataWithBaseURL(null, htmlData, "text/html", "UTF-8", null);
+    }
+
+    @Override
+    public void onShowFavoriteState(boolean state) {
+        if (state) {
+            mFab.setSelected(true);
+        } else {
+            mFab.setSelected(false);
+        }
     }
 
 }

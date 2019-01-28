@@ -20,12 +20,12 @@ public class RxPresenter<V extends IBaseView> implements IBasePresenter<V> {
 
     protected DataHelper mDataHelper;
 
-    protected LifecycleProvider mProvider;
+    protected LifecycleProvider mLifecycleProvider;
 
     @Inject
-    public RxPresenter(DataHelper dataHelper, LifecycleProvider provider) {
+    public RxPresenter(DataHelper dataHelper, LifecycleProvider lifecycleProvider) {
         mDataHelper = dataHelper;
-        mProvider = provider;
+        mLifecycleProvider = lifecycleProvider;
     }
 
     /**
@@ -39,7 +39,7 @@ public class RxPresenter<V extends IBaseView> implements IBasePresenter<V> {
     public <T> Observable<T> add(Observable<T> observable) {
         return observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .compose(mProvider.bindToLifecycle());
+                .compose(mLifecycleProvider.bindToLifecycle());
     }
 
     @Override
