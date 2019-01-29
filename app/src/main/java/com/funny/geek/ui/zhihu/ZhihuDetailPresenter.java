@@ -7,6 +7,7 @@ import com.funny.geek.contract.zhihu.ZhihuDetailContract;
 import com.funny.geek.model.bean.RealmFavoriteBean;
 import com.funny.geek.model.bean.ZhihuDetailBean;
 import com.funny.geek.model.net.DataHelper;
+import com.funny.geek.util.Constants;
 import com.trello.rxlifecycle2.LifecycleProvider;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 
@@ -45,7 +46,7 @@ public class ZhihuDetailPresenter extends RxPresenter<ZhihuDetailContract.View> 
         realmFavoriteBean.image = zhihuDetailBean.image;
         realmFavoriteBean.title = zhihuDetailBean.title;
         realmFavoriteBean.url = zhihuDetailBean.share_url;
-        realmFavoriteBean.type = zhihuDetailBean.type;
+        realmFavoriteBean.type = Constants.TYPE_ZHIHU;
         realmFavoriteBean.time = System.currentTimeMillis();
         mDataHelper.insertFavorite(realmFavoriteBean);
     }

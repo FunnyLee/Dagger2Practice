@@ -1,5 +1,7 @@
 package com.funny.geek.model.bean;
 
+import com.chad.library.adapter.base.entity.MultiItemEntity;
+
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
@@ -8,7 +10,7 @@ import io.realm.annotations.PrimaryKey;
  * Time: 2019/1/26
  * Description: This is RealmFavoriteBean
  */
-public class RealmFavoriteBean extends RealmObject {
+public class RealmFavoriteBean extends RealmObject implements MultiItemEntity {
 
     @PrimaryKey
     public String id;
@@ -23,4 +25,8 @@ public class RealmFavoriteBean extends RealmObject {
 
     public long time;
 
+    @Override
+    public int getItemType() {
+        return type;
+    }
 }

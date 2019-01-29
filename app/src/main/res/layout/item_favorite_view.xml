@@ -16,35 +16,44 @@
         app:cardElevation="@dimen/dp_2">
 
         <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="@dimen/dp_5">
+            android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/pic_iv"
-                android:layout_width="@dimen/dp_80"
-                android:layout_height="@dimen/dp_80"
-                android:src="@drawable/ic_launcher"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/dp_5">
+
+                <ImageView
+                    android:id="@+id/pic_iv"
+                    android:layout_width="@dimen/dp_80"
+                    android:layout_height="@dimen/dp_80"
+                    android:src="@drawable/ic_launcher"/>
+
+                <TextView
+                    android:id="@+id/title_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_8"
+                    android:layout_weight="1"
+                    android:text="AAAAAA"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/dp_16"/>
+
+            </LinearLayout>
 
             <TextView
-                android:id="@+id/title_tv"
-                android:layout_width="0dp"
+                android:layout_marginBottom="@dimen/dp_5"
+                android:id="@+id/from_tv"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_8"
-                android:layout_weight="1"
-                android:text="AAAAAA"
-                android:textColor="@android:color/black"
-                android:textSize="@dimen/dp_16"/>
+                android:layout_gravity="bottom"
+                android:layout_marginLeft="@dimen/dp_5"
+                android:text="AAAAAA"/>
 
         </LinearLayout>
-
-        <TextView
-            android:layout_marginLeft="@dimen/dp_5"
-            android:layout_gravity="bottom"
-            android:text="AAAAAA"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
 
     </android.support.v7.widget.CardView>
 
