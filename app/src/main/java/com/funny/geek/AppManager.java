@@ -26,6 +26,8 @@ public class AppManager extends Application {
 
         //初始化realm数据库
         initRealm();
+
+        initLoadSir();
     }
 
     private void initRealm() {
@@ -38,6 +40,13 @@ public class AppManager extends Application {
                 .deleteRealmIfMigrationNeeded()
                 .build();
         Realm.setDefaultConfiguration(config);
+    }
+
+    private void initLoadSir() {
+//        ProgressCallback loadingCallback = new ProgressCallback.Builder()
+//                .setTitle("Loading", R.style.Hint_Title)
+//                .build();
+//        LoadSir.beginBuilder().addCallback()
     }
 
     public static AppComponent getAppComponent() {

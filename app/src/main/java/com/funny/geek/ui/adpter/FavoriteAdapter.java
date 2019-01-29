@@ -51,6 +51,7 @@ public class FavoriteAdapter extends BaseQuickAdapter<RealmFavoriteBean, BaseVie
                 ImageHelper.loadImage(mContext, item.image, ivPic);
                 titleTv.setText(item.title);
                 fromTv.setText("来自知乎");
+
                 RxView.clicks(helper.itemView)
                         .throttleFirst(Constants.CLICK_INTERVAL, TimeUnit.SECONDS)
                         .subscribe(o -> {
