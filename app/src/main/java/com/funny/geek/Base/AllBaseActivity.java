@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.MenuItem;
 
-import com.trello.navi2.component.support.NaviAppCompatActivity;
 import com.trello.rxlifecycle2.LifecycleProvider;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.trello.rxlifecycle2.navi.NaviLifecycle;
@@ -16,7 +15,7 @@ import butterknife.ButterKnife;
  * Time: 2018/10/16
  * Description: This is 所有Activity的基类
  */
-public abstract class AllBaseActivity extends NaviAppCompatActivity {
+public abstract class AllBaseActivity extends EventBusActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

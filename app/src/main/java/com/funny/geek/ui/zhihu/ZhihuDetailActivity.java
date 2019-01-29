@@ -18,11 +18,14 @@ import com.funny.geek.R;
 import com.funny.geek.base.RootActivity;
 import com.funny.geek.contract.zhihu.ZhihuDetailContract;
 import com.funny.geek.model.bean.ZhihuDetailBean;
+import com.funny.geek.model.event.DeleteFavoriteEvent;
 import com.funny.geek.model.net.ImageHelper;
 import com.funny.geek.util.Constants;
 import com.funny.geek.util.HtmlUtil;
 import com.jakewharton.rxbinding2.view.RxView;
 import com.just.agentweb.AgentWebView;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.concurrent.TimeUnit;
 
@@ -49,6 +52,7 @@ public class ZhihuDetailActivity extends RootActivity<ZhihuDetailPresenter> impl
     AgentWebView mAgentWebView;
 
     private ZhihuDetailBean mZhihuDetailBean;
+    private boolean isSendMsg = false;
 
 
     public static void start(Context context, int id) {
@@ -116,6 +120,7 @@ public class ZhihuDetailActivity extends RootActivity<ZhihuDetailPresenter> impl
                             //如果已选中，点击则删除喜爱
                             mPresenter.deleteFavorite(String.valueOf(mZhihuDetailBean.id));
                             mFab.setSelected(false);
+                            isSendMsg = true;
                         } else {
                             //如果不选中，点击则添加喜爱
                             mPresenter.addFavorite(mZhihuDetailBean);
@@ -148,4 +153,11 @@ public class ZhihuDetailActivity extends RootActivity<ZhihuDetailPresenter> impl
         }
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (isSendMsg) {
+            EventBus.getDefault().post(new DeleteFavoriteEvent());
+        }
+    }
 }

@@ -1,16 +1,23 @@
 package com.funny.geek.ui.option;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.funny.geek.R;
+import com.funny.geek.base.BindEventBus;
 import com.funny.geek.base.RootFragment;
 import com.funny.geek.contract.option.FavoriteContract;
 import com.funny.geek.model.bean.RealmFavoriteBean;
+import com.funny.geek.model.event.DeleteFavoriteEvent;
 import com.funny.geek.presenter.option.FavoritePresenter;
 import com.funny.geek.ui.adpter.FavoriteAdapter;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +30,7 @@ import io.realm.RealmResults;
  * Time: 2019/1/28
  * Description: This is 收藏Fragment
  */
+@BindEventBus
 public class FavoriteFragment extends RootFragment<FavoritePresenter> implements FavoriteContract.View {
 
     @BindView(R.id.recycler_view)
@@ -49,8 +57,8 @@ public class FavoriteFragment extends RootFragment<FavoritePresenter> implements
     }
 
     @Override
-    protected void initData() {
-        mAdapter = new FavoriteAdapter(mContext, mDatas);
+    protected void initView(View view) {
+        mAdapter = new FavoriteAdapter(getActivity(), mDatas);
         mAdapter.setSpanSizeLookup(new BaseQuickAdapter.SpanSizeLookup() {
             @Override
             public int getSpanSize(GridLayoutManager gridLayoutManager, int position) {
@@ -58,6 +66,10 @@ public class FavoriteFragment extends RootFragment<FavoritePresenter> implements
             }
         });
         mRecyclerView.setAdapter(mAdapter);
+    }
+
+    @Override
+    protected void initData() {
         mPresenter.doLoadData();
     }
 
@@ -66,5 +78,11 @@ public class FavoriteFragment extends RootFragment<FavoritePresenter> implements
         mDatas.clear();
         mDatas.addAll(results);
         mAdapter.setNewData(mDatas);
+    }
+
+    @SuppressLint("CheckResult")
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onDeleteFavorite(DeleteFavoriteEvent event) {
+        initData();
     }
 }

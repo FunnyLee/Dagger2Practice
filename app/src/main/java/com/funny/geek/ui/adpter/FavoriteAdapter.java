@@ -11,9 +11,12 @@ import com.chad.library.adapter.base.util.MultiTypeDelegate;
 import com.funny.geek.R;
 import com.funny.geek.model.bean.RealmFavoriteBean;
 import com.funny.geek.model.net.ImageHelper;
+import com.funny.geek.ui.zhihu.ZhihuDetailActivity;
 import com.funny.geek.util.Constants;
+import com.jakewharton.rxbinding2.view.RxView;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Author: Funny
@@ -24,9 +27,9 @@ public class FavoriteAdapter extends BaseQuickAdapter<RealmFavoriteBean, BaseVie
 
     private Context mContext;
 
-    public FavoriteAdapter(Context context,@Nullable List<RealmFavoriteBean> data) {
+    public FavoriteAdapter(Context context, @Nullable List<RealmFavoriteBean> data) {
         super(data);
-        this.mContext =context;
+        this.mContext = context;
 
         setMultiTypeDelegate(new MultiTypeDelegate<RealmFavoriteBean>() {
             @Override
@@ -40,14 +43,20 @@ public class FavoriteAdapter extends BaseQuickAdapter<RealmFavoriteBean, BaseVie
 
     @Override
     protected void convert(BaseViewHolder helper, RealmFavoriteBean item) {
-        switch (item.type){
+        switch (item.type) {
             case Constants.TYPE_ZHIHU:
                 ImageView ivPic = helper.getView(R.id.pic_iv);
                 TextView titleTv = helper.getView(R.id.title_tv);
                 TextView fromTv = helper.getView(R.id.from_tv);
-                ImageHelper.loadImage(mContext,item.image,ivPic);
+                ImageHelper.loadImage(mContext, item.image, ivPic);
                 titleTv.setText(item.title);
                 fromTv.setText("来自知乎");
+                RxView.clicks(helper.itemView)
+                        .throttleFirst(Constants.CLICK_INTERVAL, TimeUnit.SECONDS)
+                        .subscribe(o -> {
+                            ZhihuDetailActivity.start(mContext, Integer.parseInt(item.id));
+                        });
+
                 break;
             default:
                 break;

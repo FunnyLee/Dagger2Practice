@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.trello.navi2.component.support.NaviFragment;
 import com.trello.rxlifecycle2.LifecycleProvider;
 import com.trello.rxlifecycle2.android.FragmentEvent;
 import com.trello.rxlifecycle2.navi.NaviLifecycle;
@@ -21,7 +20,7 @@ import butterknife.Unbinder;
  * Time: 2018/10/16
  * Description: This is 所有Fragment的基类
  */
-public abstract class AllBaseFragment extends NaviFragment {
+public abstract class AllBaseFragment extends EventBusFragment {
 
     protected Context mContext;
     private Unbinder mUnbinder;
@@ -48,8 +47,8 @@ public abstract class AllBaseFragment extends NaviFragment {
         //因为这三个方法中，可能会用到presenter对象
         //所以需要控制一定要在initInject方法后执行
         //initInject方法在BaseFragment中的onCreateView方法中执行，比这里onActivityCreated要先执行
-        initData();
         initView(mView);
+        initData();
         initEvent();
     }
 

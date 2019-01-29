@@ -130,7 +130,6 @@ public class MainActivity extends AllBaseActivity {
     private void switchFragment(Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.frame_layout, fragment);
-        transaction.addToBackStack(null);
         transaction.commit();
     }
 
