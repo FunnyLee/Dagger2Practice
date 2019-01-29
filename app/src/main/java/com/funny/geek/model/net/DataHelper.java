@@ -8,6 +8,7 @@ import com.funny.geek.model.bean.ZhihuDetailBean;
 import com.funny.geek.model.database.IDBHelper;
 
 import io.reactivex.Observable;
+import io.realm.RealmResults;
 
 /**
  * Author: Funny
@@ -63,6 +64,11 @@ public class DataHelper implements IHttpHelper, IDBHelper {
     @Override
     public RealmFavoriteBean queryFavorite(String id) {
         return mIDBHelper.queryFavorite(id);
+    }
+
+    @Override
+    public RealmResults<RealmFavoriteBean> queryAllFavorite() {
+        return mIDBHelper.queryAllFavorite();
     }
 
     @Override

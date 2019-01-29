@@ -2,6 +2,9 @@ package com.funny.geek.contract.option;
 
 import com.funny.geek.base.IBasePresenter;
 import com.funny.geek.base.IBaseView;
+import com.funny.geek.model.bean.RealmFavoriteBean;
+
+import io.realm.RealmResults;
 
 /**
  * Author: Funny
@@ -11,7 +14,7 @@ import com.funny.geek.base.IBaseView;
 public interface FavoriteContract {
 
     interface View extends IBaseView {
-        void onShowContentView();
+        void onShowContentView(RealmResults<RealmFavoriteBean> results);
     }
 
     interface Presenter extends IBasePresenter<View> {

@@ -33,9 +33,9 @@ public class RealmHelper implements IDBHelper {
     }
 
     @Override
-    public void queryAllFavorite() {
+    public RealmResults<RealmFavoriteBean> queryAllFavorite() {
         RealmResults<RealmFavoriteBean> allResult = mRealm.where(RealmFavoriteBean.class).findAll();
-        // TODO: 2019/1/28 从数据库中查询数据
+        return allResult;
     }
 
     @Override

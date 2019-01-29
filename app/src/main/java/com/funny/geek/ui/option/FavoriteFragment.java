@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import io.realm.RealmResults;
 
 /**
  * Author: Funny
@@ -57,7 +58,7 @@ public class FavoriteFragment extends RootFragment<FavoritePresenter> implements
     }
 
     @Override
-    public void onShowContentView() {
+    public void onShowContentView(RealmResults<RealmFavoriteBean> results) {
 
     }
 }

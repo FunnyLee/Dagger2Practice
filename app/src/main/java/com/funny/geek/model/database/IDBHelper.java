@@ -2,6 +2,8 @@ package com.funny.geek.model.database;
 
 import com.funny.geek.model.bean.RealmFavoriteBean;
 
+import io.realm.RealmResults;
+
 /**
  * Author: Funny
  * Time: 2019/1/28
@@ -24,7 +26,7 @@ public interface IDBHelper {
     /**
      * 查询所有喜爱数据
      */
-    void queryAllFavorite();
+    RealmResults<RealmFavoriteBean> queryAllFavorite();
 
 
     /**
