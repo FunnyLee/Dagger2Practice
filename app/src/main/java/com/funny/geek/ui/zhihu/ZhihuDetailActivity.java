@@ -22,8 +22,11 @@ import com.funny.geek.model.event.DeleteFavoriteEvent;
 import com.funny.geek.model.net.ImageHelper;
 import com.funny.geek.util.Constants;
 import com.funny.geek.util.HtmlUtil;
+import com.funny.geek.widget.LoadingCallback;
 import com.jakewharton.rxbinding2.view.RxView;
 import com.just.agentweb.AgentWebView;
+import com.kingja.loadsir.core.LoadService;
+import com.kingja.loadsir.core.LoadSir;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -53,6 +56,7 @@ public class ZhihuDetailActivity extends RootActivity<ZhihuDetailPresenter> impl
 
     private ZhihuDetailBean mZhihuDetailBean;
     private boolean isSendMsg = false;
+    private LoadService mLoadService;
 
 
     public static void start(Context context, int id) {
@@ -69,17 +73,6 @@ public class ZhihuDetailActivity extends RootActivity<ZhihuDetailPresenter> impl
     @Override
     protected void initInject() {
         getActivityComponent().inject(ZhihuDetailActivity.this);
-    }
-
-    @Override
-    protected void initData() {
-        int id = getIntent().getIntExtra("id", -1);
-        if (id != -1) {
-            mPresenter.doLoadData(id);
-
-            //查询是否是喜爱数据
-            mPresenter.queryFavorite(String.valueOf(id));
-        }
     }
 
     @Override
@@ -106,6 +99,20 @@ public class ZhihuDetailActivity extends RootActivity<ZhihuDetailPresenter> impl
                 return true;
             }
         });
+
+        mLoadService = LoadSir.getDefault().register(this);
+        mLoadService.showCallback(LoadingCallback.class);
+    }
+
+    @Override
+    protected void initData() {
+        int id = getIntent().getIntExtra("id", -1);
+        if (id != -1) {
+            mPresenter.doLoadData(id);
+
+            //查询是否是喜爱数据
+            mPresenter.queryFavorite(String.valueOf(id));
+        }
     }
 
     @SuppressLint("CheckResult")
@@ -133,6 +140,7 @@ public class ZhihuDetailActivity extends RootActivity<ZhihuDetailPresenter> impl
 
     @Override
     public void onShowContentView(ZhihuDetailBean zhihuDetailBean) {
+        mLoadService.showSuccess();
         mZhihuDetailBean = zhihuDetailBean;
         mCollapsingLayout.setTitle(zhihuDetailBean.title);
         ImageHelper.loadImage(this, zhihuDetailBean.image, mDetailBarIv);

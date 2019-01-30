@@ -1,7 +1,9 @@
 package com.funny.geek.presenter.zhihu;
 
 import android.annotation.SuppressLint;
+import android.widget.Toast;
 
+import com.funny.geek.AppManager;
 import com.funny.geek.base.RxPresenter;
 import com.funny.geek.contract.zhihu.DailyContract;
 import com.funny.geek.model.bean.DailyBean;
@@ -36,6 +38,11 @@ public class DailyPresenter extends RxPresenter<DailyContract.View> implements D
                     public void accept(DailyBean dailyListBean) throws Exception {
                         mView.onShowContentView(dailyListBean);
                     }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        Toast.makeText(AppManager.mAppManagerContext, "网络错误", Toast.LENGTH_SHORT).show();
+                    }
                 });
     }
 
@@ -61,6 +68,11 @@ public class DailyPresenter extends RxPresenter<DailyContract.View> implements D
                     @Override
                     public void accept(DailyBean dailyBean) throws Exception {
                         mView.onShowContentView(dailyBean);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        Toast.makeText(AppManager.mAppManagerContext, "网络错误", Toast.LENGTH_SHORT).show();
                     }
                 });
     }

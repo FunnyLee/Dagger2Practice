@@ -6,6 +6,9 @@ import com.funny.geek.di.component.AppComponent;
 import com.funny.geek.di.component.DaggerAppComponent;
 import com.funny.geek.di.module.AppModule;
 import com.funny.geek.di.module.HttpModule;
+import com.funny.geek.widget.LoadingCallback;
+import com.funny.geek.widget.NetErrorCallback;
+import com.kingja.loadsir.core.LoadSir;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
@@ -43,10 +46,10 @@ public class AppManager extends Application {
     }
 
     private void initLoadSir() {
-//        ProgressCallback loadingCallback = new ProgressCallback.Builder()
-//                .setTitle("Loading", R.style.Hint_Title)
-//                .build();
-//        LoadSir.beginBuilder().addCallback()
+        LoadSir.beginBuilder()
+                .addCallback(new LoadingCallback())
+                .addCallback(new NetErrorCallback())
+                .commit();
     }
 
     public static AppComponent getAppComponent() {
