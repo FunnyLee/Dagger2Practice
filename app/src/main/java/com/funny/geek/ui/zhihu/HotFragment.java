@@ -6,7 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.funny.geek.R;
-import com.funny.geek.base.RootFragment;
+import com.funny.geek.base.BaseMvpFragment;
 import com.funny.geek.contract.zhihu.HotContract;
 import com.funny.geek.model.bean.HotBean;
 import com.funny.geek.presenter.zhihu.HotPresenter;
@@ -22,7 +22,7 @@ import butterknife.BindView;
  * Time: 2018/10/17
  * Description: This is HotFragment
  */
-public class HotFragment extends RootFragment<HotPresenter> implements HotContract.View {
+public class HotFragment extends BaseMvpFragment<HotPresenter> implements HotContract.View {
 
     @BindView(R.id.recycler_view)
     RecyclerView mRecyclerView;

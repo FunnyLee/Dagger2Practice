@@ -1,62 +1,55 @@
 package com.funny.geek.base;
 
-import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
-import android.view.LayoutInflater;
+import android.content.Context;
 import android.view.View;
-import android.view.ViewGroup;
 
-import com.funny.geek.AppManager;
-import com.funny.geek.di.component.DaggerFragmentComponent;
-import com.funny.geek.di.component.FragmentComponent;
-import com.funny.geek.di.module.FragmentModule;
-
-import javax.inject.Inject;
+import com.trello.rxlifecycle2.LifecycleProvider;
+import com.trello.rxlifecycle2.android.FragmentEvent;
+import com.trello.rxlifecycle2.navi.NaviLifecycle;
 
 /**
  * Author: Funny
- * Time: 2018/10/17
- * Description: This is MVP的BaseFragment
+ * Time: 2018/10/16
+ * Description: This is 所有Fragment的基类
  */
-public abstract class BaseFragment<T extends IBasePresenter> extends AllBaseFragment implements IBaseView {
+public abstract class BaseFragment extends StatusFragment {
 
-    @Inject
-    protected T mPresenter;
+    protected Context mContext;
 
-    protected FragmentComponent getFragmentComponent() {
-        FragmentComponent fragmentComponent = DaggerFragmentComponent.builder()
-                //表示dependencies
-                .appComponent(AppManager.getAppComponent())
-                //表示modules
-                .fragmentModule(new FragmentModule(this))
-                .build();
-
-        return fragmentComponent;
-    }
-
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        initInject();
-        mPresenter.attachView(this);
-        return super.onCreateView(inflater, container, savedInstanceState);
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.mContext = context;
     }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        if (mPresenter != null) {
-            mPresenter.detachView();
-        }
+    protected void initRootView(View view) {
+        initMvpDagger();
+        //因为这三个方法中，可能会用到presenter对象
+        //所以需要控制一定要在initInject方法后执行
+        initView(view);
+        initData();
+        initEvent();
     }
 
-    @Override
-    public void onShowErrorMsg(String msg) {
-        //统一处理toast错误信息，使用snackbar
-        Snackbar.make(((ViewGroup) getActivity().findViewById(android.R.id.content)).getChildAt(0), msg, Snackbar.LENGTH_SHORT).show();
+    public LifecycleProvider<FragmentEvent> autoRxLifeCycle() {
+        //返回Rxlifecycler的provider对象
+        return NaviLifecycle.createFragmentLifecycleProvider(this);
     }
 
-    protected abstract void initInject();
+    protected abstract int getLayoutId();
+
+    protected void initMvpDagger() {
+    }
+
+    protected void initData() {
+    }
+
+    protected void initView(View view) {
+    }
+
+    protected void initEvent() {
+    }
+
+
 }

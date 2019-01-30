@@ -15,7 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.funny.geek.R;
-import com.funny.geek.base.RootFragment;
+import com.funny.geek.base.BaseMvpFragment;
 import com.funny.geek.contract.zhihu.DailyContract;
 import com.funny.geek.model.bean.DailyBean;
 import com.funny.geek.model.net.ImageHelper;
@@ -39,7 +39,7 @@ import io.reactivex.Observable;
  * Time: 2018/10/17
  * Description: This is DailyFragment
  */
-public class DailyFragment extends RootFragment<DailyPresenter> implements DailyContract.View {
+public class DailyFragment extends BaseMvpFragment<DailyPresenter> implements DailyContract.View {
 
     @BindView(R.id.recycler_view)
     RecyclerView mRecyclerView;

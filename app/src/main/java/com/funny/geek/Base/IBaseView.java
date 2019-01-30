@@ -12,12 +12,12 @@ public interface IBaseView {
     /**
      * 页面加载数据的各种状态
      */
-    void onStateError();
+    void onStatusNetError();
 
-    void onStateEmpty();
+    void onStatusEmpty();
 
-    void onStateSuccess();
+    void onStatusSuccess();
 
-    void onStateLoading();
+    void onStatusLoading();
 
 }

@@ -7,7 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.funny.geek.R;
-import com.funny.geek.base.RootFragment;
+import com.funny.geek.base.BaseMvpFragment;
 import com.funny.geek.contract.zhihu.SpecialContract;
 import com.funny.geek.model.bean.SectionListBean;
 import com.funny.geek.presenter.zhihu.SpecialPresenter;
@@ -23,7 +23,7 @@ import butterknife.BindView;
  * Time: 2018/10/17
  * Description: This is 专栏 Fragment
  */
-public class SpecialFragment extends RootFragment<SpecialPresenter> implements SpecialContract.View {
+public class SpecialFragment extends BaseMvpFragment<SpecialPresenter> implements SpecialContract.View {
 
     @BindView(R.id.recycler_view)
     RecyclerView mRecyclerView;

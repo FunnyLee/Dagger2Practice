@@ -15,11 +15,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.funny.geek.R;
-import com.funny.geek.base.RootActivity;
+import com.funny.geek.base.BaseMvpActivity;
 import com.funny.geek.contract.zhihu.ZhihuDetailContract;
 import com.funny.geek.model.bean.ZhihuDetailBean;
 import com.funny.geek.model.event.DeleteFavoriteEvent;
 import com.funny.geek.model.net.ImageHelper;
+import com.funny.geek.presenter.zhihu.ZhihuDetailPresenter;
 import com.funny.geek.util.Constants;
 import com.funny.geek.util.HtmlUtil;
 import com.funny.geek.widget.LoadingCallback;
@@ -37,7 +38,7 @@ import butterknife.BindView;
 /**
  * 详情页面
  */
-public class ZhihuDetailActivity extends RootActivity<ZhihuDetailPresenter> implements ZhihuDetailContract.View {
+public class ZhihuDetailActivity extends BaseMvpActivity<ZhihuDetailPresenter> implements ZhihuDetailContract.View {
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;

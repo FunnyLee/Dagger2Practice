@@ -6,7 +6,7 @@ import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
 import com.funny.geek.R;
-import com.funny.geek.base.RootActivity;
+import com.funny.geek.base.BaseMvpActivity;
 import com.funny.geek.contract.zhihu.SelectDateContract;
 import com.funny.geek.presenter.zhihu.SelectDatePresenter;
 import com.funny.geek.util.Constants;
@@ -22,7 +22,7 @@ import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 
-public class SelectDateActivity extends RootActivity<SelectDatePresenter> implements SelectDateContract.View {
+public class SelectDateActivity extends BaseMvpActivity<SelectDatePresenter> implements SelectDateContract.View {
 
     @BindView(R.id.tool_bar)
     Toolbar mToolBar;

@@ -1,50 +1,59 @@
 package com.funny.geek.base;
 
-import com.funny.geek.AppManager;
-import com.funny.geek.di.component.ActivityComponent;
-import com.funny.geek.di.component.DaggerActivityComponent;
-import com.funny.geek.di.module.ActivityModule;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.view.MenuItem;
 
-import javax.inject.Inject;
+import com.trello.rxlifecycle2.LifecycleProvider;
+import com.trello.rxlifecycle2.android.ActivityEvent;
+import com.trello.rxlifecycle2.navi.NaviLifecycle;
 
 /**
  * Author: Funny
- * Time: 2019/1/18
- * Description: This is Mvp Activity的基类
+ * Time: 2018/10/16
+ * Description: This is 所有Activity的基类
  */
-public abstract class BaseActivity<P extends IBasePresenter> extends AllBaseActivity implements IBaseView {
-
-    @Inject
-    protected P mPresenter;
-
-    protected ActivityComponent getActivityComponent() {
-        ActivityComponent activityComponent = DaggerActivityComponent.builder()
-                .appComponent(AppManager.getAppComponent())
-                .activityModule(new ActivityModule(this))
-                .build();
-        return activityComponent;
-    }
+public abstract class BaseActivity extends StatusActivity {
 
     @Override
-    protected void onViewCreated() {
-        initInject();
-        if (mPresenter != null) {
-            mPresenter.attachView(this);
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        //在这个方法里面执行inject注入操作
+        //保证要在initView、initData、initEvent之前，因为这三个方法里可能会用到mPresenter对象
+        initMvpDagger();
+        initView();
+        initData();
+        initEvent();
+    }
+
+    /**
+     * 自动管理Rxjava生命周期
+     *
+     * @return
+     */
+    protected LifecycleProvider<ActivityEvent> autoRxLifeCycle() {
+        LifecycleProvider<ActivityEvent> activityLifecycleProvider = NaviLifecycle.createActivityLifecycleProvider(this);
+        return activityLifecycleProvider;
+    }
+
+    protected void initMvpDagger() {
+    }
+
+    protected void initView() {
+    }
+
+    protected void initData() {
+    }
+
+    protected void initEvent() {
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
         }
+        return true;
     }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (mPresenter != null) {
-            mPresenter.detachView();
-        }
-    }
-
-    @Override
-    public void onShowErrorMsg(String msg) {
-        // TODO: 2019/1/18  
-    }
-
-    protected abstract void initInject();
 }

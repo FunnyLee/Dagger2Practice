@@ -2,7 +2,7 @@ package com.funny.geek.di.module;
 
 import android.app.Activity;
 
-import com.funny.geek.base.AllBaseActivity;
+import com.funny.geek.base.BaseActivity;
 import com.funny.geek.di.scope.ActivityScope;
 import com.trello.rxlifecycle2.LifecycleProvider;
 import com.trello.rxlifecycle2.android.ActivityEvent;
@@ -19,9 +19,9 @@ import dagger.Provides;
 @Module
 public class ActivityModule {
 
-    private AllBaseActivity mActivity;
+    private BaseActivity mActivity;
 
-    public ActivityModule(AllBaseActivity activity) {
+    public ActivityModule(BaseActivity activity) {
         this.mActivity = activity;
     }
 

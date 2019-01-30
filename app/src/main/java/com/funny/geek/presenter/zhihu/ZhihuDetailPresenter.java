@@ -1,4 +1,4 @@
-package com.funny.geek.ui.zhihu;
+package com.funny.geek.presenter.zhihu;
 
 import android.annotation.SuppressLint;
 

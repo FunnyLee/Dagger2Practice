@@ -8,8 +8,8 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.funny.geek.R;
+import com.funny.geek.base.BaseMvpFragment;
 import com.funny.geek.base.BindEventBus;
-import com.funny.geek.base.RootFragment;
 import com.funny.geek.contract.option.FavoriteContract;
 import com.funny.geek.model.bean.RealmFavoriteBean;
 import com.funny.geek.model.event.DeleteFavoriteEvent;
@@ -31,7 +31,7 @@ import io.realm.RealmResults;
  * Description: This is 收藏Fragment
  */
 @BindEventBus
-public class FavoriteFragment extends RootFragment<FavoritePresenter> implements FavoriteContract.View {
+public class FavoriteFragment extends BaseMvpFragment<FavoritePresenter> implements FavoriteContract.View {
 
     @BindView(R.id.recycler_view)
     RecyclerView mRecyclerView;

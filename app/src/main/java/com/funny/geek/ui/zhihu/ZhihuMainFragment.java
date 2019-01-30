@@ -7,7 +7,7 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 
 import com.funny.geek.R;
-import com.funny.geek.base.AllBaseFragment;
+import com.funny.geek.base.BaseFragment;
 import com.funny.geek.ui.adpter.FragmentAdapter;
 
 import java.util.ArrayList;
@@ -20,7 +20,7 @@ import butterknife.BindView;
  * Time: 2018/10/16
  * Description: This is ZhihuMainFragment
  */
-public class ZhihuMainFragment extends AllBaseFragment {
+public class ZhihuMainFragment extends BaseFragment {
 
     @BindView(R.id.tab_layout)
     TabLayout mTabLayout;
