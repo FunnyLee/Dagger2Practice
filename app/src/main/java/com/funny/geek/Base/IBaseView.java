@@ -7,7 +7,7 @@ package com.funny.geek.base;
  */
 public interface IBaseView {
 
-    void onShowErrorMsg(String msg);
+    void toastErrorMsg(String msg);
 
     /**
      * 页面加载数据的各种状态

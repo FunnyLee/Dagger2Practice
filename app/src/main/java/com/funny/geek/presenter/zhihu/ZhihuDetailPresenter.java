@@ -13,8 +13,6 @@ import com.trello.rxlifecycle2.android.ActivityEvent;
 
 import javax.inject.Inject;
 
-import io.reactivex.functions.Consumer;
-
 /**
  * Author: Funny
  * Time: 2019/1/18
@@ -31,12 +29,7 @@ public class ZhihuDetailPresenter extends RxPresenter<ZhihuDetailContract.View> 
     @Override
     public void doLoadData(int id) {
         add(mDataHelper.fetchDetailInfo(id))
-                .subscribe(new Consumer<ZhihuDetailBean>() {
-                    @Override
-                    public void accept(ZhihuDetailBean zhihuDetailBean) throws Exception {
-                        mView.onShowContentView(zhihuDetailBean);
-                    }
-                });
+                .subscribe(zhihuDetailBean -> mView.onShowContentView(zhihuDetailBean), throwable -> mView.onShowErrorView());
     }
 
     @Override

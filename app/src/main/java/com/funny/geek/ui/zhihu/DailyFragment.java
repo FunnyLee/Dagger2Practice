@@ -86,11 +86,11 @@ public class DailyFragment extends BaseMvpFragment<DailyPresenter> implements Da
         mBanner = headerView.findViewById(R.id.banner);
         mTvData = headerView.findViewById(R.id.tv_date);
         mRecyclerView.setAdapter(mAdapter);
-
     }
 
     @Override
     protected void initData() {
+        onStatusLoading();
         mPresenter.doLoadData();
     }
 
@@ -115,6 +115,8 @@ public class DailyFragment extends BaseMvpFragment<DailyPresenter> implements Da
     @SuppressLint("CheckResult")
     @Override
     public void onShowContentView(DailyBean dailyListBean) {
+        onStatusSuccess();
+        mRefreshLayout.setEnabled(true);
         if (mRefreshLayout.isRefreshing()) {
             mRefreshLayout.setRefreshing(false);
         }
@@ -150,6 +152,21 @@ public class DailyFragment extends BaseMvpFragment<DailyPresenter> implements Da
         mDatas.addAll(dailyListBean.stories);
         mAdapter.setNewData(mDatas);
         mRecyclerView.smoothScrollToPosition(0);
+    }
+
+    @Override
+    public void onShowErrorView() {
+        onStatusNetError();
+        toastErrorMsg(getString(R.string.net_error));
+        if (mRefreshLayout.isRefreshing()) {
+            mRefreshLayout.setRefreshing(false);
+        }
+        mRefreshLayout.setEnabled(false);
+    }
+
+    @Override
+    protected void doReload() {
+        initData();
     }
 
     @Override

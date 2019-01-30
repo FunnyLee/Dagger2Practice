@@ -36,7 +36,7 @@ public class HotPresenter extends RxPresenter<HotContract.View> implements HotCo
         }, new Consumer<Throwable>() {
             @Override
             public void accept(Throwable throwable) throws Exception {
-                // TODO: 2019/1/17 处理失败页面
+                mView.onShowErrorView();
             }
         });
     }

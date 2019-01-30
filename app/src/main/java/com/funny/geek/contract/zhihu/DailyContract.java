@@ -15,6 +15,8 @@ public interface DailyContract {
 
         void onShowContentView(DailyBean dailyListBean);
 
+        void onShowErrorView();
+
     }
 
     interface Presenter extends IBasePresenter<View> {

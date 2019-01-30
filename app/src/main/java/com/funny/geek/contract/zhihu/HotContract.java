@@ -15,10 +15,7 @@ public interface HotContract {
 
         void onShowContentView(HotBean hotBean);
 
-        /**
-         * 下拉刷新
-         */
-        void onPullDownRefresh();
+        void onShowErrorView();
 
     }
 

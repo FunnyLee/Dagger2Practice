@@ -51,15 +51,16 @@ public class SpecialFragment extends BaseMvpFragment<SpecialPresenter> implement
     }
 
     @Override
-    protected void initData() {
-        mPresenter.doLoadData();
-    }
-
-    @Override
     protected void initView(View view) {
         mAdapter = new SpecialAdapter(mContext, R.layout.item_special_content_view, mDatas);
         mRecyclerView.setLayoutManager(new GridLayoutManager(mContext, 2));
         mRecyclerView.setAdapter(mAdapter);
+    }
+
+    @Override
+    protected void initData() {
+        onStatusLoading();
+        mPresenter.doLoadData();
     }
 
     @Override
@@ -74,12 +75,28 @@ public class SpecialFragment extends BaseMvpFragment<SpecialPresenter> implement
 
     @Override
     public void onShowContentView(SectionListBean sectionListBean) {
+        onStatusSuccess();
         if(mSwipeRefresh.isRefreshing()){
             mSwipeRefresh.setRefreshing(false);
         }
+        mSwipeRefresh.setEnabled(true);
         mDatas.clear();
         mDatas.addAll(sectionListBean.data);
         mAdapter.setNewData(mDatas);
     }
 
+    @Override
+    public void onShowErrorView() {
+        onStatusNetError();
+        toastErrorMsg(getString(R.string.net_error));
+        if(mSwipeRefresh.isRefreshing()){
+            mSwipeRefresh.setRefreshing(false);
+        }
+        mSwipeRefresh.setEnabled(false);
+    }
+
+    @Override
+    protected void doReload() {
+        initData();
+    }
 }

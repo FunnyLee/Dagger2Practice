@@ -8,6 +8,7 @@ import com.funny.geek.di.module.AppModule;
 import com.funny.geek.di.module.HttpModule;
 import com.funny.geek.widget.LoadingCallback;
 import com.funny.geek.widget.NetErrorCallback;
+import com.kingja.loadsir.callback.SuccessCallback;
 import com.kingja.loadsir.core.LoadSir;
 
 import io.realm.Realm;
@@ -49,6 +50,7 @@ public class AppManager extends Application {
         LoadSir.beginBuilder()
                 .addCallback(new LoadingCallback())
                 .addCallback(new NetErrorCallback())
+                .setDefaultCallback(SuccessCallback.class)
                 .commit();
     }
 

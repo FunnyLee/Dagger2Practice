@@ -34,6 +34,11 @@ public class SpecialPresenter extends RxPresenter<SpecialContract.View> implemen
                    public void accept(SectionListBean sectionListBean) throws Exception {
                        mView.onShowContentView(sectionListBean);
                    }
+               }, new Consumer<Throwable>() {
+                   @Override
+                   public void accept(Throwable throwable) throws Exception {
+                       mView.onShowErrorView();
+                   }
                });
     }
 }

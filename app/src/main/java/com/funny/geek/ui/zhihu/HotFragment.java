@@ -51,6 +51,7 @@ public class HotFragment extends BaseMvpFragment<HotPresenter> implements HotCon
 
     @Override
     protected void initData() {
+        onStatusLoading();
         mPresenter.doLoadData();
     }
 
@@ -65,13 +66,15 @@ public class HotFragment extends BaseMvpFragment<HotPresenter> implements HotCon
         mSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                onPullDownRefresh();
+                mPresenter.doLoadData();
             }
         });
     }
 
     @Override
     public void onShowContentView(HotBean hotBean) {
+        onStatusSuccess();
+        mSwipeRefresh.setEnabled(true);
         if (mSwipeRefresh.isRefreshing()) {
             mSwipeRefresh.setRefreshing(false);
         }
@@ -81,7 +84,17 @@ public class HotFragment extends BaseMvpFragment<HotPresenter> implements HotCon
     }
 
     @Override
-    public void onPullDownRefresh() {
-        mPresenter.doLoadData();
+    public void onShowErrorView() {
+        onStatusNetError();
+        toastErrorMsg(getString(R.string.net_error));
+        mSwipeRefresh.setEnabled(false);
+        if (mSwipeRefresh.isRefreshing()) {
+            mSwipeRefresh.setRefreshing(false);
+        }
+    }
+
+    @Override
+    protected void doReload() {
+        initData();
     }
 }

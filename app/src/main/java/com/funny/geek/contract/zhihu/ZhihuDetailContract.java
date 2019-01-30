@@ -15,6 +15,8 @@ public interface ZhihuDetailContract {
 
         void onShowContentView(ZhihuDetailBean zhihuDetailBean);
 
+        void onShowErrorView();
+
         void onShowFavoriteState(boolean state);
     }
 

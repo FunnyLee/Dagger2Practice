@@ -7,6 +7,7 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -24,6 +25,7 @@ import com.funny.geek.presenter.zhihu.ZhihuDetailPresenter;
 import com.funny.geek.util.Constants;
 import com.funny.geek.util.HtmlUtil;
 import com.funny.geek.widget.LoadingCallback;
+import com.funny.geek.widget.NetErrorCallback;
 import com.jakewharton.rxbinding2.view.RxView;
 import com.just.agentweb.AgentWebView;
 import com.kingja.loadsir.core.LoadService;
@@ -54,11 +56,12 @@ public class ZhihuDetailActivity extends BaseMvpActivity<ZhihuDetailPresenter> i
     TextView mCopyrightTv;
     @BindView(R.id.agent_webview)
     AgentWebView mAgentWebView;
+    @BindView(R.id.content_view)
+    View mContentView;
 
     private ZhihuDetailBean mZhihuDetailBean;
     private boolean isSendMsg = false;
-    private LoadService mLoadService;
-
+    private LoadService mStatusView;
 
     public static void start(Context context, int id) {
         Intent starter = new Intent(context, ZhihuDetailActivity.class);
@@ -101,14 +104,14 @@ public class ZhihuDetailActivity extends BaseMvpActivity<ZhihuDetailPresenter> i
             }
         });
 
-        mLoadService = LoadSir.getDefault().register(this);
-        mLoadService.showCallback(LoadingCallback.class);
+        mStatusView = LoadSir.getDefault().register(mContentView, v -> initData());
     }
 
     @Override
     protected void initData() {
         int id = getIntent().getIntExtra("id", -1);
         if (id != -1) {
+            mStatusView.showCallback(LoadingCallback.class);
             mPresenter.doLoadData(id);
 
             //查询是否是喜爱数据
@@ -141,7 +144,7 @@ public class ZhihuDetailActivity extends BaseMvpActivity<ZhihuDetailPresenter> i
 
     @Override
     public void onShowContentView(ZhihuDetailBean zhihuDetailBean) {
-        mLoadService.showSuccess();
+        mStatusView.showSuccess();
         mZhihuDetailBean = zhihuDetailBean;
         mCollapsingLayout.setTitle(zhihuDetailBean.title);
         ImageHelper.loadImage(this, zhihuDetailBean.image, mDetailBarIv);
@@ -151,6 +154,12 @@ public class ZhihuDetailActivity extends BaseMvpActivity<ZhihuDetailPresenter> i
         String htmlData = HtmlUtil.createHtmlData(zhihuDetailBean.body, zhihuDetailBean.css, zhihuDetailBean.js);
 
         mAgentWebView.loadDataWithBaseURL(null, htmlData, "text/html", "UTF-8", null);
+    }
+
+    @Override
+    public void onShowErrorView() {
+        mStatusView.showCallback(NetErrorCallback.class);
+        toastErrorMsg(getString(R.string.net_error));
     }
 
     @Override

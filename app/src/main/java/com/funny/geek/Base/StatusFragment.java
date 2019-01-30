@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import com.funny.geek.widget.EmptyCallback;
 import com.funny.geek.widget.LoadingCallback;
 import com.funny.geek.widget.NetErrorCallback;
+import com.kingja.loadsir.callback.Callback;
 import com.kingja.loadsir.core.LoadService;
 import com.kingja.loadsir.core.LoadSir;
 
@@ -23,7 +24,7 @@ import butterknife.Unbinder;
  */
 public abstract class StatusFragment extends EventBusFragment implements IBaseView {
 
-    private LoadService mLoadService;
+    protected LoadService mLoadService;
     private Unbinder mUnbinder;
 
     @Nullable
@@ -32,8 +33,12 @@ public abstract class StatusFragment extends EventBusFragment implements IBaseVi
         super.onCreateView(inflater, container, savedInstanceState);
         View view = LayoutInflater.from(getContext()).inflate(getLayoutId(), null);
         mUnbinder = ButterKnife.bind(this, view);
-        mLoadService = LoadSir.getDefault().register(view);
-        mLoadService.showSuccess();
+        mLoadService = LoadSir.getDefault().register(view, new Callback.OnReloadListener() {
+            @Override
+            public void onReload(View v) {
+                doReload();
+            }
+        });
         initRootView(view);
         return mLoadService.getLoadLayout();
     }
@@ -63,8 +68,15 @@ public abstract class StatusFragment extends EventBusFragment implements IBaseVi
     }
 
     @Override
-    public void onShowErrorMsg(String msg) {
+    public void toastErrorMsg(String msg) {
         Snackbar.make(((ViewGroup) getActivity().findViewById(android.R.id.content)).getChildAt(0), msg, Snackbar.LENGTH_SHORT).show();
+    }
+
+    /**
+     * 重新加载的方法
+     * 如果使用了多状态页面，必须重写此方法，实现重新加载逻辑
+     */
+    protected void doReload() {
     }
 
     @Override

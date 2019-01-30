@@ -15,6 +15,7 @@ public interface SpecialContract {
 
         void onShowContentView(SectionListBean sectionListBean);
 
+        void onShowErrorView();
     }
 
     interface Presenter extends IBasePresenter<View>{
