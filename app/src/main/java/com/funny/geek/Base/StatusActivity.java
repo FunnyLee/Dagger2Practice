@@ -1,17 +1,25 @@
 package com.funny.geek.base;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
+import com.funny.geek.R;
+import com.funny.geek.util.Constants;
 import com.funny.geek.widget.EmptyCallback;
 import com.funny.geek.widget.LoadingCallback;
 import com.funny.geek.widget.NetErrorCallback;
-import com.kingja.loadsir.callback.Callback;
+import com.jakewharton.rxbinding2.view.RxView;
 import com.kingja.loadsir.core.LoadService;
 import com.kingja.loadsir.core.LoadSir;
+import com.kingja.loadsir.core.Transport;
+
+import java.util.concurrent.TimeUnit;
 
 import butterknife.ButterKnife;
 
@@ -30,14 +38,19 @@ public abstract class StatusActivity extends EventBusActivity implements IBaseVi
         setContentView(getLayoutId());
         ButterKnife.bind(this);
         //注册需要在setContentView之后，否则会报错
-        mLoadService = LoadSir.getDefault().register(this, new Callback.OnReloadListener() {
+        mLoadService = LoadSir.getDefault().register(this);
+        //设置重试的点击事件
+        mLoadService.setCallBack(NetErrorCallback.class, new Transport() {
+            @SuppressLint("CheckResult")
             @Override
-            public void onReload(View v) {
-                doReload();
+            public void order(Context context, View view) {
+                LinearLayout errorLl = view.findViewById(R.id.error_ll);
+                RxView.clicks(errorLl)
+                        .throttleFirst(Constants.CLICK_INTERVAL, TimeUnit.SECONDS)
+                        .subscribe(o -> doReload());
             }
         });
     }
-
 
 
     @Override

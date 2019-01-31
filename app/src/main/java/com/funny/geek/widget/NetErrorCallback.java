@@ -9,8 +9,13 @@ import com.kingja.loadsir.callback.Callback;
  * Description: This is NetErrorCallback
  */
 public class NetErrorCallback extends Callback {
+
+    public NetErrorCallback() {
+    }
+
     @Override
     protected int onCreateView() {
         return R.layout.layout_net_error_view;
     }
+
 }

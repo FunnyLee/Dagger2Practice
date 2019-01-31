@@ -13,6 +13,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.funny.geek.R;
@@ -30,6 +31,7 @@ import com.jakewharton.rxbinding2.view.RxView;
 import com.just.agentweb.AgentWebView;
 import com.kingja.loadsir.core.LoadService;
 import com.kingja.loadsir.core.LoadSir;
+import com.kingja.loadsir.core.Transport;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -104,7 +106,17 @@ public class ZhihuDetailActivity extends BaseMvpActivity<ZhihuDetailPresenter> i
             }
         });
 
-        mStatusView = LoadSir.getDefault().register(mContentView, v -> initData());
+        mStatusView = LoadSir.getDefault().register(mContentView);
+        mStatusView.setCallBack(NetErrorCallback.class, new Transport() {
+            @SuppressLint("CheckResult")
+            @Override
+            public void order(Context context, View view) {
+                LinearLayout errorLl = view.findViewById(R.id.error_ll);
+                RxView.clicks(errorLl)
+                        .throttleFirst(Constants.CLICK_INTERVAL, TimeUnit.SECONDS)
+                        .subscribe(o -> initData());
+            }
+        });
     }
 
     @Override

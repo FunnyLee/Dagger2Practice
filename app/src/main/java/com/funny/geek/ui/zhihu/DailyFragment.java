@@ -25,6 +25,7 @@ import com.funny.geek.util.Constants;
 import com.jakewharton.rxbinding2.view.RxView;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
+import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.loader.ImageLoader;
 
 import java.util.ArrayList;
@@ -128,12 +129,21 @@ public class DailyFragment extends BaseMvpFragment<DailyPresenter> implements Da
         if (top_stories != null && top_stories.size() != 0) {
             List<String> imageUrls = new ArrayList<>();
             List<String> bannerTitles = new ArrayList<>();
+            List<Integer> ids = new ArrayList<>();
             Observable.fromIterable(top_stories)
                     .subscribe(topStoriesBean -> {
                         imageUrls.add(topStoriesBean.image);
                         bannerTitles.add(topStoriesBean.title);
+                        ids.add(topStoriesBean.id);
                     });
 
+            //轮播图的点击事件
+            mBanner.setOnBannerListener(new OnBannerListener() {
+                @Override
+                public void OnBannerClick(int position) {
+                    ZhihuDetailActivity.start(mContext,ids.get(position));
+                }
+            });
             mBanner.setImageLoader(new ImageLoader() {
                 @Override
                 public void displayImage(Context context, Object path, ImageView imageView) {
@@ -145,6 +155,9 @@ public class DailyFragment extends BaseMvpFragment<DailyPresenter> implements Da
             mBanner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE);
             mBanner.isAutoPlay(true);
             mBanner.start();
+
+
+
         } else {
             mBanner.setVisibility(View.GONE);
         }
