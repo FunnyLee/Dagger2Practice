@@ -6,6 +6,7 @@ import com.funny.geek.di.component.AppComponent;
 import com.funny.geek.di.component.DaggerAppComponent;
 import com.funny.geek.di.module.AppModule;
 import com.funny.geek.di.module.HttpModule;
+import com.funny.geek.widget.EmptyCallback;
 import com.funny.geek.widget.LoadingCallback;
 import com.funny.geek.widget.NetErrorCallback;
 import com.kingja.loadsir.callback.SuccessCallback;
@@ -50,6 +51,7 @@ public class AppManager extends Application {
         LoadSir.beginBuilder()
                 .addCallback(new LoadingCallback())
                 .addCallback(new NetErrorCallback())
+                .addCallback(new EmptyCallback())
                 .setDefaultCallback(SuccessCallback.class)
                 .commit();
     }

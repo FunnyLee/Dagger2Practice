@@ -14,10 +14,14 @@ import io.realm.RealmResults;
 public interface FavoriteContract {
 
     interface View extends IBaseView {
+
         void onShowContentView(RealmResults<RealmFavoriteBean> results);
+
+        void onShowEmptyView();
     }
 
     interface Presenter extends IBasePresenter<View> {
+
         void doLoadData();
     }
 

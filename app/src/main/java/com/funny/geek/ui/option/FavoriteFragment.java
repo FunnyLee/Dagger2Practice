@@ -58,7 +58,7 @@ public class FavoriteFragment extends BaseMvpFragment<FavoritePresenter> impleme
 
     @Override
     protected void initView(View view) {
-        mAdapter = new FavoriteAdapter(getActivity(), mDatas);
+        mAdapter = new FavoriteAdapter(mContext, mDatas);
         mAdapter.setSpanSizeLookup(new BaseQuickAdapter.SpanSizeLookup() {
             @Override
             public int getSpanSize(GridLayoutManager gridLayoutManager, int position) {
@@ -70,14 +70,21 @@ public class FavoriteFragment extends BaseMvpFragment<FavoritePresenter> impleme
 
     @Override
     protected void initData() {
+        onStatusLoading();
         mPresenter.doLoadData();
     }
 
     @Override
     public void onShowContentView(RealmResults<RealmFavoriteBean> results) {
+        onStatusSuccess();
         mDatas.clear();
         mDatas.addAll(results);
         mAdapter.setNewData(mDatas);
+    }
+
+    @Override
+    public void onShowEmptyView() {
+        onStatusEmpty();
     }
 
     @SuppressLint("CheckResult")

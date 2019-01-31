@@ -28,6 +28,8 @@ public class FavoritePresenter extends RxPresenter<FavoriteContract.View> implem
         RealmResults<RealmFavoriteBean> results = mDataHelper.queryAllFavorite();
         if (results != null && results.size() != 0) {
             mView.onShowContentView(results);
+        } else {
+            mView.onShowEmptyView();
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.funny.geek.widget;
 
+import com.funny.geek.R;
 import com.kingja.loadsir.callback.Callback;
 
 /**
@@ -8,8 +9,9 @@ import com.kingja.loadsir.callback.Callback;
  * Description: This is EmptyCallback
  */
 public class EmptyCallback extends Callback {
+
     @Override
     protected int onCreateView() {
-        return 0;
+        return R.layout.layout_empty_view;
     }
 }
