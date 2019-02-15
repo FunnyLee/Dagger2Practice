@@ -4,6 +4,7 @@ import com.funny.geek.model.bean.DailyBean;
 import com.funny.geek.model.bean.HotBean;
 import com.funny.geek.model.bean.RealmFavoriteBean;
 import com.funny.geek.model.bean.SectionListBean;
+import com.funny.geek.model.bean.WeChatBean;
 import com.funny.geek.model.bean.ZhihuDetailBean;
 import com.funny.geek.model.database.IDBHelper;
 
@@ -51,6 +52,11 @@ public class DataHelper implements IHttpHelper, IDBHelper {
     @Override
     public Observable<ZhihuDetailBean> fetchDetailInfo(int id) {
         return mHttpHelper.fetchDetailInfo(id);
+    }
+
+    @Override
+    public Observable<WeChatBean> fetchWeChatList(String key, int num, int page) {
+        return mHttpHelper.fetchWeChatList(key, num, page);
     }
 
     ///////////////////////////////////////////////////////////////////////////

@@ -3,6 +3,7 @@ package com.funny.geek.model.net;
 import com.funny.geek.model.bean.DailyBean;
 import com.funny.geek.model.bean.HotBean;
 import com.funny.geek.model.bean.SectionListBean;
+import com.funny.geek.model.bean.WeChatBean;
 import com.funny.geek.model.bean.ZhihuDetailBean;
 
 import io.reactivex.Observable;
@@ -23,5 +24,7 @@ public interface IHttpHelper {
     Observable<SectionListBean> fetchSectionList();
 
     Observable<ZhihuDetailBean> fetchDetailInfo(int id);
+
+    Observable<WeChatBean> fetchWeChatList(String key, int num, int page);
 }
 

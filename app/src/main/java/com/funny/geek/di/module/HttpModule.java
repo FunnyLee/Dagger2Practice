@@ -3,7 +3,9 @@ package com.funny.geek.di.module;
 import android.util.Log;
 
 import com.funny.geek.BuildConfig;
+import com.funny.geek.di.qualifier.WeChatUrl;
 import com.funny.geek.di.qualifier.ZhihuUrl;
+import com.funny.geek.model.net.api.WeChatApis;
 import com.funny.geek.model.net.api.ZhihuApis;
 import com.ihsanbal.logging.Level;
 import com.ihsanbal.logging.Logger;
@@ -29,6 +31,20 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 @Module
 public class HttpModule {
+
+    @Singleton
+    @Provides
+    WeChatApis provideWeChatService(@WeChatUrl Retrofit retrofit) {
+        return retrofit.create(WeChatApis.class);
+    }
+
+    @Singleton
+    @Provides
+    @WeChatUrl
+    Retrofit provideWeChatRetrofit(Retrofit.Builder builder, OkHttpClient client) {
+        return createRetrofit(builder, client, WeChatApis.HOST);
+    }
+
     @Provides
     @Singleton
     ZhihuApis provideZhihuService(@ZhihuUrl Retrofit retrofit) {
