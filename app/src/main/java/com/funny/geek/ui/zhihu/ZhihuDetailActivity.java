@@ -149,7 +149,6 @@ public class ZhihuDetailActivity extends BaseMvpActivity<ZhihuDetailPresenter> i
                             mPresenter.addFavorite(mZhihuDetailBean);
                             mFab.setSelected(true);
                         }
-
                     }
                 });
     }
