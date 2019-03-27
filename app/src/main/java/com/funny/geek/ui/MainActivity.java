@@ -15,6 +15,7 @@ import android.widget.FrameLayout;
 
 import com.funny.geek.R;
 import com.funny.geek.base.BaseActivity;
+import com.funny.geek.ui.Gank.GankMainFragment;
 import com.funny.geek.ui.option.FavoriteFragment;
 import com.funny.geek.ui.weChat.WeChatMainFragment;
 import com.funny.geek.ui.zhihu.ZhihuMainFragment;
@@ -63,7 +64,7 @@ public class MainActivity extends BaseActivity {
                         switchFragment(WeChatMainFragment.newInstance());
                         break;
                     case R.id.gank:
-                        switchFragment(ZhihuMainFragment.newInstance());
+                        switchFragment(GankMainFragment.newInstance());
                         break;
                     case R.id.gold:
                         switchFragment(ZhihuMainFragment.newInstance());

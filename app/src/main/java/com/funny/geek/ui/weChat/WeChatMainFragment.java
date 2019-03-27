@@ -1,6 +1,7 @@
 package com.funny.geek.ui.weChat;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
@@ -11,6 +12,8 @@ import com.funny.geek.model.bean.WeChatBean;
 import com.funny.geek.presenter.weChat.WeChatMainPresenter;
 import com.funny.geek.ui.adpter.WeChatMainAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,7 +54,7 @@ public class WeChatMainFragment extends BaseMvpFragment<WeChatMainPresenter> imp
 
     @Override
     protected void initView(View view) {
-        mAdapter = new WeChatMainAdapter(mContext,R.layout.item_we_chat_main_view, mDatas);
+        mAdapter = new WeChatMainAdapter(mContext, R.layout.item_we_chat_main_view, mDatas);
         mRecyclerView.setAdapter(mAdapter);
     }
 
@@ -59,6 +62,16 @@ public class WeChatMainFragment extends BaseMvpFragment<WeChatMainPresenter> imp
     protected void initData() {
         onStatusLoading();
         mPresenter.doLoadData();
+    }
+
+    @Override
+    protected void initEvent() {
+        mRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                onStatusLoading();
+            }
+        });
     }
 
     @Override
@@ -71,6 +84,7 @@ public class WeChatMainFragment extends BaseMvpFragment<WeChatMainPresenter> imp
 
     @Override
     public void onShowErrorView() {
-        // TODO: 2019/2/15  
+        onStatusNetError();
+        toastErrorMsg(getString(R.string.net_error));
     }
 }

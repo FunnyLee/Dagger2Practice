@@ -1,1 +1,8 @@
-/build
+.gradle/
+.idea/
+build/
+app/build/
+Express.iws
+idea/workspace.xml
+local.properties
+*.iml
