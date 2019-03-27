@@ -2,6 +2,7 @@ package com.funny.geek.contract.gank;
 
 import com.funny.geek.base.IBasePresenter;
 import com.funny.geek.base.IBaseView;
+import com.funny.geek.model.bean.GankBean;
 
 /**
  * Author: Funny
@@ -10,11 +11,17 @@ import com.funny.geek.base.IBaseView;
  */
 public interface AndroidContract {
 
-    public interface View extends IBaseView{
+    public interface View extends IBaseView {
+
+        void onShowContentView(GankBean gankBean);
+
+        void onShowErrorView();
 
     }
 
-    public interface Presenter extends IBasePresenter<View>{
+    public interface Presenter extends IBasePresenter<View> {
+
+        void doGetTechList(String tech, int num, int page);
 
     }
 

@@ -3,8 +3,10 @@ package com.funny.geek.di.module;
 import android.util.Log;
 
 import com.funny.geek.BuildConfig;
+import com.funny.geek.di.qualifier.GankUrl;
 import com.funny.geek.di.qualifier.WeChatUrl;
 import com.funny.geek.di.qualifier.ZhihuUrl;
+import com.funny.geek.model.net.api.GankApis;
 import com.funny.geek.model.net.api.WeChatApis;
 import com.funny.geek.model.net.api.ZhihuApis;
 import com.ihsanbal.logging.Level;
@@ -34,6 +36,19 @@ public class HttpModule {
 
     @Singleton
     @Provides
+    GankApis provideGankService(@GankUrl Retrofit retrofit) {
+        return retrofit.create(GankApis.class);
+    }
+
+    @Provides
+    @Singleton
+    @GankUrl
+    Retrofit provideGankRetrofit(Retrofit.Builder builder, OkHttpClient client) {
+        return createRetrofit(builder, client, GankApis.HOST);
+    }
+
+    @Singleton
+    @Provides
     WeChatApis provideWeChatService(@WeChatUrl Retrofit retrofit) {
         return retrofit.create(WeChatApis.class);
     }
@@ -53,6 +68,7 @@ public class HttpModule {
         //提供ZhihuApiService对象，这一个很重要，可以调用ZhihuApi里面的方法
         return retrofit.create(ZhihuApis.class);
     }
+
 
     @Provides
     @Singleton

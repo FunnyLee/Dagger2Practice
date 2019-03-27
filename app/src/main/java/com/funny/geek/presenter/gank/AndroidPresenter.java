@@ -1,12 +1,17 @@
 package com.funny.geek.presenter.gank;
 
+import android.annotation.SuppressLint;
+
 import com.funny.geek.base.RxPresenter;
 import com.funny.geek.contract.gank.AndroidContract;
+import com.funny.geek.model.bean.GankBean;
 import com.funny.geek.model.net.DataHelper;
 import com.trello.rxlifecycle2.LifecycleProvider;
 import com.trello.rxlifecycle2.android.FragmentEvent;
 
 import javax.inject.Inject;
+
+import io.reactivex.functions.Consumer;
 
 /**
  * Author: Funny
@@ -21,4 +26,20 @@ public class AndroidPresenter extends RxPresenter<AndroidContract.View> implemen
     }
 
 
+    @SuppressLint("CheckResult")
+    @Override
+    public void doGetTechList(String tech, int num, int page) {
+        add(mDataHelper.fetchTechList(tech, num, page))
+                .subscribe(new Consumer<GankBean>() {
+                    @Override
+                    public void accept(GankBean gankBean) throws Exception {
+                        mView.onShowContentView(gankBean);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        mView.onShowErrorView();
+                    }
+                });
+    }
 }

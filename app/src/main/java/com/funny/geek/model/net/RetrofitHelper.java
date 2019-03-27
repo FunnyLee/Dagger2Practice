@@ -1,11 +1,13 @@
 package com.funny.geek.model.net;
 
 import com.funny.geek.model.bean.DailyBean;
+import com.funny.geek.model.bean.GankBean;
 import com.funny.geek.model.bean.HotBean;
 import com.funny.geek.model.bean.SectionListBean;
 import com.funny.geek.model.bean.WeChatBean;
 import com.funny.geek.model.bean.WelcomeBean;
 import com.funny.geek.model.bean.ZhihuDetailBean;
+import com.funny.geek.model.net.api.GankApis;
 import com.funny.geek.model.net.api.WeChatApis;
 import com.funny.geek.model.net.api.ZhihuApis;
 
@@ -25,10 +27,13 @@ public class RetrofitHelper implements IHttpHelper {
 
     private WeChatApis mWeChatService;
 
+    private GankApis mGankService;
+
     @Inject
-    public RetrofitHelper(ZhihuApis zhihuService, WeChatApis weChatService) {
+    public RetrofitHelper(ZhihuApis zhihuService, WeChatApis weChatService, GankApis gankService) {
         mZhihuService = zhihuService;
         mWeChatService = weChatService;
+        mGankService = gankService;
     }
 
     public Observable<WelcomeBean> getWelcomeInfo(String res) {
@@ -63,6 +68,11 @@ public class RetrofitHelper implements IHttpHelper {
     @Override
     public Observable<WeChatBean> fetchWeChatList(String key, int num, int page) {
         return mWeChatService.getWXHot(key, num, page);
+    }
+
+    @Override
+    public Observable<GankBean> fetchTechList(String tech, int num, int page) {
+        return mGankService.getTechList(tech, num, page);
     }
 
 

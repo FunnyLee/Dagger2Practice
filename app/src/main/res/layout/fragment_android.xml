@@ -12,10 +12,10 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent">
 
-        <com.scwang.smartrefresh.header.DropBoxHeader
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        </com.scwang.smartrefresh.header.DropBoxHeader>
+        <!--<com.scwang.smartrefresh.header.DropBoxHeader-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content">-->
+        <!--</com.scwang.smartrefresh.header.DropBoxHeader>-->
 
         <com.youth.banner.Banner
             android:id="@+id/banner"
@@ -33,10 +33,10 @@
             app:layoutManager="android.support.v7.widget.LinearLayoutManager">
         </android.support.v7.widget.RecyclerView>
 
-        <com.scwang.smartrefresh.layout.footer.ClassicsFooter
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        </com.scwang.smartrefresh.layout.footer.ClassicsFooter>
+        <!--<com.scwang.smartrefresh.layout.footer.ClassicsFooter-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content">-->
+        <!--</com.scwang.smartrefresh.layout.footer.ClassicsFooter>-->
 
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
