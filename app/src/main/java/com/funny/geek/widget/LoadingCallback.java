@@ -17,6 +17,6 @@ public class LoadingCallback extends Callback {
 
     @Override
     public boolean getSuccessVisible() {
-        return false;
+        return true;
     }
 }
