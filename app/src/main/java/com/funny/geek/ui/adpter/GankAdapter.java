@@ -15,6 +15,8 @@ import java.util.List;
  */
 public class GankAdapter extends BaseQuickAdapter<GankBean.ResultsBean, BaseViewHolder> {
 
+
+
     public GankAdapter(int layoutResId, @Nullable List<GankBean.ResultsBean> data) {
         super(layoutResId, data);
     }
