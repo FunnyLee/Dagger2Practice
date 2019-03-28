@@ -3,6 +3,9 @@ package com.funny.geek.contract.gank;
 import com.funny.geek.base.IBasePresenter;
 import com.funny.geek.base.IBaseView;
 import com.funny.geek.model.bean.GankBean;
+import com.funny.geek.model.bean.GankGirlBean;
+
+import java.util.List;
 
 /**
  * Author: Funny
@@ -15,6 +18,8 @@ public interface AndroidContract {
 
         void onShowContentView(GankBean gankBean);
 
+        void onShowGankGirl(List<GankGirlBean.ResultsBean> girlList);
+
         void onShowErrorView();
 
     }
@@ -22,6 +27,8 @@ public interface AndroidContract {
     public interface Presenter extends IBasePresenter<View> {
 
         void doGetTechList(String tech, int num, int page);
+
+        void doGetGankGirlList(int num);
 
     }
 

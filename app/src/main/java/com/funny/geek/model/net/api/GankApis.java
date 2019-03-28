@@ -1,6 +1,7 @@
 package com.funny.geek.model.net.api;
 
 import com.funny.geek.model.bean.GankBean;
+import com.funny.geek.model.bean.GankGirlBean;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
@@ -23,4 +24,9 @@ public interface GankApis {
     @GET("data/{tech}/{num}/{page}")
     Observable<GankBean> getTechList(@Path("tech") String tech, @Path("num") int num, @Path("page") int page);
 
+    /**
+     * 随机girl图
+     */
+    @GET("random/data/福利/{num}")
+    Observable<GankGirlBean> getGankGirlList(@Path("num") int num);
 }

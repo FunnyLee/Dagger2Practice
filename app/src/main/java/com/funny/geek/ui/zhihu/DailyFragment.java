@@ -155,9 +155,6 @@ public class DailyFragment extends BaseMvpFragment<DailyPresenter> implements Da
             mBanner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE);
             mBanner.isAutoPlay(true);
             mBanner.start();
-
-
-
         } else {
             mBanner.setVisibility(View.GONE);
         }

@@ -2,6 +2,7 @@ package com.funny.geek.model.net;
 
 import com.funny.geek.model.bean.DailyBean;
 import com.funny.geek.model.bean.GankBean;
+import com.funny.geek.model.bean.GankGirlBean;
 import com.funny.geek.model.bean.HotBean;
 import com.funny.geek.model.bean.SectionListBean;
 import com.funny.geek.model.bean.WeChatBean;
@@ -73,6 +74,11 @@ public class RetrofitHelper implements IHttpHelper {
     @Override
     public Observable<GankBean> fetchTechList(String tech, int num, int page) {
         return mGankService.getTechList(tech, num, page);
+    }
+
+    @Override
+    public Observable<GankGirlBean> fetchGankGirlList(int num) {
+        return mGankService.getGankGirlList(num);
     }
 
 

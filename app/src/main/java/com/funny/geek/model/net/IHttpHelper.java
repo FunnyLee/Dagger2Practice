@@ -2,6 +2,7 @@ package com.funny.geek.model.net;
 
 import com.funny.geek.model.bean.DailyBean;
 import com.funny.geek.model.bean.GankBean;
+import com.funny.geek.model.bean.GankGirlBean;
 import com.funny.geek.model.bean.HotBean;
 import com.funny.geek.model.bean.SectionListBean;
 import com.funny.geek.model.bean.WeChatBean;
@@ -29,5 +30,7 @@ public interface IHttpHelper {
     Observable<WeChatBean> fetchWeChatList(String key, int num, int page);
 
     Observable<GankBean> fetchTechList(String tech, int num, int page);
+
+    Observable<GankGirlBean> fetchGankGirlList(int num);
 }
 

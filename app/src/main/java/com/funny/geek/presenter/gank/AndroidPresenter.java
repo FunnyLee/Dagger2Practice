@@ -5,13 +5,17 @@ import android.annotation.SuppressLint;
 import com.funny.geek.base.RxPresenter;
 import com.funny.geek.contract.gank.AndroidContract;
 import com.funny.geek.model.bean.GankBean;
+import com.funny.geek.model.bean.GankGirlBean;
 import com.funny.geek.model.net.DataHelper;
 import com.trello.rxlifecycle2.LifecycleProvider;
 import com.trello.rxlifecycle2.android.FragmentEvent;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
 
 /**
  * Author: Funny
@@ -39,6 +43,29 @@ public class AndroidPresenter extends RxPresenter<AndroidContract.View> implemen
                     @Override
                     public void accept(Throwable throwable) throws Exception {
                         mView.onShowErrorView();
+                    }
+                });
+    }
+
+    @SuppressLint("CheckResult")
+    @Override
+    public void doGetGankGirlList(int num) {
+        add(mDataHelper.fetchGankGirlList(num))
+                .map(new Function<GankGirlBean, List<GankGirlBean.ResultsBean>>() {
+                    @Override
+                    public List<GankGirlBean.ResultsBean> apply(GankGirlBean gankGirlBean) throws Exception {
+                        return gankGirlBean.results;
+                    }
+                })
+                .subscribe(new Consumer<List<GankGirlBean.ResultsBean>>() {
+                    @Override
+                    public void accept(List<GankGirlBean.ResultsBean> resultsBeans) throws Exception {
+
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+
                     }
                 });
     }

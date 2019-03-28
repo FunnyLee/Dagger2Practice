@@ -2,6 +2,7 @@ package com.funny.geek.model.net;
 
 import com.funny.geek.model.bean.DailyBean;
 import com.funny.geek.model.bean.GankBean;
+import com.funny.geek.model.bean.GankGirlBean;
 import com.funny.geek.model.bean.HotBean;
 import com.funny.geek.model.bean.RealmFavoriteBean;
 import com.funny.geek.model.bean.SectionListBean;
@@ -63,6 +64,11 @@ public class DataHelper implements IHttpHelper, IDBHelper {
     @Override
     public Observable<GankBean> fetchTechList(String tech, int num, int page) {
         return mHttpHelper.fetchTechList(tech, num, page);
+    }
+
+    @Override
+    public Observable<GankGirlBean> fetchGankGirlList(int num) {
+        return mHttpHelper.fetchGankGirlList(num);
     }
 
     ///////////////////////////////////////////////////////////////////////////
