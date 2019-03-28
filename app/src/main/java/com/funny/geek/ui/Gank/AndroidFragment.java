@@ -9,10 +9,11 @@ import com.funny.geek.base.BaseMvpFragment;
 import com.funny.geek.contract.gank.AndroidContract;
 import com.funny.geek.model.bean.GankBean;
 import com.funny.geek.presenter.gank.AndroidPresenter;
-import com.scwang.smartrefresh.header.DropBoxHeader;
+import com.funny.geek.ui.adpter.GankAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
-import com.youth.banner.Banner;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 
@@ -23,12 +24,13 @@ import butterknife.BindView;
  */
 public class AndroidFragment extends BaseMvpFragment<AndroidPresenter> implements AndroidContract.View {
 
-    @BindView(R.id.banner)
-    Banner mBanner;
     @BindView(R.id.recycler_view)
     RecyclerView mRecyclerView;
     @BindView(R.id.refresh_layout)
     SmartRefreshLayout mRefreshLayout;
+
+    private List<GankBean.ResultsBean> mDatas = new ArrayList<>();
+    private GankAdapter mAdapter;
 
     public static AndroidFragment newInstance() {
         Bundle args = new Bundle();
@@ -49,10 +51,10 @@ public class AndroidFragment extends BaseMvpFragment<AndroidPresenter> implement
 
     @Override
     protected void initView(View view) {
-        //设置下拉刷新的样式，放到这里设置的原因是：mRefreshLayout最多只支持三个子View
-        mRefreshLayout.setRefreshHeader(new DropBoxHeader(mContext));
-        mRefreshLayout.setRefreshFooter(new ClassicsFooter(mContext));
+        mAdapter = new GankAdapter(R.layout.item_gank_tech_view, mDatas);
+        mRecyclerView.setAdapter(mAdapter);
     }
+
 
     @Override
     protected void initData() {
@@ -61,7 +63,7 @@ public class AndroidFragment extends BaseMvpFragment<AndroidPresenter> implement
 
     @Override
     public void onShowContentView(GankBean gankBean) {
-
+        mAdapter.setNewData(gankBean.results);
     }
 
     @Override
