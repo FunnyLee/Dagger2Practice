@@ -3,11 +3,13 @@ package com.funny.geek.ui.Gank;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.funny.geek.R;
 import com.funny.geek.base.BaseMvpFragment;
@@ -18,6 +20,8 @@ import com.funny.geek.model.net.ImageHelper;
 import com.funny.geek.presenter.gank.AndroidPresenter;
 import com.funny.geek.ui.adpter.GankAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.loader.ImageLoader;
@@ -71,18 +75,29 @@ public class AndroidFragment extends BaseMvpFragment<AndroidPresenter> implement
         mTvData = headerView.findViewById(R.id.tv_date);
         mTvData.setVisibility(View.GONE);
         mRecyclerView.setAdapter(mAdapter);
-
     }
 
 
     @Override
     protected void initData() {
+        onStatusLoading();
         mPresenter.doGetTechList("Android", 10, 1);
         mPresenter.doGetGankGirlList(5);
     }
 
     @Override
+    protected void initEvent() {
+        mRefreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                Toast.makeText(mContext, "加载更多", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    @Override
     public void onShowContentView(GankBean gankBean) {
+        onStatusSuccess();
         mAdapter.setNewData(gankBean.results);
     }
 
@@ -111,6 +126,9 @@ public class AndroidFragment extends BaseMvpFragment<AndroidPresenter> implement
 
     @Override
     public void onShowErrorView() {
-
+        onStatusNetError();
+        toastErrorMsg(getString(R.string.net_error));
+        mRefreshLayout.finishRefresh();
+        mRefreshLayout.setEnableRefresh(false);
     }
 }
