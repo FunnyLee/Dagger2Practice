@@ -60,7 +60,7 @@ public class AndroidPresenter extends RxPresenter<AndroidContract.View> implemen
                 .subscribe(new Consumer<List<GankGirlBean.ResultsBean>>() {
                     @Override
                     public void accept(List<GankGirlBean.ResultsBean> resultsBeans) throws Exception {
-
+                        mView.onShowGankGirl(resultsBeans);
                     }
                 }, new Consumer<Throwable>() {
                     @Override

@@ -4,8 +4,10 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.funny.geek.R;
 import com.funny.geek.base.BaseMvpFragment;
@@ -37,6 +39,7 @@ public class AndroidFragment extends BaseMvpFragment<AndroidPresenter> implement
     RecyclerView mRecyclerView;
     @BindView(R.id.refresh_layout)
     SmartRefreshLayout mRefreshLayout;
+    private TextView mTvData;
 
     private List<GankBean.ResultsBean> mDatas = new ArrayList<>();
     private GankAdapter mAdapter;
@@ -62,15 +65,20 @@ public class AndroidFragment extends BaseMvpFragment<AndroidPresenter> implement
     @Override
     protected void initView(View view) {
         mAdapter = new GankAdapter(R.layout.item_gank_tech_view, mDatas);
+        View headerView = LayoutInflater.from(mContext).inflate(R.layout.layout_banner_header, null);
+        mAdapter.addHeaderView(headerView);
+        mBanner = headerView.findViewById(R.id.banner);
+        mTvData = headerView.findViewById(R.id.tv_date);
+        mTvData.setVisibility(View.GONE);
         mRecyclerView.setAdapter(mAdapter);
 
-        mBanner = new Banner(mContext);
     }
 
 
     @Override
     protected void initData() {
         mPresenter.doGetTechList("Android", 10, 1);
+        mPresenter.doGetGankGirlList(5);
     }
 
     @Override
@@ -82,15 +90,21 @@ public class AndroidFragment extends BaseMvpFragment<AndroidPresenter> implement
     @Override
     public void onShowGankGirl(List<GankGirlBean.ResultsBean> girlList) {
         List<String> imageUrls = new ArrayList<>();
-        Observable.fromIterable(girlList).subscribe(resultsBean -> imageUrls.add(resultsBean.url));
+        List<String> bannerTitles = new ArrayList<>();
+        Observable.fromIterable(girlList).subscribe(resultsBean -> {
+            imageUrls.add(resultsBean.url);
+            bannerTitles.add(resultsBean.who);
+        });
+
         mBanner.setImageLoader(new ImageLoader() {
             @Override
             public void displayImage(Context context, Object path, ImageView imageView) {
-                ImageHelper.loadImage(context, (String) path,imageView);
+                ImageHelper.loadImage(context, (String) path, imageView);
             }
         });
         mBanner.setImages(imageUrls);
-        mBanner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE);
+//        mBanner.setBannerTitles(bannerTitles);
+        mBanner.setBannerStyle(BannerConfig.NUM_INDICATOR	);
         mBanner.isAutoPlay(true);
         mBanner.start();
     }

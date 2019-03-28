@@ -82,7 +82,7 @@ public class DailyFragment extends BaseMvpFragment<DailyPresenter> implements Da
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
 
         //头部
-        View headerView = LayoutInflater.from(mContext).inflate(R.layout.layout_daily_header, null);
+        View headerView = LayoutInflater.from(mContext).inflate(R.layout.layout_banner_header, null);
         mAdapter.addHeaderView(headerView);
         mBanner = headerView.findViewById(R.id.banner);
         mTvData = headerView.findViewById(R.id.tv_date);
