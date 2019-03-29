@@ -5,8 +5,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -23,6 +23,10 @@ import com.funny.geek.presenter.zhihu.DailyPresenter;
 import com.funny.geek.ui.adpter.DailyAdapter;
 import com.funny.geek.util.Constants;
 import com.jakewharton.rxbinding2.view.RxView;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.constant.RefreshState;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.listener.OnBannerListener;
@@ -47,7 +51,7 @@ public class DailyFragment extends BaseMvpFragment<DailyPresenter> implements Da
     @BindView(R.id.fab_btn)
     FloatingActionButton mFabBtn;
     @BindView(R.id.refresh_layout)
-    SwipeRefreshLayout mRefreshLayout;
+    SmartRefreshLayout mRefreshLayout;
 
     //当前日期
     private String mCurrentDate;
@@ -98,9 +102,9 @@ public class DailyFragment extends BaseMvpFragment<DailyPresenter> implements Da
     @SuppressLint("CheckResult")
     @Override
     protected void initEvent() {
-        mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        mRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
-            public void onRefresh() {
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 mPresenter.doRefresh(mCurrentDate);
             }
         });
@@ -118,8 +122,8 @@ public class DailyFragment extends BaseMvpFragment<DailyPresenter> implements Da
     public void onShowContentView(DailyBean dailyListBean) {
         onStatusSuccess();
         mRefreshLayout.setEnabled(true);
-        if (mRefreshLayout.isRefreshing()) {
-            mRefreshLayout.setRefreshing(false);
+        if (mRefreshLayout.getState() == RefreshState.Refreshing) {
+            mRefreshLayout.finishRefresh();
         }
         //请求成功后，设置日期
         mCurrentDate = dailyListBean.date;
@@ -141,7 +145,7 @@ public class DailyFragment extends BaseMvpFragment<DailyPresenter> implements Da
             mBanner.setOnBannerListener(new OnBannerListener() {
                 @Override
                 public void OnBannerClick(int position) {
-                    ZhihuDetailActivity.start(mContext,ids.get(position));
+                    ZhihuDetailActivity.start(mContext, ids.get(position));
                 }
             });
             mBanner.setImageLoader(new ImageLoader() {
@@ -168,8 +172,8 @@ public class DailyFragment extends BaseMvpFragment<DailyPresenter> implements Da
     public void onShowErrorView() {
         onStatusNetError();
         toastErrorMsg(getString(R.string.net_error));
-        if (mRefreshLayout.isRefreshing()) {
-            mRefreshLayout.setRefreshing(false);
+        if (mRefreshLayout.getState() == RefreshState.Refreshing) {
+            mRefreshLayout.finishRefresh();
         }
         mRefreshLayout.setEnabled(false);
     }

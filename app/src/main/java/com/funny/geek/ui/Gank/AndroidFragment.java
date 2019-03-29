@@ -21,7 +21,7 @@ import com.funny.geek.presenter.gank.AndroidPresenter;
 import com.funny.geek.ui.adpter.GankAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.loader.ImageLoader;
@@ -48,6 +48,7 @@ public class AndroidFragment extends BaseMvpFragment<AndroidPresenter> implement
     private List<GankBean.ResultsBean> mDatas = new ArrayList<>();
     private GankAdapter mAdapter;
     private Banner mBanner;
+    private int mPageNo = 1;
 
     public static AndroidFragment newInstance() {
         Bundle args = new Bundle();
@@ -81,16 +82,23 @@ public class AndroidFragment extends BaseMvpFragment<AndroidPresenter> implement
     @Override
     protected void initData() {
         onStatusLoading();
-        mPresenter.doGetTechList("Android", 10, 1);
+        mPresenter.doGetTechList("Android", 10, mPageNo);
         mPresenter.doGetGankGirlList(5);
     }
 
     @Override
     protected void initEvent() {
-        mRefreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+        mRefreshLayout.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-                Toast.makeText(mContext, "加载更多", Toast.LENGTH_SHORT).show();
+                mPresenter.doGetTechList("Android", 10, mPageNo);
+            }
+
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                mPageNo = 1;
+                mDatas.clear();
+                mPresenter.doGetTechList("Android", 10, mPageNo);
             }
         });
     }
@@ -98,17 +106,19 @@ public class AndroidFragment extends BaseMvpFragment<AndroidPresenter> implement
     @Override
     public void onShowContentView(GankBean gankBean) {
         onStatusSuccess();
-        mAdapter.setNewData(gankBean.results);
+        mRefreshLayout.finishRefresh();
+        mRefreshLayout.finishLoadMore();
+        mPageNo++;
+        mDatas.addAll(gankBean.results);
+        mAdapter.setNewData(mDatas);
     }
 
     @SuppressLint("CheckResult")
     @Override
     public void onShowGankGirl(List<GankGirlBean.ResultsBean> girlList) {
         List<String> imageUrls = new ArrayList<>();
-        List<String> bannerTitles = new ArrayList<>();
         Observable.fromIterable(girlList).subscribe(resultsBean -> {
             imageUrls.add(resultsBean.url);
-            bannerTitles.add(resultsBean.who);
         });
 
         mBanner.setImageLoader(new ImageLoader() {
@@ -118,17 +128,21 @@ public class AndroidFragment extends BaseMvpFragment<AndroidPresenter> implement
             }
         });
         mBanner.setImages(imageUrls);
-//        mBanner.setBannerTitles(bannerTitles);
-        mBanner.setBannerStyle(BannerConfig.NUM_INDICATOR	);
+        mBanner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
+        mBanner.setIndicatorGravity(BannerConfig.RIGHT);
         mBanner.isAutoPlay(true);
         mBanner.start();
     }
 
     @Override
     public void onShowErrorView() {
-        onStatusNetError();
-        toastErrorMsg(getString(R.string.net_error));
         mRefreshLayout.finishRefresh();
-        mRefreshLayout.setEnableRefresh(false);
+        mRefreshLayout.finishLoadMore();
+        if (mPageNo == 1) {
+            onStatusNetError();
+            toastErrorMsg(getString(R.string.net_error));
+        } else {
+            Toast.makeText(mContext, "网络错误", Toast.LENGTH_SHORT).show();
+        }
     }
 }
