@@ -33,15 +33,15 @@
         app:layout_constraintRight_toRightOf="parent"/>
 
     <!--<TextView-->
-    <!--app:layout_constraintLeft_toLeftOf="parent"-->
-    <!--app:layout_constraintRight_toRightOf="parent"-->
-    <!--android:id="@+id/desc_tv"-->
-    <!--android:layout_width="0dp"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_marginLeft="@dimen/dp_60"-->
-    <!--android:text="AAAAAA"-->
-    <!--android:textColor="@color/black"-->
-    <!--android:textSize="@dimen/sp_13"/>-->
+        <!--android:id="@+id/desc_tv"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginLeft="@dimen/dp_60"-->
+        <!--android:text="AAAAAA"-->
+        <!--android:textColor="@color/black"-->
+        <!--android:textSize="@dimen/sp_13"-->
+        <!--app:layout_constraintLeft_toLeftOf="parent"-->
+        <!--app:layout_constraintRight_toRightOf="parent"/>-->
 
     <TextView
         android:id="@+id/name_tv"
@@ -49,7 +49,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/dp_10"
         android:layout_marginTop="@dimen/dp_10"
-        android:drawablePadding="@dimen/dp_10"
+        android:drawablePadding="@dimen/dp_5"
         android:drawableStart="@drawable/ic_author"
         android:text="AAAAAA"
         android:textColor="@android:color/darker_gray"
@@ -60,7 +60,7 @@
         android:id="@+id/time_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:drawablePadding="@dimen/dp_10"
+        android:drawablePadding="@dimen/dp_5"
         android:drawableStart="@drawable/ic_time"
         android:text="2019-03-19"
         app:layout_constraintBaseline_toBaselineOf="@id/name_tv"

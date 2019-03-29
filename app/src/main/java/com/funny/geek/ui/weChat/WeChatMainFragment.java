@@ -85,6 +85,6 @@ public class WeChatMainFragment extends BaseMvpFragment<WeChatMainPresenter> imp
     @Override
     public void onShowErrorView() {
         onStatusNetError();
-        toastErrorMsg(getString(R.string.net_error));
+        toastErrorMsg(getString(R.string.net_error_retry));
     }
 }

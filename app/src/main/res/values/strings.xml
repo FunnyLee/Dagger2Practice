@@ -21,7 +21,8 @@
     <string name="special">专栏</string>
     <string name="subject">主题</string>
     <string name="title_activity_zhihu_detail">ZhihuDetailActivity</string>
-    <string name="net_error">网络错误，请点击重试</string>
+    <string name="net_error_retry">网络错误，请点击重试</string>
+    <string name="net_error">网络错误</string>
     <string name="android">Android</string>
     <string name="ios">IOS</string>
     <string name="front">前端</string>

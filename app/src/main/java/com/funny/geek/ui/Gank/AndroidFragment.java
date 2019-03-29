@@ -140,9 +140,9 @@ public class AndroidFragment extends BaseMvpFragment<AndroidPresenter> implement
         mRefreshLayout.finishLoadMore();
         if (mPageNo == 1) {
             onStatusNetError();
-            toastErrorMsg(getString(R.string.net_error));
+            toastErrorMsg(getString(R.string.net_error_retry));
         } else {
-            Toast.makeText(mContext, "网络错误", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, R.string.net_error, Toast.LENGTH_SHORT).show();
         }
     }
 }

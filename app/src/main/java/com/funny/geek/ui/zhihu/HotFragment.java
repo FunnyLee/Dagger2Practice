@@ -86,7 +86,7 @@ public class HotFragment extends BaseMvpFragment<HotPresenter> implements HotCon
     @Override
     public void onShowErrorView() {
         onStatusNetError();
-        toastErrorMsg(getString(R.string.net_error));
+        toastErrorMsg(getString(R.string.net_error_retry));
         mSwipeRefresh.setEnabled(false);
         if (mSwipeRefresh.isRefreshing()) {
             mSwipeRefresh.setRefreshing(false);

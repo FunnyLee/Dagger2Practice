@@ -171,7 +171,7 @@ public class DailyFragment extends BaseMvpFragment<DailyPresenter> implements Da
     @Override
     public void onShowErrorView() {
         onStatusNetError();
-        toastErrorMsg(getString(R.string.net_error));
+        toastErrorMsg(getString(R.string.net_error_retry));
         if (mRefreshLayout.getState() == RefreshState.Refreshing) {
             mRefreshLayout.finishRefresh();
         }

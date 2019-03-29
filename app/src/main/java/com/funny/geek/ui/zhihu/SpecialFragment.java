@@ -88,7 +88,7 @@ public class SpecialFragment extends BaseMvpFragment<SpecialPresenter> implement
     @Override
     public void onShowErrorView() {
         onStatusNetError();
-        toastErrorMsg(getString(R.string.net_error));
+        toastErrorMsg(getString(R.string.net_error_retry));
         if(mSwipeRefresh.isRefreshing()){
             mSwipeRefresh.setRefreshing(false);
         }

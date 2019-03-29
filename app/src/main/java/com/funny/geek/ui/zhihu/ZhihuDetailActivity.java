@@ -170,7 +170,7 @@ public class ZhihuDetailActivity extends BaseMvpActivity<ZhihuDetailPresenter> i
     @Override
     public void onShowErrorView() {
         mStatusView.showCallback(NetErrorCallback.class);
-        toastErrorMsg(getString(R.string.net_error));
+        toastErrorMsg(getString(R.string.net_error_retry));
     }
 
     @Override

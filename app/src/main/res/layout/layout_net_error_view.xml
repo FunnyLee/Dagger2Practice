@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:lineSpacingMultiplier="1.4"
-            android:text="@string/net_error"/>
+            android:text="@string/net_error_retry"/>
 
     </LinearLayout>
 
