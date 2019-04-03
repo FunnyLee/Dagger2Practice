@@ -13,11 +13,11 @@ import android.widget.Toast;
 
 import com.funny.geek.R;
 import com.funny.geek.base.BaseMvpFragment;
-import com.funny.geek.contract.gank.AndroidContract;
+import com.funny.geek.contract.gank.GankTechContract;
 import com.funny.geek.model.bean.GankBean;
 import com.funny.geek.model.bean.GankGirlBean;
 import com.funny.geek.model.net.ImageHelper;
-import com.funny.geek.presenter.gank.AndroidPresenter;
+import com.funny.geek.presenter.gank.GankTechPresenter;
 import com.funny.geek.ui.adpter.GankAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -35,9 +35,9 @@ import io.reactivex.Observable;
 /**
  * Author: Funny
  * Time: 2019/3/27
- * Description: This is AndroidFragment
+ * Description: This is GankTechFragment
  */
-public class AndroidFragment extends BaseMvpFragment<AndroidPresenter> implements AndroidContract.View {
+public class GankTechFragment extends BaseMvpFragment<GankTechPresenter> implements GankTechContract.View {
 
     @BindView(R.id.recycler_view)
     RecyclerView mRecyclerView;
@@ -49,10 +49,12 @@ public class AndroidFragment extends BaseMvpFragment<AndroidPresenter> implement
     private GankAdapter mAdapter;
     private Banner mBanner;
     private int mPageNo = 1;
+    private String mTechType;
 
-    public static AndroidFragment newInstance() {
+    public static GankTechFragment newInstance(String techType) {
         Bundle args = new Bundle();
-        AndroidFragment fragment = new AndroidFragment();
+        args.putString("techType", techType);
+        GankTechFragment fragment = new GankTechFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -64,7 +66,7 @@ public class AndroidFragment extends BaseMvpFragment<AndroidPresenter> implement
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_android;
+        return R.layout.fragment_gank_tech;
     }
 
     @Override
@@ -82,7 +84,8 @@ public class AndroidFragment extends BaseMvpFragment<AndroidPresenter> implement
     @Override
     protected void initData() {
         onStatusLoading();
-        mPresenter.doGetTechList("Android", 10, mPageNo);
+        mTechType = getArguments().getString("techType");
+        mPresenter.doGetTechList(mTechType, 10, mPageNo);
         mPresenter.doGetGankGirlList(5);
     }
 
@@ -91,14 +94,14 @@ public class AndroidFragment extends BaseMvpFragment<AndroidPresenter> implement
         mRefreshLayout.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-                mPresenter.doGetTechList("Android", 10, mPageNo);
+                mPresenter.doGetTechList(mTechType, 10, mPageNo);
             }
 
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 mPageNo = 1;
                 mDatas.clear();
-                mPresenter.doGetTechList("Android", 10, mPageNo);
+                mPresenter.doGetTechList(mTechType, 10, mPageNo);
             }
         });
     }

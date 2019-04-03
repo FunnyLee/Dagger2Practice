@@ -3,7 +3,7 @@ package com.funny.geek.presenter.gank;
 import android.annotation.SuppressLint;
 
 import com.funny.geek.base.RxPresenter;
-import com.funny.geek.contract.gank.AndroidContract;
+import com.funny.geek.contract.gank.GankTechContract;
 import com.funny.geek.model.bean.GankBean;
 import com.funny.geek.model.bean.GankGirlBean;
 import com.funny.geek.model.net.DataHelper;
@@ -20,12 +20,12 @@ import io.reactivex.functions.Function;
 /**
  * Author: Funny
  * Time: 2019/3/27
- * Description: This is AndroidPresenter
+ * Description: This is GankTechPresenter
  */
-public class AndroidPresenter extends RxPresenter<AndroidContract.View> implements AndroidContract.Presenter {
+public class GankTechPresenter extends RxPresenter<GankTechContract.View> implements GankTechContract.Presenter {
 
     @Inject
-    public AndroidPresenter(DataHelper dataHelper, LifecycleProvider<FragmentEvent> lifecycleProvider) {
+    public GankTechPresenter(DataHelper dataHelper, LifecycleProvider<FragmentEvent> lifecycleProvider) {
         super(dataHelper, lifecycleProvider);
     }
 

@@ -10,9 +10,9 @@ import java.util.List;
 /**
  * Author: Funny
  * Time: 2019/3/27
- * Description: This is AndroidContract
+ * Description: This is GankTechContract
  */
-public interface AndroidContract {
+public interface GankTechContract {
 
     public interface View extends IBaseView {
 

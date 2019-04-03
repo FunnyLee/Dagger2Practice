@@ -47,10 +47,10 @@ public class GankMainFragment extends BaseFragment {
         titleList.add(getString(R.string.ios));
         titleList.add(getString(R.string.front));
         titleList.add(getString(R.string.werfale));
-        fragmentList.add(AndroidFragment.newInstance());
-        fragmentList.add(AndroidFragment.newInstance());
-        fragmentList.add(AndroidFragment.newInstance());
-        fragmentList.add(AndroidFragment.newInstance());
+        fragmentList.add(GankTechFragment.newInstance("Android"));
+        fragmentList.add(GankTechFragment.newInstance("IOS"));
+        fragmentList.add(GankTechFragment.newInstance("前端"));
+        fragmentList.add(GankTechFragment.newInstance("Android"));
 
         FragmentAdapter adapter = new FragmentAdapter(getFragmentManager(), fragmentList, titleList);
         mViewPager.setAdapter(adapter);
