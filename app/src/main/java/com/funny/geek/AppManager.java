@@ -31,7 +31,7 @@ public class AppManager extends Application {
 
         //初始化realm数据库
         initRealm();
-
+        //初始化加载控件
         initLoadSir();
     }
 
