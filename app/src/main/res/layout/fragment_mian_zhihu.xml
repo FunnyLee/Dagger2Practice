@@ -10,9 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="?attr/actionBarSize"
-        app:tabBackground="@color/colorPrimary"
         app:tabIndicatorColor="@android:color/white"
         app:tabMode="fixed"
+        android:background="@drawable/gradient_color_shape"
         app:tabSelectedTextColor="@android:color/white"
         app:tabTextColor="@android:color/white">
     </android.support.design.widget.TabLayout>

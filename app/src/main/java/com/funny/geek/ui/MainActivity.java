@@ -41,7 +41,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        ImmersionBar.with(this).statusBarColor(R.color.colorPrimary) .init();
+        ImmersionBar.with(this).statusBarView(R.id.status_view).init();
 
         setSupportActionBar(mToolbar);
 
