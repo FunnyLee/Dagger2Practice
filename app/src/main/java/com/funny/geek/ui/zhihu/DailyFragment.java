@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -20,6 +21,7 @@ import com.funny.geek.contract.zhihu.DailyContract;
 import com.funny.geek.model.bean.DailyBean;
 import com.funny.geek.model.net.GlideHelper;
 import com.funny.geek.presenter.zhihu.DailyPresenter;
+import com.funny.geek.ui.MainActivity;
 import com.funny.geek.ui.adpter.DailyAdapter;
 import com.funny.geek.util.Constants;
 import com.jakewharton.rxbinding2.view.RxView;
@@ -140,6 +142,42 @@ public class DailyFragment extends BaseMvpFragment<DailyPresenter> implements Da
                         bannerTitles.add(topStoriesBean.title);
                         ids.add(topStoriesBean.id);
                     });
+            //轮播图切换监听
+            mBanner.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                @Override
+                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+                }
+
+                @Override
+                public void onPageSelected(int position) {
+                    //根据轮播图，动态切换头部的颜色
+                    MainActivity activity = (MainActivity) getActivity();
+                    ZhihuMainFragment zhihuMainFragment = (ZhihuMainFragment) getParentFragment();
+                    if(position == 0){
+                        activity.setStatusBarColor(R.drawable.green_gradient_color_shape);
+                        zhihuMainFragment.setTabLayoutColor(R.drawable.green_gradient_color_shape);
+                    }else if(position == 1){
+                        activity.setStatusBarColor(R.drawable.red_gradient_color_shape);
+                        zhihuMainFragment.setTabLayoutColor(R.drawable.red_gradient_color_shape);
+                    }else if(position == 2){
+                        activity.setStatusBarColor(R.drawable.blue_gradient_color_shape);
+                        zhihuMainFragment.setTabLayoutColor(R.drawable.blue_gradient_color_shape);
+                    } else if(position == 3){
+                        activity.setStatusBarColor(R.drawable.light_blue_gradient_color_shape);
+                        zhihuMainFragment.setTabLayoutColor(R.drawable.light_blue_gradient_color_shape);
+                    }else if(position == 4){
+                        activity.setStatusBarColor(R.drawable.yellow_gradient_color_shape);
+                        zhihuMainFragment.setTabLayoutColor(R.drawable.yellow_gradient_color_shape);
+                    }
+                }
+
+
+                @Override
+                public void onPageScrollStateChanged(int state) {
+
+                }
+            });
 
             //轮播图的点击事件
             mBanner.setOnBannerListener(new OnBannerListener() {
@@ -148,6 +186,7 @@ public class DailyFragment extends BaseMvpFragment<DailyPresenter> implements Da
                     ZhihuDetailActivity.start(mContext, ids.get(position));
                 }
             });
+            //轮播图加载图片
             mBanner.setImageLoader(new ImageLoader() {
                 @Override
                 public void displayImage(Context context, Object path, ImageView imageView) {
@@ -157,13 +196,17 @@ public class DailyFragment extends BaseMvpFragment<DailyPresenter> implements Da
             mBanner.setImages(imageUrls);
             mBanner.setBannerTitles(bannerTitles);
             mBanner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE);
-            mBanner.isAutoPlay(true);
+            //是否自动轮播
+            mBanner.isAutoPlay(false);
             mBanner.start();
         } else {
             mBanner.setVisibility(View.GONE);
         }
         mDatas.clear();
-        mDatas.addAll(dailyListBean.stories);
+        //数据太少，重复添加一些数据
+        for (int i = 0; i < 10; i++) {
+            mDatas.addAll(dailyListBean.stories);
+        }
         mAdapter.setNewData(mDatas);
         mRecyclerView.smoothScrollToPosition(0);
     }

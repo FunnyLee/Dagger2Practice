@@ -13,10 +13,10 @@
         android:orientation="vertical">
 
         <View
+            android:background="@drawable/green_gradient_color_shape"
             android:id="@+id/status_view"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:background="@drawable/gradient_color_shape" />
+            android:layout_height="0dp" />
 
         <android.support.design.widget.CoordinatorLayout
             android:layout_width="match_parent"
@@ -32,7 +32,7 @@
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
-                    android:background="@drawable/gradient_color_shape"
+                    android:background="@drawable/green_gradient_color_shape"
                     app:layout_scrollFlags="scroll|enterAlways"
                     app:popupTheme="@style/AppTheme.PopupOverlay" />
 
@@ -42,7 +42,7 @@
                 android:id="@+id/frame_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior"></FrameLayout>
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
         </android.support.design.widget.CoordinatorLayout>
 

@@ -36,7 +36,7 @@ public class GlideHelper {
     public static void loadBgImage(Context context, String url, View view) {
         Glide.with(context)
                 .load(url)
-                .apply(new RequestOptions().centerCrop().error(R.drawable.gradient_color_shape))
+                .apply(new RequestOptions().centerCrop().error(R.drawable.green_gradient_color_shape))
                 .into(new SimpleTarget<Drawable>() {
                     @Override
                     public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {

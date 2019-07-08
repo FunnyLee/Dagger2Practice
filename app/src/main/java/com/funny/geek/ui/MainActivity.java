@@ -40,6 +40,7 @@ public class MainActivity extends BaseActivity {
     FrameLayout mFrameLayout;
 
     private View mMenuHeadView;
+    private View mStatusBarView;
 
     @Override
     public int getLayoutId() {
@@ -49,7 +50,8 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void initView() {
         //沉浸式状态栏
-        ImmersionBar.with(this).statusBarView(R.id.status_view).init();
+        mStatusBarView = findViewById(R.id.status_view);
+        ImmersionBar.with(this).statusBarView(mStatusBarView).init();
 
         //去掉侧滑菜单的滑动条
         NavigationMenuView navigationMenuItemView = (NavigationMenuView) mNavView.getChildAt(0);
@@ -65,6 +67,8 @@ public class MainActivity extends BaseActivity {
 
         //侧滑菜单背景图片
         mMenuHeadView = mNavView.getHeaderView(0);
+        GlideHelper.loadBgImage(MainActivity.this, getBgPic(), mMenuHeadView);
+
 
         switchFragment(ZhihuMainFragment.newInstance());
     }
@@ -105,7 +109,7 @@ public class MainActivity extends BaseActivity {
                         break;
                 }
                 mDrawerLayout.closeDrawer(GravityCompat.START);
-                mToolbar.setTitle(item.getTitle());
+//                mToolbar.setTitle(item.getTitle());
                 return true;
             }
         });
@@ -164,9 +168,20 @@ public class MainActivity extends BaseActivity {
         transaction.commit();
     }
 
-    public static String getBgPic() {
+    private static String getBgPic() {
         Random random = new Random();
         return "http://106.14.135.179/ImmersionBar/" + random.nextInt(40) + ".jpg";
     }
 
+    /**
+     * 修改状态栏颜色
+     *
+     * @param drawable
+     */
+    public void setStatusBarColor(int drawable) {
+        mStatusBarView.setBackgroundResource(drawable);
+        ImmersionBar.with(this).statusBarView(mStatusBarView).init();
+
+        mToolbar.setBackgroundResource(drawable);
+    }
 }

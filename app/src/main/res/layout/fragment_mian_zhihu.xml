@@ -12,13 +12,14 @@
         android:minHeight="?attr/actionBarSize"
         app:tabIndicatorColor="@android:color/white"
         app:tabMode="fixed"
-        android:background="@drawable/gradient_color_shape"
+        android:background="@drawable/green_gradient_color_shape"
         app:tabSelectedTextColor="@android:color/white"
         app:tabTextColor="@android:color/white">
     </android.support.design.widget.TabLayout>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/view_pager"
+        android:overScrollMode="never"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </android.support.v4.view.ViewPager>

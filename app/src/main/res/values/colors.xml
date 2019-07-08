@@ -6,5 +6,21 @@
 
     <color name="black_bg">@color/black</color>
 
-    <color name="btn1">#69B056</color>
+    <color name="green_1">#69B056</color>
+
+    <color name="red_1">#FF00FF</color>
+    <color name="red_2">#EE00AA</color>
+    <color name="red_3">#E60080</color>
+
+    <color name="blue_1">#4DB6AC</color>
+    <color name="blue_2">#009688</color>
+    <color name="blue_3">#00695C</color>
+
+    <color name="light_blue_1">#5CC2F8</color>
+    <color name="light_blue_2">#5EB9F8</color>
+    <color name="light_blue_3">#5d8df7</color>
+
+    <color name="yellow_1">#FFEE55</color>
+    <color name="yellow_2">#FFCC33</color>
+    <color name="yellow_3">#FFAA11</color>
 </resources>

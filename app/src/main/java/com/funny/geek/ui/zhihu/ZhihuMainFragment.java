@@ -53,9 +53,14 @@ public class ZhihuMainFragment extends BaseFragment {
         fragmentList.add(SpecialFragment.newInstance());
         fragmentList.add(HotFragment.newInstance());
 
-        FragmentAdapter adapter = new FragmentAdapter(getFragmentManager(), fragmentList, titleList);
+        //设置getChildFragmentManager()，在DailyFragment中getParentFragment()方法才能生效（否则获取为Null）
+        FragmentAdapter adapter = new FragmentAdapter(getChildFragmentManager(), fragmentList, titleList);
         mViewPager.setAdapter(adapter);
 //        mViewPager.setOffscreenPageLimit(4);
         mTabLayout.setupWithViewPager(mViewPager);
+    }
+
+    public void setTabLayoutColor(int drawable) {
+        mTabLayout.setBackgroundResource(drawable);
     }
 }
