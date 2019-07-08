@@ -3,35 +3,6 @@
       xmlns:tools="http://schemas.android.com/tools"
       tools:showIn="navigation_view">
 
-    <item android:title="@string/information">
-        <menu>
-            <item
-                android:id="@+id/zhihu"
-                android:icon="@drawable/ic_drawer_zhihu"
-                android:title="@string/zhihu"/>
-
-            <item
-                android:id="@+id/wechat"
-                android:icon="@drawable/ic_drawer_wechat"
-                android:title="@string/wechat"/>
-
-            <item
-                android:id="@+id/gank"
-                android:icon="@drawable/ic_drawer_gank"
-                android:title="@string/gank"/>
-
-            <item
-                android:id="@+id/gold"
-                android:icon="@drawable/ic_drawer_gold"
-                android:title="@string/gold"/>
-
-            <item
-                android:id="@+id/v2ex"
-                android:icon="@drawable/ic_drawer_vtex"
-                android:title="@string/v2ex"/>
-        </menu>
-    </item>
-
     <item android:title="@string/options">
         <menu>
             <item

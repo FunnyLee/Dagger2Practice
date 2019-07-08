@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_zhihu"
+        android:enabled="true"
+        android:icon="@drawable/ic_drawer_zhihu"
+        android:title="@string/zhihu"
+        app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/action_wechat"
+        android:enabled="true"
+        android:icon="@drawable/ic_drawer_wechat"
+        android:title="@string/wechat"
+        app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/action_gank"
+        android:enabled="true"
+        android:icon="@drawable/ic_drawer_gank"
+        android:title="@string/gank"
+        app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/action_gold"
+        android:enabled="true"
+        android:icon="@drawable/ic_drawer_gold"
+        android:title="@string/gold"
+        app:showAsAction="ifRoom"/>
+</menu>

@@ -13,36 +13,46 @@
         android:orientation="vertical">
 
         <View
-            android:background="@drawable/green_gradient_color_shape"
             android:id="@+id/status_view"
             android:layout_width="match_parent"
-            android:layout_height="0dp" />
+            android:layout_height="0dp"
+            android:background="@drawable/green_gradient_color_shape" />
 
         <android.support.design.widget.CoordinatorLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <android.support.design.widget.AppBarLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:theme="@style/AppTheme.AppBarOverlay"
-                app:elevation="@dimen/dp_0">
-
-                <android.support.v7.widget.Toolbar
-                    android:id="@+id/toolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    android:background="@drawable/green_gradient_color_shape"
-                    app:layout_scrollFlags="scroll|enterAlways"
-                    app:popupTheme="@style/AppTheme.PopupOverlay" />
-
-            </android.support.design.widget.AppBarLayout>
-
             <FrameLayout
                 android:id="@+id/frame_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+            <LinearLayout
+                app:layout_behavior=".widget.BottomNavigationBehavior"
+                android:layout_gravity="bottom"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_0.5"
+                    android:background="@color/gray" />
+
+                <android.support.design.widget.BottomNavigationView
+                    android:id="@+id/bottom_navigation"
+                    style="@style/Widget.Design.BottomNavigationView"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_45"
+                    android:layout_alignParentBottom="true"
+                    app:itemBackground="@android:color/white"
+                    app:menu="@menu/bottom_navigation_main" />
+
+            </LinearLayout>
+
+            <!--app:itemIconTint="@drawable/selector_nav_item_color"-->
+            <!--app:itemTextColor="@drawable/selector_nav_item_color"-->
 
         </android.support.design.widget.CoordinatorLayout>
 
@@ -54,8 +64,8 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:scrollbars="none"
-        app:insetForeground="@android:color/transparent"
         app:headerLayout="@layout/nav_header_main"
+        app:insetForeground="@android:color/transparent"
         app:menu="@menu/activity_main_drawer" />
 
 </android.support.v4.widget.DrawerLayout>

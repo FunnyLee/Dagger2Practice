@@ -3,13 +3,12 @@ package com.funny.geek.ui;
 import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
 import android.support.design.internal.NavigationMenuView;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,14 +29,14 @@ import butterknife.BindView;
 
 public class MainActivity extends BaseActivity {
 
-    @BindView(R.id.toolbar)
-    Toolbar mToolbar;
     @BindView(R.id.nav_view)
     NavigationView mNavView;
     @BindView(R.id.drawer_layout)
     DrawerLayout mDrawerLayout;
     @BindView(R.id.frame_layout)
     FrameLayout mFrameLayout;
+    @BindView(R.id.bottom_navigation)
+    BottomNavigationView mBottomNavigationView;
 
     private View mMenuHeadView;
     private View mStatusBarView;
@@ -59,12 +58,6 @@ public class MainActivity extends BaseActivity {
             navigationMenuItemView.setVerticalScrollBarEnabled(false);
         }
 
-        setSupportActionBar(mToolbar);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, mDrawerLayout, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        mDrawerLayout.addDrawerListener(toggle);
-        toggle.syncState();
-
         //侧滑菜单背景图片
         mMenuHeadView = mNavView.getHeaderView(0);
         GlideHelper.loadBgImage(MainActivity.this, getBgPic(), mMenuHeadView);
@@ -80,21 +73,6 @@ public class MainActivity extends BaseActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
-                    case R.id.zhihu:
-                        switchFragment(ZhihuMainFragment.newInstance());
-                        break;
-                    case R.id.wechat:
-                        switchFragment(WeChatMainFragment.newInstance());
-                        break;
-                    case R.id.gank:
-                        switchFragment(GankMainFragment.newInstance());
-                        break;
-                    case R.id.gold:
-                        switchFragment(ZhihuMainFragment.newInstance());
-                        break;
-                    case R.id.v2ex:
-                        switchFragment(ZhihuMainFragment.newInstance());
-                        break;
                     case R.id.like:
                         switchFragment(FavoriteFragment.newInstance());
                         break;
@@ -109,7 +87,30 @@ public class MainActivity extends BaseActivity {
                         break;
                 }
                 mDrawerLayout.closeDrawer(GravityCompat.START);
-//                mToolbar.setTitle(item.getTitle());
+                return true;
+            }
+        });
+
+        mBottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.action_zhihu:
+                        switchFragment(ZhihuMainFragment.newInstance());
+                        break;
+                    case R.id.action_wechat:
+                        switchFragment(WeChatMainFragment.newInstance());
+                        break;
+                    case R.id.action_gank:
+                        switchFragment(GankMainFragment.newInstance());
+                        break;
+                    case R.id.action_gold:
+                        switchFragment(ZhihuMainFragment.newInstance());
+                        break;
+                    default:
+                        break;
+                }
+
                 return true;
             }
         });
@@ -147,21 +148,6 @@ public class MainActivity extends BaseActivity {
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
     private void switchFragment(Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.frame_layout, fragment);
@@ -174,14 +160,12 @@ public class MainActivity extends BaseActivity {
     }
 
     /**
-     * 修改状态栏颜色
+     * 修改头部颜色
      *
      * @param drawable
      */
     public void setStatusBarColor(int drawable) {
         mStatusBarView.setBackgroundResource(drawable);
         ImmersionBar.with(this).statusBarView(mStatusBarView).init();
-
-        mToolbar.setBackgroundResource(drawable);
     }
 }

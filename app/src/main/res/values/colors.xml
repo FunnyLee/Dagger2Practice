@@ -23,4 +23,6 @@
     <color name="yellow_1">#FFEE55</color>
     <color name="yellow_2">#FFCC33</color>
     <color name="yellow_3">#FFAA11</color>
+
+    <color name="gray">#E5E5E5</color>
 </resources>
