@@ -30,6 +30,11 @@
         </activity>
         <activity android:name=".ui.zhihu.SelectDateActivity">
         </activity>
+        <activity
+            android:name=".ui.ScrollingActivity"
+            android:label="@string/title_activity_scrolling"
+            android:theme="@style/AppTheme">
+        </activity>
     </application>
 
 </manifest>

@@ -19,6 +19,7 @@ import com.funny.geek.ui.Gank.GankMainFragment;
 import com.funny.geek.ui.option.FavoriteFragment;
 import com.funny.geek.ui.weChat.WeChatMainFragment;
 import com.funny.geek.ui.zhihu.ZhihuMainFragment;
+import com.gyf.immersionbar.ImmersionBar;
 
 import butterknife.BindView;
 
@@ -40,6 +41,8 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        ImmersionBar.with(this).statusBarColor(R.color.colorPrimary) .init();
+
         setSupportActionBar(mToolbar);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -79,7 +82,8 @@ public class MainActivity extends BaseActivity {
                         switchFragment(ZhihuMainFragment.newInstance());
                         break;
                     case R.id.about:
-                        switchFragment(ZhihuMainFragment.newInstance());
+//                        switchFragment(ZhihuMainFragment.newInstance());
+                        ScrollingActivity.start(MainActivity.this);
                         break;
                     default:
                         break;
@@ -94,7 +98,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
