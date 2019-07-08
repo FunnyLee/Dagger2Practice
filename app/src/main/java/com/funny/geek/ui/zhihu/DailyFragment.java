@@ -18,7 +18,7 @@ import com.funny.geek.R;
 import com.funny.geek.base.BaseMvpFragment;
 import com.funny.geek.contract.zhihu.DailyContract;
 import com.funny.geek.model.bean.DailyBean;
-import com.funny.geek.model.net.ImageHelper;
+import com.funny.geek.model.net.GlideHelper;
 import com.funny.geek.presenter.zhihu.DailyPresenter;
 import com.funny.geek.ui.adpter.DailyAdapter;
 import com.funny.geek.util.Constants;
@@ -151,7 +151,7 @@ public class DailyFragment extends BaseMvpFragment<DailyPresenter> implements Da
             mBanner.setImageLoader(new ImageLoader() {
                 @Override
                 public void displayImage(Context context, Object path, ImageView imageView) {
-                    ImageHelper.loadImage(context, (String) path, imageView);
+                    GlideHelper.loadImage(context, (String) path, imageView);
                 }
             });
             mBanner.setImages(imageUrls);

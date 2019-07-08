@@ -16,7 +16,7 @@ import com.funny.geek.base.BaseMvpFragment;
 import com.funny.geek.contract.gank.GankTechContract;
 import com.funny.geek.model.bean.GankBean;
 import com.funny.geek.model.bean.GankGirlBean;
-import com.funny.geek.model.net.ImageHelper;
+import com.funny.geek.model.net.GlideHelper;
 import com.funny.geek.presenter.gank.GankTechPresenter;
 import com.funny.geek.ui.adpter.GankAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -127,7 +127,7 @@ public class GankTechFragment extends BaseMvpFragment<GankTechPresenter> impleme
         mBanner.setImageLoader(new ImageLoader() {
             @Override
             public void displayImage(Context context, Object path, ImageView imageView) {
-                ImageHelper.loadImage(context, (String) path, imageView);
+                GlideHelper.loadImage(context, (String) path, imageView);
             }
         });
         mBanner.setImages(imageUrls);

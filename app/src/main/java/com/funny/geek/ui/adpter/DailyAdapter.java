@@ -9,7 +9,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.funny.geek.R;
 import com.funny.geek.model.bean.DailyBean;
-import com.funny.geek.model.net.ImageHelper;
+import com.funny.geek.model.net.GlideHelper;
 import com.funny.geek.ui.zhihu.ZhihuDetailActivity;
 import com.funny.geek.util.Constants;
 import com.jakewharton.rxbinding2.view.RxView;
@@ -36,7 +36,7 @@ public class DailyAdapter extends BaseQuickAdapter<DailyBean.StoriesBean, BaseVi
     protected void convert(BaseViewHolder helper, DailyBean.StoriesBean item) {
         ImageView ivPic = helper.getView(R.id.iv_pic);
         helper.setText(R.id.tv_title, item.title);
-        ImageHelper.loadImage(mContext, item.images.get(0), ivPic);
+        GlideHelper.loadImage(mContext, item.images.get(0), ivPic);
 
         RxView.clicks(helper.itemView)
                 .throttleFirst(Constants.CLICK_INTERVAL, TimeUnit.SECONDS)

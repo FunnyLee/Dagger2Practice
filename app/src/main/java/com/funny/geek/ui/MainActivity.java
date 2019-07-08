@@ -2,6 +2,7 @@ package com.funny.geek.ui;
 
 import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
+import android.support.design.internal.NavigationMenuView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -11,15 +12,19 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.FrameLayout;
 
 import com.funny.geek.R;
 import com.funny.geek.base.BaseActivity;
+import com.funny.geek.model.net.GlideHelper;
 import com.funny.geek.ui.Gank.GankMainFragment;
 import com.funny.geek.ui.option.FavoriteFragment;
 import com.funny.geek.ui.weChat.WeChatMainFragment;
 import com.funny.geek.ui.zhihu.ZhihuMainFragment;
 import com.gyf.immersionbar.ImmersionBar;
+
+import java.util.Random;
 
 import butterknife.BindView;
 
@@ -34,6 +39,8 @@ public class MainActivity extends BaseActivity {
     @BindView(R.id.frame_layout)
     FrameLayout mFrameLayout;
 
+    private View mMenuHeadView;
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_main;
@@ -41,14 +48,23 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        //沉浸式状态栏
         ImmersionBar.with(this).statusBarView(R.id.status_view).init();
 
-        setSupportActionBar(mToolbar);
+        //去掉侧滑菜单的滑动条
+        NavigationMenuView navigationMenuItemView = (NavigationMenuView) mNavView.getChildAt(0);
+        if (navigationMenuItemView != null) {
+            navigationMenuItemView.setVerticalScrollBarEnabled(false);
+        }
 
+        setSupportActionBar(mToolbar);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, mDrawerLayout, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         mDrawerLayout.addDrawerListener(toggle);
         toggle.syncState();
+
+        //侧滑菜单背景图片
+        mMenuHeadView = mNavView.getHeaderView(0);
 
         switchFragment(ZhihuMainFragment.newInstance());
     }
@@ -94,6 +110,20 @@ public class MainActivity extends BaseActivity {
             }
         });
 
+        mDrawerLayout.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+
+            }
+
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                super.onDrawerClosed(drawerView);
+                GlideHelper.loadBgImage(MainActivity.this, getBgPic(), mMenuHeadView);
+            }
+        });
+
     }
 
     @Override
@@ -132,6 +162,11 @@ public class MainActivity extends BaseActivity {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.frame_layout, fragment);
         transaction.commit();
+    }
+
+    public static String getBgPic() {
+        Random random = new Random();
+        return "http://106.14.135.179/ImmersionBar/" + random.nextInt(40) + ".jpg";
     }
 
 }

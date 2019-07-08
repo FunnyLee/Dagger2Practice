@@ -21,7 +21,7 @@ import com.funny.geek.base.BaseMvpActivity;
 import com.funny.geek.contract.zhihu.ZhihuDetailContract;
 import com.funny.geek.model.bean.ZhihuDetailBean;
 import com.funny.geek.model.event.DeleteFavoriteEvent;
-import com.funny.geek.model.net.ImageHelper;
+import com.funny.geek.model.net.GlideHelper;
 import com.funny.geek.presenter.zhihu.ZhihuDetailPresenter;
 import com.funny.geek.util.Constants;
 import com.funny.geek.util.HtmlUtil;
@@ -158,7 +158,7 @@ public class ZhihuDetailActivity extends BaseMvpActivity<ZhihuDetailPresenter> i
         mStatusView.showSuccess();
         mZhihuDetailBean = zhihuDetailBean;
         mCollapsingLayout.setTitle(zhihuDetailBean.title);
-        ImageHelper.loadImage(this, zhihuDetailBean.image, mDetailBarIv);
+        GlideHelper.loadImage(this, zhihuDetailBean.image, mDetailBarIv);
         mCopyrightTv.setText(zhihuDetailBean.image_source);
 
         //WebView加载Html
