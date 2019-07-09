@@ -9,7 +9,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.funny.geek.R;
 import com.funny.geek.model.bean.SectionListBean;
-import com.funny.geek.model.net.GlideHelper;
+import com.funny.geek.model.net.ImageHelper;
 
 import java.util.List;
 
@@ -33,7 +33,7 @@ public class SpecialAdapter extends BaseQuickAdapter<SectionListBean.DataBean, B
         TextView kindTv = helper.getView(R.id.kind_tv);
         TextView descTv = helper.getView(R.id.desc_tv);
 
-        GlideHelper.loadImage(mContext,item.thumbnail,bgIv);
+        ImageHelper.loadImage(mContext,item.thumbnail,bgIv);
         kindTv.setText(item.name);
         descTv.setText(item.description);
     }

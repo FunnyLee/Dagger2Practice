@@ -16,7 +16,7 @@ import android.widget.FrameLayout;
 
 import com.funny.geek.R;
 import com.funny.geek.base.BaseActivity;
-import com.funny.geek.model.net.GlideHelper;
+import com.funny.geek.model.net.ImageHelper;
 import com.funny.geek.ui.Gank.GankMainFragment;
 import com.funny.geek.ui.option.FavoriteFragment;
 import com.funny.geek.ui.weChat.WeChatMainFragment;
@@ -37,9 +37,10 @@ public class MainActivity extends BaseActivity {
     FrameLayout mFrameLayout;
     @BindView(R.id.bottom_navigation)
     BottomNavigationView mBottomNavigationView;
+    @BindView(R.id.status_view)
+    View mStatusBarView;
 
     private View mMenuHeadView;
-    private View mStatusBarView;
 
     @Override
     public int getLayoutId() {
@@ -47,11 +48,14 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
-    protected void initView() {
+    protected void initStatusBar() {
         //沉浸式状态栏
         mStatusBarView = findViewById(R.id.status_view);
         ImmersionBar.with(this).statusBarView(mStatusBarView).init();
+    }
 
+    @Override
+    protected void initView() {
         //去掉侧滑菜单的滑动条
         NavigationMenuView navigationMenuItemView = (NavigationMenuView) mNavView.getChildAt(0);
         if (navigationMenuItemView != null) {
@@ -60,7 +64,7 @@ public class MainActivity extends BaseActivity {
 
         //侧滑菜单背景图片
         mMenuHeadView = mNavView.getHeaderView(0);
-        GlideHelper.loadBgImage(MainActivity.this, getBgPic(), mMenuHeadView);
+        ImageHelper.loadBgImage(MainActivity.this, getBgPic(), mMenuHeadView);
 
 
         switchFragment(ZhihuMainFragment.newInstance());
@@ -125,7 +129,7 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
-                GlideHelper.loadBgImage(MainActivity.this, getBgPic(), mMenuHeadView);
+                ImageHelper.loadBgImage(MainActivity.this, getBgPic(), mMenuHeadView);
             }
         });
 

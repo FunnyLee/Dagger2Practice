@@ -10,7 +10,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.funny.geek.R;
 import com.funny.geek.model.bean.HotBean;
-import com.funny.geek.model.net.GlideHelper;
+import com.funny.geek.model.net.ImageHelper;
 import com.funny.geek.ui.zhihu.ZhihuDetailActivity;
 import com.funny.geek.util.Constants;
 import com.jakewharton.rxbinding2.view.RxView;
@@ -39,7 +39,7 @@ public class HotAdapter extends BaseQuickAdapter<HotBean.RecentBean, BaseViewHol
         TextView titleTv = helper.getView(R.id.title_tv);
 
         titleTv.setText(item.title);
-        GlideHelper.loadImage(mContext, item.thumbnail, picIv);
+        ImageHelper.loadImage(mContext, item.thumbnail, picIv);
 
         RxView.clicks(helper.itemView)
                 .throttleFirst(Constants.CLICK_INTERVAL, TimeUnit.SECONDS)

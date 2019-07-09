@@ -21,10 +21,11 @@
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimary"
-            app:expandedTitleMarginEnd="10dp"
+            app:expandedTitleMarginEnd="@dimen/dp_10"
             app:expandedTitleTextAppearance="@style/TextAppearance.ExpandedTitle"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:title=""
+            app:expandedTitleMarginStart="@dimen/dp_6"
             app:toolbarId="@+id/toolbar">
 
             <FrameLayout
@@ -39,8 +40,7 @@
                     android:id="@+id/detail_bar_iv"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
-                    />
+                    android:scaleType="centerCrop" />
 
                 <View
                     android:layout_width="match_parent"
@@ -53,10 +53,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start|bottom"
-                    android:layout_marginBottom="3dp"
-                    android:padding="6dp"
+                    android:layout_marginBottom="@dimen/dp_3"
+                    android:padding="@dimen/dp_6"
                     android:textColor="@android:color/white"
-                    android:textSize="12sp"
+                    android:textSize="@dimen/dp_12"
                     />
             </FrameLayout>
 

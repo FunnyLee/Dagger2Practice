@@ -2,13 +2,12 @@ package com.funny.geek.ui.zhihu;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.PagerSnapHelper;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,9 +18,9 @@ import com.funny.geek.R;
 import com.funny.geek.base.BaseMvpFragment;
 import com.funny.geek.contract.zhihu.DailyContract;
 import com.funny.geek.model.bean.DailyBean;
-import com.funny.geek.model.net.GlideHelper;
+import com.funny.geek.model.net.ImageHelper;
 import com.funny.geek.presenter.zhihu.DailyPresenter;
-import com.funny.geek.ui.MainActivity;
+import com.funny.geek.ui.adpter.BannerAdapter;
 import com.funny.geek.ui.adpter.DailyAdapter;
 import com.funny.geek.util.Constants;
 import com.jakewharton.rxbinding2.view.RxView;
@@ -29,10 +28,6 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.constant.RefreshState;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
-import com.youth.banner.Banner;
-import com.youth.banner.BannerConfig;
-import com.youth.banner.listener.OnBannerListener;
-import com.youth.banner.loader.ImageLoader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,9 +56,12 @@ public class DailyFragment extends BaseMvpFragment<DailyPresenter> implements Da
     public static final int REQUEST_CODE = 100;
 
     private List<DailyBean.StoriesBean> mDatas = new ArrayList<>();
+    private List<String> mBannerList = new ArrayList<>();
     private DailyAdapter mAdapter;
-    private Banner mBanner;
     private TextView mTvData;
+    private RecyclerView mBannerRecyclerView;
+    private BannerAdapter mBannerAdapter;
+    private ImageView mHeaderBgIv;
 
     public static DailyFragment newInstance() {
         Bundle args = new Bundle();
@@ -90,8 +88,28 @@ public class DailyFragment extends BaseMvpFragment<DailyPresenter> implements Da
         //头部
         View headerView = LayoutInflater.from(mContext).inflate(R.layout.layout_banner_header, null);
         mAdapter.addHeaderView(headerView);
-        mBanner = headerView.findViewById(R.id.banner);
+        mBannerRecyclerView = headerView.findViewById(R.id.banner_recycler_view);
         mTvData = headerView.findViewById(R.id.tv_date);
+        mHeaderBgIv = headerView.findViewById(R.id.header_bg_iv);
+        //Banner使用RecyclerView实现
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        mBannerRecyclerView.setLayoutManager(linearLayoutManager);
+        PagerSnapHelper snapHelper = new PagerSnapHelper() {
+            @Override
+            public int findTargetSnapPosition(RecyclerView.LayoutManager layoutManager, int velocityX, int velocityY) {
+                int targetPos = super.findTargetSnapPosition(layoutManager, velocityX, velocityY);
+
+                if (mBannerList != null && mBannerList.size() > 0) {
+                    ImageHelper.loadBlurryImage(getContext(), mBannerList.get(targetPos), mHeaderBgIv);
+                }
+                return targetPos;
+            }
+        };
+        snapHelper.attachToRecyclerView(mBannerRecyclerView);
+        mBannerAdapter = new BannerAdapter(R.layout.item_banner_view, mBannerList);
+        mBannerRecyclerView.setAdapter(mBannerAdapter);
+
         mRecyclerView.setAdapter(mAdapter);
     }
 
@@ -133,74 +151,52 @@ public class DailyFragment extends BaseMvpFragment<DailyPresenter> implements Da
         //设置Banner
         List<DailyBean.TopStoriesBean> top_stories = dailyListBean.top_stories;
         if (top_stories != null && top_stories.size() != 0) {
-            List<String> imageUrls = new ArrayList<>();
-            List<String> bannerTitles = new ArrayList<>();
-            List<Integer> ids = new ArrayList<>();
             Observable.fromIterable(top_stories)
                     .subscribe(topStoriesBean -> {
-                        imageUrls.add(topStoriesBean.image);
-                        bannerTitles.add(topStoriesBean.title);
-                        ids.add(topStoriesBean.id);
+                        mBannerList.add(topStoriesBean.image);
                     });
+            mBannerAdapter.setNewData(mBannerList);
+            ImageHelper.loadBlurryImage(getContext(), mBannerList.get(0), mHeaderBgIv);
+
             //轮播图切换监听
-            mBanner.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-                @Override
-                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-                }
-
-                @Override
-                public void onPageSelected(int position) {
-                    //根据轮播图，动态切换头部的颜色
-                    MainActivity activity = (MainActivity) getActivity();
-                    ZhihuMainFragment zhihuMainFragment = (ZhihuMainFragment) getParentFragment();
-                    if(position == 0){
-                        activity.setStatusBarColor(R.drawable.green_gradient_color_shape);
-                        zhihuMainFragment.setTabLayoutColor(R.drawable.green_gradient_color_shape);
-                    }else if(position == 1){
-                        activity.setStatusBarColor(R.drawable.red_gradient_color_shape);
-                        zhihuMainFragment.setTabLayoutColor(R.drawable.red_gradient_color_shape);
-                    }else if(position == 2){
-                        activity.setStatusBarColor(R.drawable.blue_gradient_color_shape);
-                        zhihuMainFragment.setTabLayoutColor(R.drawable.blue_gradient_color_shape);
-                    } else if(position == 3){
-                        activity.setStatusBarColor(R.drawable.light_blue_gradient_color_shape);
-                        zhihuMainFragment.setTabLayoutColor(R.drawable.light_blue_gradient_color_shape);
-                    }else if(position == 4){
-                        activity.setStatusBarColor(R.drawable.yellow_gradient_color_shape);
-                        zhihuMainFragment.setTabLayoutColor(R.drawable.yellow_gradient_color_shape);
-                    }
-                }
-
-
-                @Override
-                public void onPageScrollStateChanged(int state) {
-
-                }
-            });
+//            mBanner.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+//                @Override
+//                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+//
+//                }
+//
+//                @Override
+//                public void onPageSelected(int position) {
+//                    //根据轮播图，动态切换头部的颜色
+//                    MainActivity activity = (MainActivity) getActivity();
+//                    ZhihuMainFragment zhihuMainFragment = (ZhihuMainFragment) getParentFragment();
+//                    if (position == 0) {
+//                        activity.setStatusBarColor(R.drawable.green_gradient_color_shape);
+//                        zhihuMainFragment.setTabLayoutColor(R.drawable.green_gradient_color_shape);
+//                    } else if (position == 1) {
+//                        activity.setStatusBarColor(R.drawable.red_gradient_color_shape);
+//                        zhihuMainFragment.setTabLayoutColor(R.drawable.red_gradient_color_shape);
+//                    } else if (position == 2) {
+//                        activity.setStatusBarColor(R.drawable.blue_gradient_color_shape);
+//                        zhihuMainFragment.setTabLayoutColor(R.drawable.blue_gradient_color_shape);
+//                    } else if (position == 3) {
+//                        activity.setStatusBarColor(R.drawable.light_blue_gradient_color_shape);
+//                        zhihuMainFragment.setTabLayoutColor(R.drawable.light_blue_gradient_color_shape);
+//                    } else if (position == 4) {
+//                        activity.setStatusBarColor(R.drawable.yellow_gradient_color_shape);
+//                        zhihuMainFragment.setTabLayoutColor(R.drawable.yellow_gradient_color_shape);
+//                    }
+//                }
+//
+//                @Override
+//                public void onPageScrollStateChanged(int state) {
+//
+//                }
+//            });
 
             //轮播图的点击事件
-            mBanner.setOnBannerListener(new OnBannerListener() {
-                @Override
-                public void OnBannerClick(int position) {
-                    ZhihuDetailActivity.start(mContext, ids.get(position));
-                }
-            });
-            //轮播图加载图片
-            mBanner.setImageLoader(new ImageLoader() {
-                @Override
-                public void displayImage(Context context, Object path, ImageView imageView) {
-                    GlideHelper.loadImage(context, (String) path, imageView);
-                }
-            });
-            mBanner.setImages(imageUrls);
-            mBanner.setBannerTitles(bannerTitles);
-            mBanner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE);
-            //是否自动轮播
-            mBanner.isAutoPlay(false);
-            mBanner.start();
         } else {
-            mBanner.setVisibility(View.GONE);
+            mBannerRecyclerView.setVisibility(View.GONE);
         }
         mDatas.clear();
         //数据太少，重复添加一些数据
@@ -238,4 +234,5 @@ public class DailyFragment extends BaseMvpFragment<DailyPresenter> implements Da
             mCurrentDate = selectedData;
         }
     }
+
 }

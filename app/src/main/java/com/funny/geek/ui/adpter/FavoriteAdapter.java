@@ -10,7 +10,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.chad.library.adapter.base.util.MultiTypeDelegate;
 import com.funny.geek.R;
 import com.funny.geek.model.bean.RealmFavoriteBean;
-import com.funny.geek.model.net.GlideHelper;
+import com.funny.geek.model.net.ImageHelper;
 import com.funny.geek.ui.zhihu.ZhihuDetailActivity;
 import com.funny.geek.util.Constants;
 import com.jakewharton.rxbinding2.view.RxView;
@@ -48,7 +48,7 @@ public class FavoriteAdapter extends BaseQuickAdapter<RealmFavoriteBean, BaseVie
                 ImageView ivPic = helper.getView(R.id.pic_iv);
                 TextView titleTv = helper.getView(R.id.title_tv);
                 TextView fromTv = helper.getView(R.id.from_tv);
-                GlideHelper.loadImage(mContext, item.image, ivPic);
+                ImageHelper.loadImage(mContext, item.image, ivPic);
                 titleTv.setText(item.title);
                 fromTv.setText("来自知乎");
 

@@ -17,6 +17,7 @@ public class LoadingCallback extends Callback {
 
     @Override
     public boolean getSuccessVisible() {
-        return true;
+        //是否在显示Callback视图的时候显示原始图(SuccessView)，返回true显示，false隐藏
+        return false;
     }
 }

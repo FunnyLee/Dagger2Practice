@@ -4,15 +4,15 @@
                                              android:layout_width="match_parent"
                                              android:layout_height="match_parent">
 
+
     <android.support.design.widget.TabLayout
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:minHeight="?attr/actionBarSize"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tabBackground="@color/colorPrimary"
         app:tabIndicatorColor="@android:color/white"
         app:tabMode="fixed"
+        android:background="@drawable/green_gradient_color_shape"
         app:tabSelectedTextColor="@android:color/white"
         app:tabTextColor="@android:color/white">
     </android.support.design.widget.TabLayout>

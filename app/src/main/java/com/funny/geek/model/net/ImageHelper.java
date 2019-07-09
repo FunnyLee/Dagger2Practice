@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
@@ -18,7 +19,7 @@ import com.funny.geek.R;
  * Time: 2018/10/22
  * Description: This is ImageHelper
  */
-public class GlideHelper {
+public class ImageHelper {
 
     public static void loadImage(Context context, String url, ImageView imageView) {
         Glide.with(context)
@@ -29,6 +30,7 @@ public class GlideHelper {
 
     /**
      * 给LinearLayout,RelativeLayout等加载背景图片
+     *
      * @param context
      * @param url
      * @param view
@@ -43,6 +45,17 @@ public class GlideHelper {
                         view.setBackground(resource);
                     }
                 });
+    }
+
+    public static void loadBlurryImage(Context context, String url, ImageView imageView) {
+        if (imageView == null) {
+            return;
+        }
+        Glide.with(context)
+                .load(url)
+                .apply(new RequestOptions().placeholder(R.drawable.bg_error).error(R.drawable.bg_error).centerCrop())
+                .transition(new DrawableTransitionOptions().crossFade())
+                .into(imageView);
     }
 
 }

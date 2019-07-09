@@ -21,6 +21,7 @@ public abstract class BaseActivity extends StatusActivity {
         //在这个方法里面执行inject注入操作
         //保证要在initView、initData、initEvent之前，因为这三个方法里可能会用到mPresenter对象
         initMvpDagger();
+        initStatusBar();
         initView();
         initData();
         initEvent();
@@ -37,6 +38,10 @@ public abstract class BaseActivity extends StatusActivity {
     }
 
     protected void initMvpDagger() {
+    }
+
+    protected void initStatusBar() {
+//        ImmersionBar.with(this).statusBarColor(R.color.colorPrimary).init();
     }
 
     protected void initView() {

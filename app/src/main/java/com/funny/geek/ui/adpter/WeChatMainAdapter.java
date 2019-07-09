@@ -8,7 +8,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.funny.geek.R;
 import com.funny.geek.model.bean.WeChatBean;
-import com.funny.geek.model.net.GlideHelper;
+import com.funny.geek.model.net.ImageHelper;
 
 import java.util.List;
 
@@ -30,6 +30,6 @@ public class WeChatMainAdapter extends BaseQuickAdapter<WeChatBean.NewslistBean,
     protected void convert(BaseViewHolder helper, WeChatBean.NewslistBean item) {
         ImageView picIv = helper.getView(R.id.pic_iv);
         helper.setText(R.id.title_tv, item.title).setText(R.id.desc_tv, item.description).setText(R.id.time_tv, item.ctime);
-        GlideHelper.loadImage(mContext, item.picUrl, picIv);
+        ImageHelper.loadImage(mContext, item.picUrl, picIv);
     }
 }
