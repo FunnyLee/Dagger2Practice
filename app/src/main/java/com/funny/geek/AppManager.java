@@ -63,4 +63,8 @@ public class AppManager extends Application {
                 .build();
         return appComponent;
     }
+
+    public static AppManager getAppManagerContext() {
+        return mAppManagerContext;
+    }
 }

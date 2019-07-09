@@ -1,5 +1,6 @@
 package com.funny.geek.model.net;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
@@ -8,11 +9,12 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.funny.geek.R;
+
+import jp.wasabeef.glide.transformations.BlurTransformation;
 
 /**
  * Author: Funny
@@ -47,14 +49,12 @@ public class ImageHelper {
                 });
     }
 
+    @SuppressLint("CheckResult")
     public static void loadBlurryImage(Context context, String url, ImageView imageView) {
-        if (imageView == null) {
-            return;
-        }
         Glide.with(context)
                 .load(url)
-                .apply(new RequestOptions().placeholder(R.drawable.bg_error).error(R.drawable.bg_error).centerCrop())
-                .transition(new DrawableTransitionOptions().crossFade())
+                .apply(new RequestOptions().error(R.drawable.bg_error).centerCrop())
+                .apply(RequestOptions.bitmapTransform(new BlurTransformation(12, 1)))
                 .into(imageView);
     }
 
