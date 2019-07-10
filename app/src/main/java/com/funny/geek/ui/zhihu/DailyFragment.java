@@ -13,7 +13,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.funny.geek.R;
 import com.funny.geek.base.BaseMvpFragment;
@@ -282,7 +281,6 @@ public class DailyFragment extends BaseMvpFragment<DailyPresenter> implements Da
 
         public GalleryItemDecoration() {
             mBorderPageVisibleWidth = (WindowDispaly.getWidth() - (int) getResources().getDimension(R.dimen.dp_300) - mPageMargin) / 2;
-            Toast.makeText(mContext, "" + mBorderPageVisibleWidth, Toast.LENGTH_SHORT).show();
         }
 
         @Override

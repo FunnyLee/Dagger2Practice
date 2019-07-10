@@ -164,7 +164,7 @@ public class MainActivity extends BaseActivity {
     }
 
     /**
-     * 修改头部颜色
+     * 修改状态栏颜色
      *
      * @param drawable
      */

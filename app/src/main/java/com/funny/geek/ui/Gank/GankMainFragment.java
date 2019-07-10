@@ -8,6 +8,7 @@ import android.view.View;
 
 import com.funny.geek.R;
 import com.funny.geek.base.BaseFragment;
+import com.funny.geek.ui.MainActivity;
 import com.funny.geek.ui.adpter.FragmentAdapter;
 
 import java.util.ArrayList;
@@ -43,6 +44,9 @@ public class GankMainFragment extends BaseFragment {
 
     @Override
     protected void initView(View view) {
+        MainActivity activity = (MainActivity) getActivity();
+        activity.setStatusBarColor(R.drawable.green_gradient_color_shape);
+
         titleList.add(getString(R.string.android));
         titleList.add(getString(R.string.ios));
         titleList.add(getString(R.string.front));
